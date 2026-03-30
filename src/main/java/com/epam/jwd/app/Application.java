@@ -8,16 +8,22 @@ public class Application{
 
 	private static final Logger LOG = LogManager.getLogger(Application.class);
 
-	public static void main(String[] args){
-		LOG.trace("Program start!");
-		User[] users = new User[2];
+	private static final int NUM_USERS = 2;
 
-		users[0] = new User((long) 0, "Daniil", 23);
-		users[1] = new User((long) 1, "Matvey", 24);
+	private static final String PROG_START = "Program start!";
+
+	private static final String PROG_END = "Program end!";
+
+	public static void main(String[] args){
+		LOG.trace(PROG_START);
+		User[] users = new User[NUM_USERS];
+
+		users[0] = new User(0L, "Daniil", 23);
+		users[1] = new User(1L, "Matvey", 24);
 
 		for (User user : users) {
 			LOG.info(user.toString());
 		}
-		LOG.trace("Program end!");
+		LOG.trace(PROG_END);
 	}	
 }
