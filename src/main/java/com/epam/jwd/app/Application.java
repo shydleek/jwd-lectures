@@ -1,12 +1,12 @@
 package com.epam.jwd.app;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import com.epam.jwd.model.User;
 
 public class Application{
 
-	private static final Logger LOG = LogManager.getLogger(Application.class);
+	private static final Logger LOG = LoggerFactory.getLogger(Application.class);
 
 	private static final int NUM_USERS = 2;
 
