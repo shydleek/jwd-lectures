@@ -1,17 +1,29 @@
 package org.epam.jwd.model;
 
-import java.math.BigDecimal;
+import java.nio.channels.Pipe;
 import java.util.Objects;
 
-public class Point {
+public class Vector {
     private final double x;
     private final double y;
     private final double z;
 
-    public Point(double x, double y, double z) {
+    public Vector(double x, double y, double z) {
         this.x = x;
         this.y = y;
         this.z = z;
+    }
+
+    public static Vector crossProduct(Vector a, Vector b){
+        return new Vector(a.getY() * b.getZ() - a.getZ() * b.getY(),
+                a.getZ() * b.getX() - a.getX() * b.getZ(),
+                a.getX() * b.getY() - a.getY() * b.getX());
+    }
+
+    public Vector(Point p1, Point p2) {
+        this.x = p2.getX() - p1.getX();
+        this.y = p2.getY() - p1.getY();
+        this.z = p2.getZ() - p1.getZ();
     }
 
     public double getX() {
@@ -29,8 +41,8 @@ public class Point {
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
-        Point point = (Point) o;
-        return Double.compare(x, point.x) == 0 && Double.compare(y, point.y) == 0 && Double.compare(z, point.z) == 0;
+        Vector vector = (Vector) o;
+        return Double.compare(x, vector.x) == 0 && Double.compare(y, vector.y) == 0 && Double.compare(z, vector.z) == 0;
     }
 
     @Override
@@ -40,12 +52,10 @@ public class Point {
 
     @Override
     public String toString() {
-        return "Point{" +
+        return "Vector{" +
                 "x=" + x +
                 ", y=" + y +
                 ", z=" + z +
                 '}';
     }
 }
-
-
