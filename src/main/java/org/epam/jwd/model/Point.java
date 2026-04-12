@@ -1,6 +1,5 @@
 package org.epam.jwd.model;
 
-import java.math.BigDecimal;
 import java.util.Objects;
 
 public class Point {

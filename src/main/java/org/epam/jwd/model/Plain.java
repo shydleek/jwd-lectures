@@ -1,44 +1,70 @@
 package org.epam.jwd.model;
 
-import org.epam.jwd.model.Vector;
+import org.epam.jwd.app.Main;
+import org.epam.jwd.exception.PlainNotExist;
+import org.epam.jwd.util.ApplicationConstants;
+import org.epam.jwd.validation.Validator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.Objects;
-import org.epam.jwd.model.Vector;
 
 public class Plain {
-    private final double a; //BigDecimal
+    private final double a;
     private final double b;
     private final double c;
     private final double d;
 
     private static final Logger LOG = LoggerFactory.getLogger(Plain.class);
-    private static final String ERR_PLAIN = "Plain does not exists (a^2 + b^2 + c^2 >0)";
 
-    public Plain(double a, double b, double c, double d){
+    public Plain(double a, double b, double c, double d) throws PlainNotExist {
         if (a != 0 && b != 0 && c != 0){
-            this.a = a;
-            this.b = b;
-            this.c = c;
-            this.d = d;
+            if (a != 1) {
+                this.a = 1;
+                this.b = b / a;
+                this.c = c / a;
+                this.d = d / a;
+            } else {
+                this.a = a;
+                this.b = b;
+                this.c = c;
+                this.d = d;
+            }
         } else {
-            LOG.error(ERR_PLAIN);
+            throw new PlainNotExist(ApplicationConstants.ERR_PLAIN_COEFFS.getValue());
         }
     }
 
-    public Plain(Point p1, Point p2, Point p3){
+    public Plain(Point p1, Point p2, Point p3) throws PlainNotExist {
+        double a = 0.0d;
+        double b = 0.0d;
+        double c = 0.0d;
+        double d = 0.0d;
+
         final Vector vector1 = new Vector(p1, p2);
         final Vector vector2 = new Vector(p1, p3);
         final Vector n = Vector.crossProduct(vector1, vector2);
 
+
         if (n.getX() != 0 && n.getY() != 0 && n.getZ() != 0) {
-            this.a = (p2.getY()-p1.getY())*(p3.getZ()-p1.getZ())-(p2.getZ()-p1.getZ())*(p3.getY()-p1.getY());
-            this.b = (p2.getZ()-p1.getZ())*(p3.getX()-p1.getX())-(p2.getX()-p1.getX())*(p3.getZ()-p1.getZ());
-            this.c = (p2.getX()-p1.getX())*(p3.getY()-p1.getY())-(p2.getY()-p1.getY())*(p3.getX()-p1.getX());
-            this.d = -(a * p1.getX() + b * p1.getY() + c * p1.getZ());
+            a = (p2.getY()-p1.getY())*(p3.getZ()-p1.getZ())-(p2.getZ()-p1.getZ())*(p3.getY()-p1.getY());
+            b = (p2.getZ()-p1.getZ())*(p3.getX()-p1.getX())-(p2.getX()-p1.getX())*(p3.getZ()-p1.getZ());
+            c = (p2.getX()-p1.getX())*(p3.getY()-p1.getY())-(p2.getY()-p1.getY())*(p3.getX()-p1.getX());
+            d = -(a * p1.getX() + b * p1.getY() + c * p1.getZ());
+
+            if (a != 1) {
+                this.a = 1;
+                this.b = b / a;
+                this.c = c / a;
+                this.d = d / a;
+            } else {
+                this.a = a;
+                this.b = b;
+                this.c = c;
+                this.d = d;
+            }
         } else {
-            LOG.error(ERR_PLAIN);
+            throw new PlainNotExist(ApplicationConstants.ERR_PLAIN_POINTS.getValue());
         }
     }
 
@@ -77,6 +103,10 @@ public class Plain {
                 ", b=" + b +
                 ", c=" + c +
                 ", d=" + d +
-                '}';
+                "}, or " + a +
+                "x + " + b +
+                "y + " + c +
+                "z + " + d +
+                " = 0.";
     }
 }

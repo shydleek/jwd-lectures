@@ -3,7 +3,7 @@ package org.epam.jwd.math;
 import org.epam.jwd.model.Plain;
 import org.epam.jwd.model.Point;
 
-public class Math {
+public abstract class Math {
     public abstract double angleToHorizontalPlane(double a, double b, double c);
     public abstract double angleToVerticalPlane(double a, double b, double c);
 

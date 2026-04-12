@@ -1,6 +1,5 @@
 package org.epam.jwd.model;
 
-import java.nio.channels.Pipe;
 import java.util.Objects;
 
 public class Vector {
