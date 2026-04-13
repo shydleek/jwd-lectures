@@ -60,6 +60,7 @@ public class Main {
 
 
         LOG.info(result.toString());
+        LOG.info(String.valueOf(Math.PI / 2));
 //        Plain plain = null;
 //        try {
 //            plain = new Plain(POINT_1, POINT_2, POINT_3);
