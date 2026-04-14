@@ -33,15 +33,15 @@ public class Plain {
         }
     }
 
-    public Plain(Point3D p1, Point3D p2, Point3D p3) throws PlainNotExist {
+    public Plain(Point3d p1, Point3d p2, Point3d p3) throws PlainNotExist {
         double a = 0.0d;
         double b = 0.0d;
         double c = 0.0d;
         double d = 0.0d;
 
-        final Vector3D vector3D1 = new Vector3D(p1, p2);
-        final Vector3D vector3D2 = new Vector3D(p1, p3);
-        final Vector3D n = Vector3D.crossProduct(vector3D1, vector3D2);
+        final Vector3d vector3D1 = new Vector3d(p1, p2);
+        final Vector3d vector3D2 = new Vector3d(p1, p3);
+        final Vector3d n = Vector3d.crossProduct(vector3D1, vector3D2);
 
 
         if (n.getX() != 0 || n.getY() != 0 || n.getZ() != 0) {

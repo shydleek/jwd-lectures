@@ -2,24 +2,24 @@ package org.epam.jwd.model;
 
 import java.util.Objects;
 
-public class Vector3D {
+public class Vector3d {
     private final double x;
     private final double y;
     private final double z;
 
-    public Vector3D(double x, double y, double z) {
+    public Vector3d(double x, double y, double z) {
         this.x = x;
         this.y = y;
         this.z = z;
     }
 
-    public static Vector3D crossProduct(Vector3D a, Vector3D b){
-        return new Vector3D(a.getY() * b.getZ() - a.getZ() * b.getY(),
+    public static Vector3d crossProduct(Vector3d a, Vector3d b){
+        return new Vector3d(a.getY() * b.getZ() - a.getZ() * b.getY(),
                 a.getZ() * b.getX() - a.getX() * b.getZ(),
                 a.getX() * b.getY() - a.getY() * b.getX());
     }
 
-    public Vector3D(Point3D p1, Point3D p2) {
+    public Vector3d(Point3d p1, Point3d p2) {
         this.x = p2.getX() - p1.getX();
         this.y = p2.getY() - p1.getY();
         this.z = p2.getZ() - p1.getZ();
@@ -40,7 +40,7 @@ public class Vector3D {
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
-        Vector3D vector3D = (Vector3D) o;
+        Vector3d vector3D = (Vector3d) o;
         return Double.compare(x, vector3D.x) == 0 && Double.compare(y, vector3D.y) == 0 && Double.compare(z, vector3D.z) == 0;
     }
 

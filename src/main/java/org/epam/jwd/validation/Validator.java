@@ -1,7 +1,6 @@
 package org.epam.jwd.validation;
 
 import org.epam.jwd.exception.InvalidInputFileContent;
-import org.epam.jwd.model.Point3D;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -16,7 +15,7 @@ import java.util.stream.Stream;
 public class Validator {
     private static final Logger LOG = LoggerFactory.getLogger(Validator.class);
 
-    public static List<Double> validateCoeffientsFromFile(String path) {
+    public static List<Double> validateCoefficientsFromFile(String path) {
         List<String> savedLines = readLinesFromFile(path);
 
         List<List<Double>> result = null;

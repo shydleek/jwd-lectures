@@ -2,7 +2,7 @@ package org.epam.jwd.math;
 
 import org.epam.jwd.exception.PlainNotExist;
 import org.epam.jwd.model.Plain;
-import org.epam.jwd.model.Point3D;
+import org.epam.jwd.model.Point3d;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -43,7 +43,7 @@ public class MathFunctions {
         );
     }
 
-    public static boolean doThreePointsFormPlane(Point3D p1, Point3D p2, Point3D p3) throws PlainNotExist {
+    public static boolean doThreePointsFormPlane(Point3d p1, Point3d p2, Point3d p3) throws PlainNotExist {
         Plain plain = null;
         try {
             plain = new Plain(p1, p2, p3);
