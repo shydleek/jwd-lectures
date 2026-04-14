@@ -1,4 +1,4 @@
-package org.epam.jwd.test;
+package org.epam.jwd.math;
 
 import org.epam.jwd.exception.PlainNotExist;
 import org.epam.jwd.math.MathFunctions;
@@ -14,8 +14,9 @@ import org.slf4j.LoggerFactory;
 
 import java.util.List;
 
-public class IsPerpendicularToYAxisTest {
-    private static final Logger LOG = LoggerFactory.getLogger(IsPerpendicularToYAxisTest.class);
+public class AngleToXAxisTest {
+    private static final double DELTA = 1e-6;
+    private static final Logger LOG = LoggerFactory.getLogger(AngleToXAxisTest.class);
     private static final List<Double> result = Validator.validateCoeffientsFromFile(
             ApplicationConstants.PATH_TO_CORRECT_FILE.getValue()
     );
@@ -46,15 +47,15 @@ public class IsPerpendicularToYAxisTest {
             LOG.error(e.getMessage(), e);
         }
 
-        final boolean stateActual = MathFunctions.isPerpendicularToYAxis(plain);
+        final double angleActual = MathFunctions.angleToXAxis(plain);
 
-        LOG.info("{}", stateActual);
+        LOG.info("{}", angleActual);
 
-        final boolean stateExpected = false;
+        final double angleExpected = 0.841069;
 
-        LOG.info("{}", stateExpected);
+        LOG.info("{}", angleExpected);
 
-        Assert.assertEquals(stateExpected, stateActual);
+        Assert.assertEquals(angleExpected, angleActual, DELTA);
     }
 
     @After

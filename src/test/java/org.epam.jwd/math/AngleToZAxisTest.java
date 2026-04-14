@@ -1,9 +1,8 @@
-package org.epam.jwd.test;
+package org.epam.jwd.math;
 
 import org.epam.jwd.exception.PlainNotExist;
 import org.epam.jwd.math.MathFunctions;
 import org.epam.jwd.model.Plain;
-import org.epam.jwd.model.Point3D;
 import org.epam.jwd.util.ApplicationConstants;
 import org.epam.jwd.validation.Validator;
 import org.junit.After;
@@ -15,8 +14,9 @@ import org.slf4j.LoggerFactory;
 
 import java.util.List;
 
-public class IsPerpendicularToXAxisTest {
-    private static final Logger LOG = LoggerFactory.getLogger(IsPerpendicularToXAxisTest.class);
+public class AngleToZAxisTest {
+    private static final double DELTA = 1e-6;
+    private static final Logger LOG = LoggerFactory.getLogger(AngleToZAxisTest.class);
     private static final List<Double> result = Validator.validateCoeffientsFromFile(
             ApplicationConstants.PATH_TO_CORRECT_FILE.getValue()
     );
@@ -47,15 +47,15 @@ public class IsPerpendicularToXAxisTest {
             LOG.error(e.getMessage(), e);
         }
 
-        final boolean stateActual = MathFunctions.isPerpendicularToXAxis(plain);
+        final double angleActual = MathFunctions.angleToZAxis(plain);
 
-        LOG.info("{}", stateActual);
+        LOG.info("{}", angleActual);
 
-        final boolean stateExpected = false;
+        final double angleExpected = 1.23096;
 
-        LOG.info("{}", stateExpected);
+        LOG.info("{}", angleExpected);
 
-        Assert.assertEquals(stateExpected, stateActual);
+        Assert.assertEquals(angleExpected, angleActual, DELTA);
     }
 
     @After

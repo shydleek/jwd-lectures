@@ -1,4 +1,4 @@
-package org.epam.jwd.test;
+package org.epam.jwd.math;
 
 import org.epam.jwd.exception.PlainNotExist;
 import org.epam.jwd.math.MathFunctions;
@@ -15,14 +15,15 @@ import org.slf4j.LoggerFactory;
 
 import java.util.List;
 
-public class DoThreePointsFormPlane {
-    private static final Logger LOG = LoggerFactory.getLogger(DoThreePointsFormPlane.class);
+public class IsPerpendicularToXAxisTest {
+    private static final Logger LOG = LoggerFactory.getLogger(IsPerpendicularToXAxisTest.class);
     private static final List<Double> result = Validator.validateCoeffientsFromFile(
             ApplicationConstants.PATH_TO_CORRECT_FILE.getValue()
     );
-    private static final Point3D POINT_3_D_1 = new Point3D(1,3,5);
-    private static final Point3D POINT_3_D_2 = new Point3D(1,4,7);
-    private static final Point3D POINT_3_D_3 = new Point3D(-5,2,1);
+    private static final double A = result.get(0);
+    private static final double B = result.get(1);
+    private static final double C = result.get(2);
+    private static final double D = result.get(3);
 
 
     @Before
@@ -38,11 +39,19 @@ public class DoThreePointsFormPlane {
 
         LOG.info("Testing... in test()");
 
-        final boolean stateActual = MathFunctions.doThreePointsFormPlane(POINT_3_D_1, POINT_3_D_2, POINT_3_D_3);
+        Plain plain = null;
+
+        try {
+            plain = new Plain(A, B, C, D);
+        } catch (PlainNotExist e) {
+            LOG.error(e.getMessage(), e);
+        }
+
+        final boolean stateActual = MathFunctions.isPerpendicularToXAxis(plain);
 
         LOG.info("{}", stateActual);
 
-        final boolean stateExpected = true;
+        final boolean stateExpected = false;
 
         LOG.info("{}", stateExpected);
 

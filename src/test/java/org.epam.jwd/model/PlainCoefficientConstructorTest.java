@@ -1,12 +1,10 @@
-package org.epam.jwd.test;
+package org.epam.jwd.model;
 
 import org.epam.jwd.exception.PlainNotExist;
-import org.epam.jwd.math.MathFunctions;
 import org.epam.jwd.model.Plain;
 import org.epam.jwd.util.ApplicationConstants;
 import org.epam.jwd.validation.Validator;
 import org.junit.After;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.slf4j.Logger;
@@ -14,9 +12,8 @@ import org.slf4j.LoggerFactory;
 
 import java.util.List;
 
-public class AngleToZAxisTest {
-    private static final double DELTA = 1e-6;
-    private static final Logger LOG = LoggerFactory.getLogger(AngleToZAxisTest.class);
+public class PlainCoefficientConstructorTest {
+    private static final Logger LOG = LoggerFactory.getLogger(PlainCoefficientConstructorTest.class);
     private static final List<Double> result = Validator.validateCoeffientsFromFile(
             ApplicationConstants.PATH_TO_CORRECT_FILE.getValue()
     );
@@ -38,24 +35,11 @@ public class AngleToZAxisTest {
         LOG.info("{}", result.toString());
 
         LOG.info("Testing... in test()");
-
-        Plain plain = null;
-
         try {
-            plain = new Plain(A, B, C, D);
+            new Plain(A, B, C, D);
         } catch (PlainNotExist e) {
             LOG.error(e.getMessage(), e);
         }
-
-        final double angleActual = MathFunctions.angleToZAxis(plain);
-
-        LOG.info("{}", angleActual);
-
-        final double angleExpected = 1.23096;
-
-        LOG.info("{}", angleExpected);
-
-        Assert.assertEquals(angleExpected, angleActual, DELTA);
     }
 
     @After

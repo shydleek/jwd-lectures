@@ -1,10 +1,12 @@
-package org.epam.jwd.test;
+package org.epam.jwd.math;
 
 import org.epam.jwd.exception.PlainNotExist;
+import org.epam.jwd.math.MathFunctions;
 import org.epam.jwd.model.Plain;
 import org.epam.jwd.util.ApplicationConstants;
 import org.epam.jwd.validation.Validator;
 import org.junit.After;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.slf4j.Logger;
@@ -12,8 +14,8 @@ import org.slf4j.LoggerFactory;
 
 import java.util.List;
 
-public class PlainCoefficientConstructorTest {
-    private static final Logger LOG = LoggerFactory.getLogger(PlainCoefficientConstructorTest.class);
+public class IsPerpendicularToZAxisTest {
+    private static final Logger LOG = LoggerFactory.getLogger(IsPerpendicularToZAxisTest.class);
     private static final List<Double> result = Validator.validateCoeffientsFromFile(
             ApplicationConstants.PATH_TO_CORRECT_FILE.getValue()
     );
@@ -35,11 +37,24 @@ public class PlainCoefficientConstructorTest {
         LOG.info("{}", result.toString());
 
         LOG.info("Testing... in test()");
+
+        Plain plain = null;
+
         try {
-            new Plain(A, B, C, D);
+            plain = new Plain(A, B, C, D);
         } catch (PlainNotExist e) {
             LOG.error(e.getMessage(), e);
         }
+
+        final boolean stateActual = MathFunctions.isPerpendicularToZAxis(plain);
+
+        LOG.info("{}", stateActual);
+
+        final boolean stateExpected = false;
+
+        LOG.info("{}", stateExpected);
+
+        Assert.assertEquals(stateExpected, stateActual);
     }
 
     @After

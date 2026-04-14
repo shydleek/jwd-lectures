@@ -1,4 +1,4 @@
-package org.epam.jwd.test;
+package org.epam.jwd.model;
 
 import org.epam.jwd.exception.PlainNotExist;
 import org.epam.jwd.model.Plain;
