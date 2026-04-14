@@ -1,9 +1,8 @@
 package org.epam.jwd.math;
 
-import org.epam.jwd.app.Main;
 import org.epam.jwd.exception.PlainNotExist;
 import org.epam.jwd.model.Plain;
-import org.epam.jwd.model.Point;
+import org.epam.jwd.model.Point3D;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -14,7 +13,7 @@ public class MathFunctions {
     private static final double rightAngle = Math.PI / 2;
 
     public static double angleToXAxis(Plain plain) {
-        return Math.asin(
+        return Math.acos(
                 Math.abs(plain.getA()) /
                 Math.sqrt(
                         Math.pow(plain.getA(),exponent) +
@@ -24,7 +23,7 @@ public class MathFunctions {
         );
     }
     public static double angleToYAxis(Plain plain) {
-        return Math.asin(
+        return Math.acos(
                 Math.abs(plain.getB()) /
                 Math.sqrt(
                         Math.pow(plain.getA(),exponent) +
@@ -34,7 +33,7 @@ public class MathFunctions {
         );
     }
     public static double angleToZAxis(Plain plain) {
-        return Math.asin(
+        return Math.acos(
                 Math.abs(plain.getC()) /
                 Math.sqrt(
                         Math.pow(plain.getA(),exponent) +
@@ -44,7 +43,7 @@ public class MathFunctions {
         );
     }
 
-    public static boolean doThreePointsFormPlane(Point p1, Point p2, Point p3) throws PlainNotExist {
+    public static boolean doThreePointsFormPlane(Point3D p1, Point3D p2, Point3D p3) throws PlainNotExist {
         Plain plain = null;
         try {
             plain = new Plain(p1, p2, p3);

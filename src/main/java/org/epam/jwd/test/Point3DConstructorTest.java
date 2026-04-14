@@ -1,18 +1,18 @@
 package org.epam.jwd.test;
 
 import org.epam.jwd.exception.PlainNotExist;
-import org.epam.jwd.model.Point;
-import org.epam.jwd.model.Vector;
+import org.epam.jwd.model.Point3D;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class VectorConstructorTest {
-    private static final Logger LOG = LoggerFactory.getLogger(VectorConstructorTest.class);
-    private static final Point A = new Point(0.0, 0.0, 0.0);
-    private static final Point B = new Point(0.0, 0.0, 0.0);
+public class Point3DConstructorTest {
+    private static final Logger LOG = LoggerFactory.getLogger(Point3DConstructorTest.class);
+    private static final double A = 0.0;
+    private static final double B = 0.0;
+    private static final double C = 0.0;
 
 
     @Before
@@ -23,7 +23,7 @@ public class VectorConstructorTest {
     @Test
     public void test() throws PlainNotExist {
         LOG.info("Testing... in test()");
-        new Vector(A, B);
+        new Point3D(A, B, C);
     }
 
     @After

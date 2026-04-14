@@ -1,9 +1,7 @@
 package org.epam.jwd.model;
 
-import org.epam.jwd.app.Main;
 import org.epam.jwd.exception.PlainNotExist;
 import org.epam.jwd.util.ApplicationConstants;
-import org.epam.jwd.validation.Validator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -35,15 +33,15 @@ public class Plain {
         }
     }
 
-    public Plain(Point p1, Point p2, Point p3) throws PlainNotExist {
+    public Plain(Point3D p1, Point3D p2, Point3D p3) throws PlainNotExist {
         double a = 0.0d;
         double b = 0.0d;
         double c = 0.0d;
         double d = 0.0d;
 
-        final Vector vector1 = new Vector(p1, p2);
-        final Vector vector2 = new Vector(p1, p3);
-        final Vector n = Vector.crossProduct(vector1, vector2);
+        final Vector3D vector3D1 = new Vector3D(p1, p2);
+        final Vector3D vector3D2 = new Vector3D(p1, p3);
+        final Vector3D n = Vector3D.crossProduct(vector3D1, vector3D2);
 
 
         if (n.getX() != 0 && n.getY() != 0 && n.getZ() != 0) {
