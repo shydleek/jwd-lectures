@@ -16,8 +16,8 @@ public class Plain {
     private static final Logger LOG = LoggerFactory.getLogger(Plain.class);
 
     public Plain(double a, double b, double c, double d) throws PlainNotExist {
-        if (a != 0 && b != 0 && c != 0){
-            if (a != 1) {
+        if (a != 0 || b != 0 || c != 0){
+            if (a != 1 & a != 0) {
                 this.a = 1;
                 this.b = b / a;
                 this.c = c / a;
@@ -44,13 +44,13 @@ public class Plain {
         final Vector3D n = Vector3D.crossProduct(vector3D1, vector3D2);
 
 
-        if (n.getX() != 0 && n.getY() != 0 && n.getZ() != 0) {
+        if (n.getX() != 0 || n.getY() != 0 || n.getZ() != 0) {
             a = (p2.getY()-p1.getY())*(p3.getZ()-p1.getZ())-(p2.getZ()-p1.getZ())*(p3.getY()-p1.getY());
             b = (p2.getZ()-p1.getZ())*(p3.getX()-p1.getX())-(p2.getX()-p1.getX())*(p3.getZ()-p1.getZ());
             c = (p2.getX()-p1.getX())*(p3.getY()-p1.getY())-(p2.getY()-p1.getY())*(p3.getX()-p1.getX());
             d = -(a * p1.getX() + b * p1.getY() + c * p1.getZ());
 
-            if (a != 1) {
+            if (a != 1 && a != 0) {
                 this.a = 1;
                 this.b = b / a;
                 this.c = c / a;
