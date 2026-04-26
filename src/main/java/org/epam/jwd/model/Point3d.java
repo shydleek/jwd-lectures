@@ -1,35 +1,36 @@
 package org.epam.jwd.model;
 
+import java.math.BigDecimal;
 import java.util.Objects;
 
 public class Point3d {
-    private final double x;
-    private final double y;
-    private final double z;
+    private final BigDecimal x;
+    private final BigDecimal y;
+    private final BigDecimal z;
 
-    public Point3d(double x, double y, double z) {
+    public Point3d(BigDecimal x, BigDecimal y, BigDecimal z) {
         this.x = x;
         this.y = y;
         this.z = z;
     }
 
-    public double getX() {
+    public BigDecimal getX() {
         return x;
     }
 
-    public double getY() {
+    public BigDecimal getY() {
         return y;
     }
 
-    public double getZ() {
+    public BigDecimal getZ() {
         return z;
     }
 
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
-        Point3d point3D = (Point3d) o;
-        return Double.compare(x, point3D.x) == 0 && Double.compare(y, point3D.y) == 0 && Double.compare(z, point3D.z) == 0;
+        Point3d point3d = (Point3d) o;
+        return Objects.equals(x, point3d.x) && Objects.equals(y, point3d.y) && Objects.equals(z, point3d.z);
     }
 
     @Override
@@ -46,5 +47,3 @@ public class Point3d {
                 '}';
     }
 }
-
-

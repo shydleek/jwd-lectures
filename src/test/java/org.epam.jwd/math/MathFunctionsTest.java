@@ -1,132 +1,114 @@
 package org.epam.jwd.math;
 
-import org.epam.jwd.exception.PlainNotExist;
 import org.epam.jwd.model.Plain;
 import org.epam.jwd.model.Point3d;
-import org.epam.jwd.util.ApplicationConstants;
-import org.epam.jwd.validation.Validator;
 import org.junit.Assert;
 import org.junit.Test;
 
-import java.util.List;
+import java.math.BigDecimal;
 
 public class MathFunctionsTest {
-    private static final double DELTA = 1e-6;
-    private static final List<Double> correctResultCoefficients = Validator.validateCoefficientsFromFile(
-            ApplicationConstants.PATH_TO_CORRECT_FILE_COEFFCIENT.getValue()
-    );
-    private static final double A = correctResultCoefficients.get(0);
-    private static final double B = correctResultCoefficients.get(1);
-    private static final double C = correctResultCoefficients.get(2);
-    private static final double D = correctResultCoefficients.get(3);
-//    private static final List<Double> correctResultPoints = Validator.validateCoefficientsFromFile(
-//            ApplicationConstants.PATH_TO_CORRECT_FILE_COEFFCIENT.getValue()
-//    );
-//    private static final double A = correctResultPoints.get(0);
-//    private static final double B = correctResultPoints.get(1);
-//    private static final double C = correctResultPoints.get(2);
-//    private static final double D = correctResultPoints.get(3);
+    private static final MathFunctions MATH_FUNCTIONS = new MathFunctions();
 
     @Test
-    public void angleToXAxis_shouldReturnDoubleValue() {
-        final double angleExpected = 0.841069;
-        Plain plain = null;
+    public void angleToXAxis_shouldReturnCorrectValue_whenPlainIsFromCoefficients() {
+        final BigDecimal angleExpected = new BigDecimal("0.61548");
+        final BigDecimal a = new BigDecimal(1);
+        final BigDecimal b = new BigDecimal(1);
+        final BigDecimal c = new BigDecimal(1);
+        final BigDecimal d = new BigDecimal(-1);
 
-        try {
-            plain = new Plain(A, B, C, D);
-        } catch (PlainNotExist e) {
-            System.out.println(e.getMessage());
-        }
+        Plain plain = new Plain(a, b, c, d);
+        final BigDecimal angleActual = MATH_FUNCTIONS.angleToXAxis(plain);
 
-        final double angleActual = MathFunctions.angleToXAxis(plain);
-
-        Assert.assertEquals(angleExpected, angleActual, DELTA);
+        Assert.assertEquals(angleExpected, angleActual);
     }
 
     @Test
-    public void angleToYAxis_shouldReturnDoubleValue() {
-        final double angleExpected = 0.841069;
-        Plain plain = null;
+    public void angleToYAxis_shouldReturnCorrectValue_whenPlainIsFromCoefficients() {
+        final BigDecimal angleExpected = new BigDecimal("0.61548");
+        final BigDecimal a = new BigDecimal(1);
+        final BigDecimal b = new BigDecimal(1);
+        final BigDecimal c = new BigDecimal(1);
+        final BigDecimal d = new BigDecimal(-1);
 
-        try {
-            plain = new Plain(A, B, C, D);
-        } catch (PlainNotExist e) {
-            System.out.println(e.getMessage());
-        }
+        Plain plain = new Plain(a, b, c, d);
+        final BigDecimal angleActual = MATH_FUNCTIONS.angleToYAxis(plain);
 
-        final double angleActual = MathFunctions.angleToYAxis(plain);
-
-        Assert.assertEquals(angleExpected, angleActual, DELTA);
+        Assert.assertEquals(angleExpected, angleActual);
     }
 
     @Test
-    public void angleToZAxis_shouldReturnDoubleValue() {
-        final double angleExpected = 1.23096;
-        Plain plain = null;
+    public void angleToZAxis_shouldReturnCorrectValue_whenPlainIsFromCoefficients() {
+        final BigDecimal angleExpected = new BigDecimal("0.61548");
+        final BigDecimal a = new BigDecimal(1);
+        final BigDecimal b = new BigDecimal(1);
+        final BigDecimal c = new BigDecimal(1);
+        final BigDecimal d = new BigDecimal(-1);
 
-        try {
-            plain = new Plain(A, B, C, D);
-        } catch (PlainNotExist e) {
-            System.out.println(e.getMessage());
-        }
+        Plain plain = new Plain(a, b, c, d);
+        final BigDecimal angleActual = MATH_FUNCTIONS.angleToZAxis(plain);
 
-        final double angleActual = MathFunctions.angleToZAxis(plain);
-
-        Assert.assertEquals(angleExpected, angleActual, DELTA);
+        Assert.assertEquals(angleExpected, angleActual);
     }
 
     @Test
-    public void doThreePointFormPlane_shouldReturnTrue() throws PlainNotExist {
-        final Point3d POINT_3_D_1 = new Point3d(1,3,5);
-        final Point3d POINT_3_D_2 = new Point3d(1,4,7);
-        final Point3d POINT_3_D_3 = new Point3d(-5,2,1);
-
-        final boolean state = MathFunctions.doThreePointsFormPlane(POINT_3_D_1, POINT_3_D_2, POINT_3_D_3);
+    public void doThreePointFormPlane_shouldReturnTrue() {
+        final Point3d POINT_3_D_1 = new Point3d(
+                new BigDecimal(1),
+                new BigDecimal(3),
+                new BigDecimal(5)
+        );
+        final Point3d POINT_3_D_2 = new Point3d(
+                new BigDecimal(1),
+                new BigDecimal(4),
+                new BigDecimal(7)
+        );
+        final Point3d POINT_3_D_3 = new Point3d(
+                new BigDecimal(-5),
+                new BigDecimal(2),
+                new BigDecimal(1)
+        );
+        boolean state = MATH_FUNCTIONS.doThreePointsFormPlane(POINT_3_D_1, POINT_3_D_2, POINT_3_D_3);
 
         Assert.assertTrue(state);
     }
 
     @Test
     public void isPerpendicularToXAxis_shouldReturnFalse() {
-        Plain plain = null;
+        final BigDecimal a = new BigDecimal(1);
+        final BigDecimal b = new BigDecimal(1);
+        final BigDecimal c = new BigDecimal(1);
+        final BigDecimal d = new BigDecimal(-1);
 
-        try {
-            plain = new Plain(A, B, C, D);
-        } catch (PlainNotExist e) {
-            System.out.println(e.getMessage());
-        }
-
-        final boolean state = MathFunctions.isPerpendicularToXAxis(plain);
+        Plain plain = new Plain(a, b, c, d);
+        final boolean state = MATH_FUNCTIONS.isPerpendicularToXAxis(plain);
 
         Assert.assertFalse(state);
     }
 
     @Test
     public void isPerpendicularToYAxis_shouldReturnFalse() {
-        Plain plain = null;
+        final BigDecimal a = new BigDecimal(1);
+        final BigDecimal b = new BigDecimal(1);
+        final BigDecimal c = new BigDecimal(1);
+        final BigDecimal d = new BigDecimal(-1);
 
-        try {
-            plain = new Plain(A, B, C, D);
-        } catch (PlainNotExist e) {
-            System.out.println(e.getMessage());
-        }
-
-        final boolean state = MathFunctions.isPerpendicularToYAxis(plain);
+        Plain plain = new Plain(a, b, c, d);
+        final boolean state = MATH_FUNCTIONS.isPerpendicularToYAxis(plain);
 
         Assert.assertFalse(state);
     }
 
     @Test
     public void isPerpendicularToZAxis_shouldReturnFalse() {
-        Plain plain = null;
+        final BigDecimal a = new BigDecimal(1);
+        final BigDecimal b = new BigDecimal(1);
+        final BigDecimal c = new BigDecimal(1);
+        final BigDecimal d = new BigDecimal(-1);
 
-        try {
-            plain = new Plain(A, B, C, D);
-        } catch (PlainNotExist e) {
-            System.out.println(e.getMessage());
-        }
-
-        final boolean state = MathFunctions.isPerpendicularToZAxis(plain);
+        Plain plain = new Plain(a, b, c, d);
+        final boolean state = MATH_FUNCTIONS.isPerpendicularToZAxis(plain);
 
         Assert.assertFalse(state);
     }

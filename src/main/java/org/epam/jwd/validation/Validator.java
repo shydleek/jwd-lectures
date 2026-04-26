@@ -11,7 +11,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
-
+// TODO: make a filereader and tests for it
 public class Validator {
     private static final Logger LOG = LoggerFactory.getLogger(Validator.class);
 

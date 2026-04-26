@@ -1,65 +1,81 @@
 package org.epam.jwd.math;
 
-import org.epam.jwd.exception.PlainNotExist;
 import org.epam.jwd.model.Plain;
 import org.epam.jwd.model.Point3d;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.epam.jwd.validation.PlainValidator;
+
+import java.math.BigDecimal;
+import java.math.MathContext;
+import java.math.RoundingMode;
 
 
 public class MathFunctions {
-    private static final Logger LOG = LoggerFactory.getLogger(MathFunctions.class);
-    private static final int exponent = 2;
-    private static final double rightAngle = Math.PI / 2;
 
-    public static double angleToXAxis(Plain plain) {
-        return Math.acos(
-                Math.abs(plain.getA()) /
-                Math.sqrt(
-                        Math.pow(plain.getA(),exponent) +
-                        Math.pow(plain.getB(),exponent) +
-                        Math.pow(plain.getC(),exponent)
-                )
-        );
-    }
-    public static double angleToYAxis(Plain plain) {
-        return Math.acos(
-                Math.abs(plain.getB()) /
-                Math.sqrt(
-                        Math.pow(plain.getA(),exponent) +
-                        Math.pow(plain.getB(),exponent) +
-                        Math.pow(plain.getC(),exponent)
-                )
-        );
-    }
-    public static double angleToZAxis(Plain plain) {
-        return Math.acos(
-                Math.abs(plain.getC()) /
-                Math.sqrt(
-                        Math.pow(plain.getA(),exponent) +
-                        Math.pow(plain.getB(),exponent) +
-                        Math.pow(plain.getC(),exponent)
-                )
-        );
+    private static final int EXPONENT = 2;
+    private static final int PRECISION = 5;
+    private static final BigDecimal RIGHT_ANGLE = BigDecimal.valueOf(Math.PI / 2);
+    private static final MathContext MATH_CONTEXT = new MathContext(10, RoundingMode.HALF_UP);
+    private static final PlainValidator PLAIN_VALIDATOR = new PlainValidator();
+
+    public MathFunctions() {}
+
+    public BigDecimal angleToXAxis(Plain plain) {
+        return calculateAsin(
+                plain.getA().abs()
+                        .divide(
+                                plain.getA().pow(EXPONENT)
+                                        .add(plain.getB().pow(EXPONENT))
+                                        .add(plain.getC().pow(EXPONENT))
+                                        .sqrt(MATH_CONTEXT),
+                                MATH_CONTEXT
+                        )
+        ).setScale(PRECISION, RoundingMode.HALF_UP);
     }
 
-    public static boolean doThreePointsFormPlane(Point3d p1, Point3d p2, Point3d p3) throws PlainNotExist {
-        Plain plain = null;
-        try {
-            plain = new Plain(p1, p2, p3);
-        } catch (PlainNotExist e) {
-            LOG.error(e.getMessage(), e);
-        }
-        return plain != null;
+    public BigDecimal angleToYAxis(Plain plain) {
+        return calculateAsin(
+                plain.getB().abs()
+                        .divide(
+                                plain.getA().pow(EXPONENT)
+                                        .add(plain.getB().pow(EXPONENT))
+                                        .add(plain.getC().pow(EXPONENT))
+                                        .sqrt(MATH_CONTEXT),
+                                MATH_CONTEXT
+                        )
+        ).setScale(PRECISION, RoundingMode.HALF_UP);
+    }
+    public BigDecimal angleToZAxis(Plain plain) {
+        return calculateAsin(
+                plain.getC().abs()
+                        .divide(
+                                plain.getA().pow(EXPONENT)
+                                        .add(plain.getB().pow(EXPONENT))
+                                        .add(plain.getC().pow(EXPONENT))
+                                        .sqrt(MATH_CONTEXT),
+                                MATH_CONTEXT
+                        )
+        ).setScale(PRECISION, RoundingMode.HALF_UP);
     }
 
-    public static boolean isPerpendicularToXAxis(Plain plain) {
-        return angleToXAxis(plain) == rightAngle;
+    public boolean doThreePointsFormPlane(Point3d a, Point3d b, Point3d c) {
+        return PLAIN_VALIDATOR.arePointsValidated(a, b, c);
     }
-    public static boolean isPerpendicularToYAxis(Plain plain) {
-        return angleToYAxis(plain) == rightAngle;
+
+    public boolean isPerpendicularToXAxis(Plain plain) {
+        return RIGHT_ANGLE.compareTo(angleToXAxis(plain)) == 0;
     }
-    public static boolean isPerpendicularToZAxis(Plain plain) {
-        return angleToZAxis(plain) == rightAngle;
+
+    public boolean isPerpendicularToYAxis(Plain plain) {
+        return RIGHT_ANGLE.compareTo(angleToYAxis(plain)) == 0;
+    }
+
+    public boolean isPerpendicularToZAxis(Plain plain) {
+        return RIGHT_ANGLE.compareTo(angleToZAxis(plain)) == 0;
+    }
+    // TODO: протестировать
+    public BigDecimal calculateAsin(BigDecimal value) {
+        double doubleValue = value.doubleValue();
+        double asinResult = Math.asin(doubleValue);
+        return new BigDecimal(String.valueOf(asinResult));
     }
 }
