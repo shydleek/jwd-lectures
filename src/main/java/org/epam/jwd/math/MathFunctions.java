@@ -10,14 +10,21 @@ import java.math.RoundingMode;
 
 
 public class MathFunctions {
-
+    private static MathFunctions instance;
     private static final int EXPONENT = 2;
     private static final int PRECISION = 5;
     private static final BigDecimal RIGHT_ANGLE = BigDecimal.valueOf(Math.PI / 2);
     private static final MathContext MATH_CONTEXT = new MathContext(10, RoundingMode.HALF_UP);
-    private static final PlainValidator PLAIN_VALIDATOR = new PlainValidator();
+    private static final PlainValidator PLAIN_VALIDATOR = PlainValidator.getInstance();
 
-    public MathFunctions() {}
+    private MathFunctions() {}
+
+    public static MathFunctions getInstance() {
+        if (instance == null) {
+            instance = new MathFunctions();
+        }
+        return instance;
+    }
 
     public BigDecimal angleToXAxis(Plain plain) {
         return calculateAsin(

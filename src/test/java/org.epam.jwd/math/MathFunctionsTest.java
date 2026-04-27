@@ -8,7 +8,7 @@ import org.junit.Test;
 import java.math.BigDecimal;
 
 public class MathFunctionsTest {
-    private static final MathFunctions MATH_FUNCTIONS = new MathFunctions();
+    private static final MathFunctions MATH_FUNCTIONS = MathFunctions.getInstance();
 
     @Test
     public void angleToXAxis_shouldReturnCorrectValue_whenPlainIsFromCoefficients() {

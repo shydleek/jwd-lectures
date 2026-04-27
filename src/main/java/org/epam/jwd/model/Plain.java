@@ -11,7 +11,7 @@ public class Plain {
     private final BigDecimal c;
     private final BigDecimal d;
 
-    private static final PlainValidator PLAIN_VALIDATOR = new PlainValidator();
+    private static final PlainValidator PLAIN_VALIDATOR = PlainValidator.getInstance();
 
     public Plain(BigDecimal a, BigDecimal b, BigDecimal c, BigDecimal d) {
         PLAIN_VALIDATOR.areCoefficientsValidated(a, b, c);

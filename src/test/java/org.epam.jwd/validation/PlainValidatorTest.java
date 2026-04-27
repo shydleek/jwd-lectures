@@ -1,5 +1,6 @@
 package org.epam.jwd.validation;
 
+import org.epam.jwd.math.MathFunctions;
 import org.epam.jwd.model.Plain;
 import org.epam.jwd.model.Point3d;
 import org.junit.Assert;
@@ -11,6 +12,7 @@ import java.math.BigDecimal;
 
 public class PlainValidatorTest {
     private static final Logger LOG = LoggerFactory.getLogger(PlainValidatorTest.class);
+    private static final PlainValidator PLAIN_VALIDATOR = PlainValidator.getInstance();
 // TODO: finish with this test
 //    @Test
 //    public void isMonic_shouldReturn() {
@@ -34,9 +36,8 @@ public class PlainValidatorTest {
         final BigDecimal aCorrect = BigDecimal.valueOf(3.0);
         final BigDecimal bCorrect = BigDecimal.valueOf(0);
         final BigDecimal cCorrect = BigDecimal.valueOf(0);
-        PlainValidator validator = new PlainValidator();
 
-        Assert.assertTrue(validator.areCoefficientsValidated(aCorrect, bCorrect, cCorrect));
+        Assert.assertTrue(PLAIN_VALIDATOR.areCoefficientsValidated(aCorrect, bCorrect, cCorrect));
     }
 
     @Test
@@ -44,9 +45,8 @@ public class PlainValidatorTest {
         final BigDecimal aIncorrect = BigDecimal.valueOf(0);
         final BigDecimal bIncorrect = BigDecimal.valueOf(0);
         final BigDecimal cIncorrect = BigDecimal.valueOf(0);
-        PlainValidator validator = new PlainValidator();
 
-        Assert.assertFalse(validator.areCoefficientsValidated(aIncorrect, bIncorrect, cIncorrect));
+        Assert.assertFalse(PLAIN_VALIDATOR.areCoefficientsValidated(aIncorrect, bIncorrect, cIncorrect));
     }
 
     @Test
@@ -66,14 +66,13 @@ public class PlainValidatorTest {
                 new BigDecimal(1),
                 new BigDecimal(13)
         );
-        PlainValidator validator = new PlainValidator();
 
         Plain plain = new Plain(aCorrect, bCorrect, cCorrect);
         LOG.info("A = {}", plain.getA());
         LOG.info("B = {}", plain.getB());
         LOG.info("C = {}", plain.getC());
         LOG.info("D = {}", plain.getD());
-        Assert.assertTrue(validator.arePointsValidated(aCorrect, bCorrect, cCorrect));
+        Assert.assertTrue(PLAIN_VALIDATOR.arePointsValidated(aCorrect, bCorrect, cCorrect));
     }
 
     @Test
@@ -93,13 +92,12 @@ public class PlainValidatorTest {
                 new BigDecimal(1),
                 new BigDecimal(1)
         );
-        PlainValidator validator = new PlainValidator();
 
         Plain plain = new Plain(aIncorrect, bIncorrect, cIncorrect);
         LOG.info("A = {}", plain.getA());
         LOG.info("B = {}", plain.getB());
         LOG.info("C = {}", plain.getC());
         LOG.info("D = {}", plain.getD());
-        Assert.assertFalse(validator.arePointsValidated(aIncorrect, bIncorrect, cIncorrect));
+        Assert.assertFalse(PLAIN_VALIDATOR.arePointsValidated(aIncorrect, bIncorrect, cIncorrect));
     }
 }

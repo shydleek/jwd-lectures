@@ -8,7 +8,17 @@ import org.slf4j.LoggerFactory;
 import java.math.BigDecimal;
 
 public class PlainValidator {
+    private static PlainValidator instance;
     private static final Logger LOG = LoggerFactory.getLogger(PlainValidator.class);
+
+    private PlainValidator() {}
+
+    public static PlainValidator getInstance() {
+        if (instance == null) {
+            instance = new PlainValidator();
+        }
+        return instance;
+    }
 
     public boolean areCoefficientsValidated(BigDecimal a, BigDecimal b, BigDecimal c) {
         return a.compareTo(BigDecimal.ZERO) != 0
