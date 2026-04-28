@@ -46,41 +46,35 @@ public class Plain {
     public BigDecimal getD() {
         return d;
     }
-    // TODO: refactor these 4 methods
+
     public BigDecimal getPlaneCoefficientAThroughPoints(Point3d a, Point3d b, Point3d c) {
-        BigDecimal first = b.getY().subtract(a.getY());
-        BigDecimal second = c.getZ().subtract(a.getZ());
-        BigDecimal fs = first.multiply(second);
-        BigDecimal third = b.getZ().subtract(a.getZ());
-        BigDecimal fourth = c.getY().subtract(a.getY());
-        BigDecimal tf = third.multiply(fourth);
-        return fs.subtract(tf);
-//        return b.getY().subtract(a.getY()).multiply(c.getZ().subtract(a.getZ()))
-//                .subtract(b.getZ().subtract(a.getZ())).multiply(c.getY().subtract(a.getY()));
+        BigDecimal deltaYab = b.getY().subtract(a.getY());
+        BigDecimal deltaZac = c.getZ().subtract(a.getZ());
+        BigDecimal firstProduct = deltaYab.multiply(deltaZac);
+        BigDecimal deltaZab = b.getZ().subtract(a.getZ());
+        BigDecimal deltaYac = c.getY().subtract(a.getY());
+        BigDecimal secondProduct = deltaZab.multiply(deltaYac);
+        return firstProduct.subtract(secondProduct);
     }
 
     public BigDecimal getPlaneCoefficientBThroughPoints(Point3d a, Point3d b, Point3d c) {
-        BigDecimal first = b.getZ().subtract(a.getZ());
-        BigDecimal second = c.getX().subtract(a.getX());
-        BigDecimal fs = first.multiply(second);
-        BigDecimal third = b.getX().subtract(a.getX());
-        BigDecimal fourth = c.getZ().subtract(a.getZ());
-        BigDecimal tf = third.multiply(fourth);
-        return fs.subtract(tf);
-        //        return b.getZ().subtract(a.getZ()).multiply(c.getX().subtract(a.getX()))
-//                .subtract(b.getX().subtract(a.getX())).multiply(c.getZ().subtract(a.getZ()));
+        BigDecimal deltaZab = b.getZ().subtract(a.getZ());
+        BigDecimal deltaXac = c.getX().subtract(a.getX());
+        BigDecimal firstProduct = deltaZab.multiply(deltaXac);
+        BigDecimal deltaXab = b.getX().subtract(a.getX());
+        BigDecimal deltaZac = c.getZ().subtract(a.getZ());
+        BigDecimal secondProduct = deltaXab.multiply(deltaZac);
+        return firstProduct.subtract(secondProduct);
     }
 
     public BigDecimal getPlaneCoefficientCThroughPoints(Point3d a, Point3d b, Point3d c) {
-        BigDecimal first = b.getX().subtract(a.getX());
-        BigDecimal second = c.getY().subtract(a.getY());
-        BigDecimal fs = first.multiply(second);
-        BigDecimal third = b.getY().subtract(a.getY());
-        BigDecimal fourth = c.getX().subtract(a.getX());
-        BigDecimal tf = third.multiply(fourth);
-        return fs.subtract(tf);
-//        return b.getX().subtract(a.getX()).multiply(c.getY().subtract(a.getY()))
-//                .subtract(b.getY().subtract(a.getY())).multiply(c.getX().subtract(a.getX()));
+        BigDecimal deltaZab = b.getX().subtract(a.getX());
+        BigDecimal deltaYac = c.getY().subtract(a.getY());
+        BigDecimal firstProduct = deltaZab.multiply(deltaYac);
+        BigDecimal deltaYab = b.getY().subtract(a.getY());
+        BigDecimal deltaXac = c.getX().subtract(a.getX());
+        BigDecimal secondProduct = deltaYab.multiply(deltaXac);
+        return firstProduct.subtract(secondProduct);
     }
 
     public BigDecimal getPlaneCoefficientDThroughPoints(Point3d a, Point3d b, Point3d c) {
