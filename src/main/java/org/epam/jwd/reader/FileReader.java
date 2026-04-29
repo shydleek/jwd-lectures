@@ -79,8 +79,8 @@ public class FileReader {
         try (Stream<String> lines = Files.lines(filePath)) {
             linesOfStrings = lines.toList();
         } catch (IOException e) {
-            LOG.error(e.getMessage(), e);
-            throw new IOException(e.getMessage());
+            LOG.error("File not found, check path");
+            throw new IOException(e.getMessage(), e);
         }
 
         return linesOfStrings;
