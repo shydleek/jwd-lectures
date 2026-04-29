@@ -3,7 +3,6 @@ package org.epam.jwd.validation;
 import org.epam.jwd.exception.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.slf4j.Marker;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -21,7 +20,6 @@ public class CoefficientsValidator {
     private static final Pattern WHITESPACE_PATTERN = Pattern.compile("\\s+"); // один и более пробельных символов
 
     private final String line;
-    private final boolean isValidated = true;
 
     public CoefficientsValidator(String line) {
         this.line = line;
@@ -66,12 +64,7 @@ public class CoefficientsValidator {
     }
 
     private String[] splitIntoTokens(String trimmed) {
-        try {
-            return WHITESPACE_PATTERN.split(trimmed);
-        } catch (Exception e) {
-            LOG.error("Failed to split line into tokens");
-            throw new RuntimeException("Failed to split line into tokens: " + e.getMessage(), e);
-        }
+        return WHITESPACE_PATTERN.split(trimmed);
     }
 
     private void validateTokenCount(String[] tokens) throws InvalidCoefficientsCountException {

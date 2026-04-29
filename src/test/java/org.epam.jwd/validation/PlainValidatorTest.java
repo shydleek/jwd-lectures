@@ -1,17 +1,11 @@
 package org.epam.jwd.validation;
 
-import org.epam.jwd.math.MathFunctions;
-import org.epam.jwd.model.Plain;
 import org.epam.jwd.model.Point3d;
 import org.junit.Assert;
 import org.junit.Test;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import java.math.BigDecimal;
 
 public class PlainValidatorTest {
-    private static final Logger LOG = LoggerFactory.getLogger(PlainValidatorTest.class);
     private static final PlainValidator PLAIN_VALIDATOR = PlainValidator.getInstance();
 // TODO: finish with this test
 //    @Test
@@ -67,11 +61,6 @@ public class PlainValidatorTest {
                 new BigDecimal(13)
         );
 
-        Plain plain = new Plain(aCorrect, bCorrect, cCorrect);
-        LOG.info("A = {}", plain.getA());
-        LOG.info("B = {}", plain.getB());
-        LOG.info("C = {}", plain.getC());
-        LOG.info("D = {}", plain.getD());
         Assert.assertTrue(PLAIN_VALIDATOR.arePointsValidated(aCorrect, bCorrect, cCorrect));
     }
 
@@ -93,11 +82,6 @@ public class PlainValidatorTest {
                 new BigDecimal(1)
         );
 
-        Plain plain = new Plain(aIncorrect, bIncorrect, cIncorrect);
-        LOG.info("A = {}", plain.getA());
-        LOG.info("B = {}", plain.getB());
-        LOG.info("C = {}", plain.getC());
-        LOG.info("D = {}", plain.getD());
         Assert.assertFalse(PLAIN_VALIDATOR.arePointsValidated(aIncorrect, bIncorrect, cIncorrect));
     }
 }

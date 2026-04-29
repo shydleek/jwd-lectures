@@ -5,7 +5,5 @@ public class InvalidCoefficientsCountException extends ValidationException {
         super(message);
     }
 
-    public InvalidCoefficientsCountException() {
-
-    }
+    public InvalidCoefficientsCountException() {}
 }

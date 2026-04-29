@@ -79,7 +79,7 @@ public class MathFunctions {
     public boolean isPerpendicularToZAxis(Plain plain) {
         return RIGHT_ANGLE.compareTo(angleToZAxis(plain)) == 0;
     }
-    // TODO: протестировать
+
     public BigDecimal calculateAsin(BigDecimal value) {
         double doubleValue = value.doubleValue();
         double asinResult = Math.asin(doubleValue);
