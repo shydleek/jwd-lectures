@@ -33,16 +33,4 @@ public class PlainValidator {
         LOG.info(String.valueOf(n.getZ()));
         return areCoefficientsValidated(n.getX(), n.getY(), n.getZ());
     }
-// TODO: isMonic() function that should reduce coeffs
-//    public List<BigDecimal> isMonic(List<BigDecimal> list) {
-//        if (BigDecimal.ONE.compareTo(list.getFirst()) > 0
-//                && BigDecimal.ZERO.compareTo(list.getFirst()) > 0) {
-//            BigDecimal k = list.getFirst();
-//            list.set(0, BigDecimal.valueOf(1.0));  // a = 1;
-//            list.set(1, list.get(1).divide(k, RoundingMode.HALF_UP)); // b /= a;
-//            list.set(2, list.get(2).divide(k, RoundingMode.HALF_UP)); // c /= a;
-//            list.set(3, list.get(3).divide(k, RoundingMode.HALF_UP)); // d /= a;
-//        }
-//        return list;
-//    }
 }

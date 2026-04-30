@@ -27,8 +27,8 @@ public class CoefficientsValidatorTest {
         List<BigDecimal> actualString = new ArrayList<>();
         String inputString = "   14.5      1.0    1.0     13.2    ";
         try {
-            CoefficientsValidator validator = new CoefficientsValidator(inputString);
-            actualString = validator.validate();
+            CoefficientsValidator validator = CoefficientsValidator.getInstance();
+            actualString = validator.validate(inputString);
         } catch (ValidationException e) {
             LOG.error("Validation error, skipped line \"{}\"", inputString);
         } catch (ParseException e) {
@@ -40,25 +40,25 @@ public class CoefficientsValidatorTest {
 
     @Test(expected = ValidationException.class)
     public void validateNotNull_shouldThrowValidationException() throws ValidationException, ParseException {
-        CoefficientsValidator validator = new CoefficientsValidator("");
-        validator.validate();
+        CoefficientsValidator validator = CoefficientsValidator.getInstance();
+        validator.validate("");
     }
 
     @Test(expected = ValidationException.class)
     public void trimAndValidateNotEmpty_shouldThrowValidationException() throws ValidationException, ParseException {
-        CoefficientsValidator validator = new CoefficientsValidator("     ");
-        validator.validate();
+        CoefficientsValidator validator = CoefficientsValidator.getInstance();
+        validator.validate("     ");
     }
 
     @Test(expected = ValidationException.class)
     public void validateTokenCount_shouldThrowValidationException() throws ValidationException, ParseException {
-        CoefficientsValidator validator = new CoefficientsValidator("1 2 3");
-        validator.validate();
+        CoefficientsValidator validator = CoefficientsValidator.getInstance();
+        validator.validate("1 2 3");
     }
 
     @Test(expected = ParseException.class)
     public void parseTokens_shouldThrowParseException() throws ValidationException, ParseException {
-        CoefficientsValidator validator = new CoefficientsValidator("1 2 3.d 4");
-        validator.validate();
+        CoefficientsValidator validator = CoefficientsValidator.getInstance();
+        validator.validate("1 2 3.d 4");
     }
 }

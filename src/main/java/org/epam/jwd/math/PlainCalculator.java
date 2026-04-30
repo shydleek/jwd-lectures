@@ -17,13 +17,15 @@ public class PlainCalculator {
     private static final BigDecimal RIGHT_ANGLE = BigDecimal.valueOf(Math.PI / 2);
     private static final MathContext MATH_CONTEXT = new MathContext(10, RoundingMode.HALF_UP);
 
-    private final PlainValidator plainValidator = PlainValidator.getInstance();
+    private final PlainValidator plainValidator;
 
-    private PlainCalculator() {}
+    private PlainCalculator(PlainValidator plainValidator) {
+        this.plainValidator = plainValidator;
+    }
 
     public static PlainCalculator getInstance() {
         if (instance == null) {
-            instance = new PlainCalculator();
+            instance = new PlainCalculator(PlainValidator.getInstance());
         }
         return instance;
     }

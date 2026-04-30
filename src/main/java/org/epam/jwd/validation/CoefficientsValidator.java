@@ -11,24 +11,27 @@ import java.util.regex.Pattern;
 
 public class CoefficientsValidator {
 
-    private static final Logger LOG = LoggerFactory.getLogger(CoefficientsValidator.class);
-
+    private static CoefficientsValidator instance;
     private static final int EXPECTED_COEFFICIENTS_COUNT = 4;
     private static final Pattern BIGDECIMAL_PATTERN = Pattern.compile(
             "^[+-]?(?:\\d+(?:\\.\\d*)?|\\.\\d+)(?:[eE][+-]?\\d+)?$"
     );
     private static final Pattern WHITESPACE_PATTERN = Pattern.compile("\\s+"); // один и более пробельных символов
+    private static final Logger LOG = LoggerFactory.getLogger(CoefficientsValidator.class);
 
-    private final String line;
+    private CoefficientsValidator() {}
 
-    public CoefficientsValidator(String line) {
-        this.line = line;
+    public static CoefficientsValidator getInstance() {
+        if (instance == null) {
+            instance = new CoefficientsValidator();
+        }
+        return instance;
     }
 
-    public List<BigDecimal> validate() throws ValidationException, ParseException {
+    public List<BigDecimal> validate(String line) throws ValidationException, ParseException {
         try {
-            validateNotNull();
-            String trimmed = trimAndValidateNotEmpty();
+            validateNotNull(line);
+            String trimmed = trimAndValidateNotEmpty(line);
             String[] tokens = splitIntoTokens(trimmed);
             validateTokenCount(tokens);
             return parseTokens(tokens);
@@ -39,7 +42,7 @@ public class CoefficientsValidator {
         }
     }
 
-    private void validateNotNull() throws NullLineException {
+    private void validateNotNull(String line) throws NullLineException {
         try {
             if (line == null || line.isEmpty()) {
                 throw new NullLineException();
@@ -50,7 +53,7 @@ public class CoefficientsValidator {
         }
     }
 
-    private String trimAndValidateNotEmpty() throws EmptyLineException {
+    private String trimAndValidateNotEmpty(String line) throws EmptyLineException {
         try {
             String trimmed = line.trim();
             if (trimmed.isEmpty()) {

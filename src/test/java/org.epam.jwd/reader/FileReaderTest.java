@@ -15,8 +15,6 @@ import java.util.List;
 
 public class FileReaderTest {
 
-    private static final Logger LOG = LoggerFactory.getLogger(FileReaderTest.class);
-
     @Test(expected = IOException.class)
     public void readListOfCoefficients_shouldThrowIOException_whenFile() throws IOException {
         FileReader fileReader = FileReader.getInstance();

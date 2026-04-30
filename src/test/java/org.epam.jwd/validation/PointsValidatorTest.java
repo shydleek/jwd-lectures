@@ -38,8 +38,8 @@ public class PointsValidatorTest {
         List<Point3d> actualString = new ArrayList<>();
         String inputString = "      120     39    130    1849    322  432   324  432   546    ";
         try {
-            PointsValidator validator = new PointsValidator(inputString);
-            actualString = validator.validate();
+            PointsValidator validator = PointsValidator.getInstance();
+            actualString = validator.validate(inputString);
         } catch (ValidationException e) {
             LOG.error("Validation error, skipped line \"{}\"", inputString);
         } catch (ParseException e) {
@@ -51,25 +51,25 @@ public class PointsValidatorTest {
 
     @Test(expected = ValidationException.class)
     public void validateNotNull_shouldThrowValidationException() throws ValidationException, ParseException {
-        PointsValidator validator = new PointsValidator("");
-        validator.validate();
+        PointsValidator validator = PointsValidator.getInstance();
+        validator.validate("");
     }
 
     @Test(expected = ValidationException.class)
     public void trimAndValidateNotEmpty_shouldThrowValidationException() throws ValidationException, ParseException {
-        PointsValidator validator = new PointsValidator("     ");
-        validator.validate();
+        PointsValidator validator = PointsValidator.getInstance();
+        validator.validate("     ");
     }
 
     @Test(expected = ValidationException.class)
     public void validateTokenCount_shouldThrowValidationException() throws ValidationException, ParseException {
-        PointsValidator validator = new PointsValidator("1 2 3");
-        validator.validate();
+        PointsValidator validator = PointsValidator.getInstance();
+        validator.validate("1 2 3");
     }
 
     @Test(expected = ParseException.class)
     public void parseTokens_shouldThrowParseException() throws ValidationException, ParseException {
-        PointsValidator validator = new PointsValidator("1 2 3.d 4 5 6 7 8 9");
-        validator.validate();
+        PointsValidator validator = PointsValidator.getInstance();
+        validator.validate("1 2 3.d 4 5 6 7 8 9");
     }
 }

@@ -11,24 +11,28 @@ import java.util.List;
 import java.util.regex.Pattern;
 
 public class PointsValidator {
-    private static final Logger LOG = LoggerFactory.getLogger(PointsValidator.class);
 
+    private static PointsValidator instance;
+    private static final Logger LOG = LoggerFactory.getLogger(PointsValidator.class);
     private static final int EXPECTED_POINTS_COUNT = 9;
     private static final Pattern BIGDECIMAL_PATTERN = Pattern.compile(
             "^[+-]?(?:\\d+(?:\\.\\d*)?|\\.\\d+)(?:[eE][+-]?\\d+)?$"
     );
     private static final Pattern WHITESPACE_PATTERN = Pattern.compile("\\s+"); // один и более пробельных символов
 
-    private final String line;
+    private PointsValidator() {}
 
-    public PointsValidator(String line) {
-        this.line = line;
+    public static PointsValidator getInstance() {
+        if (instance == null) {
+            instance = new PointsValidator();
+        }
+        return instance;
     }
 
-    public List<Point3d> validate() throws ValidationException, ParseException {
+    public List<Point3d> validate(String line) throws ValidationException, ParseException {
         try {
-            validateNotNull();
-            String trimmed = trimAndValidateNotEmpty();
+            validateNotNull(line);
+            String trimmed = trimAndValidateNotEmpty(line);
             String[] tokens = splitIntoTokens(trimmed);
             validateTokenCount(tokens);
             return parseTokens(tokens);
@@ -39,7 +43,7 @@ public class PointsValidator {
         }
     }
 
-    private void validateNotNull() throws NullLineException {
+    private void validateNotNull(String line) throws NullLineException {
         try {
             if (line == null || line.isEmpty()) {
                 throw new NullLineException();
@@ -50,7 +54,7 @@ public class PointsValidator {
         }
     }
 
-    private String trimAndValidateNotEmpty() throws EmptyLineException {
+    private String trimAndValidateNotEmpty(String line) throws EmptyLineException {
         try {
             String trimmed = line.trim();
             if (trimmed.isEmpty()) {

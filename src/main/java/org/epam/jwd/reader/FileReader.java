@@ -40,8 +40,8 @@ public class FileReader {
 
         for (String inputLine : inputLines) {
             try {
-                CoefficientsValidator validator = new CoefficientsValidator(inputLine);
-                result.add(validator.validate());
+                CoefficientsValidator validator = CoefficientsValidator.getInstance();
+                result.add(validator.validate(inputLine));
             } catch (ValidationException e) {
                 LOG.error("Validation error, skipped line \"{}\"", inputLine);
             } catch (ParseException e) {
@@ -61,8 +61,8 @@ public class FileReader {
 
         for (String inputLine : inputLines) {
             try {
-                PointsValidator validator = new PointsValidator(inputLine);
-                result.add(validator.validate());
+                PointsValidator validator = PointsValidator.getInstance();
+                result.add(validator.validate(inputLine));
             } catch (ValidationException e) {
                 LOG.error("Validation error, skipped line \"{}\"", inputLine);
             } catch (ParseException e) {
