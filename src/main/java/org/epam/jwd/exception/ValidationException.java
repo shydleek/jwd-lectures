@@ -1,6 +1,6 @@
 package org.epam.jwd.exception;
 
-public class ValidationException extends Exception {
+public class ValidationException extends RuntimeException {
     public ValidationException(ValidationException e, String message) {
         super(message);
     }
