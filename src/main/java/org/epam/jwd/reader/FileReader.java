@@ -22,7 +22,8 @@ public class FileReader {
 
     private static final Logger LOG = LoggerFactory.getLogger(FileReader.class);
 
-    private FileReader() {}
+    private FileReader() {
+    }
 
     public static FileReader getInstance() {
         if (instance == null) {

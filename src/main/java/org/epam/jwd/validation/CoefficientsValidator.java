@@ -19,7 +19,8 @@ public class CoefficientsValidator {
     private static final Pattern WHITESPACE_PATTERN = Pattern.compile("\\s+"); // один и более пробельных символов
     private static final Logger LOG = LoggerFactory.getLogger(CoefficientsValidator.class);
 
-    private CoefficientsValidator() {}
+    private CoefficientsValidator() {
+    }
 
     public static CoefficientsValidator getInstance() {
         if (instance == null) {

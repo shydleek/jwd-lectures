@@ -20,7 +20,8 @@ public class PointsValidator {
     );
     private static final Pattern WHITESPACE_PATTERN = Pattern.compile("\\s+"); // один и более пробельных символов
 
-    private PointsValidator() {}
+    private PointsValidator() {
+    }
 
     public static PointsValidator getInstance() {
         if (instance == null) {

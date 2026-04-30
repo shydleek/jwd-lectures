@@ -55,6 +55,7 @@ public class PlainCalculator {
                         )
         ).setScale(PRECISION, RoundingMode.HALF_UP);
     }
+
     public BigDecimal angleToZAxis(Plain plain) {
         return calculateAsin(
                 plain.getC().abs()

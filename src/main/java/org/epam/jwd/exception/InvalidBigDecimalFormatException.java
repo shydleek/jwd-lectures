@@ -5,5 +5,6 @@ public class InvalidBigDecimalFormatException extends ParseException {
         super(message);
     }
 
-    public InvalidBigDecimalFormatException() {}
+    public InvalidBigDecimalFormatException() {
+    }
 }

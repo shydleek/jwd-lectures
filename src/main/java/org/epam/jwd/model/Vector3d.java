@@ -14,17 +14,17 @@ public class Vector3d {
         this.z = z;
     }
 
-    public Vector3d crossProduct(Vector3d secondVector){
-        return new Vector3d(this.getY().multiply(secondVector.getZ()).subtract(this.getZ().multiply(secondVector.getY())),
-                this.getZ().multiply(secondVector.getX()).subtract(this.getX().multiply(secondVector.getZ())),
-                this.getX().multiply(secondVector.getY()).subtract(this.getY().multiply(secondVector.getX()))
-        );
-    }
-
     public Vector3d(Point3d p1, Point3d p2) {
         this.x = p2.getX().subtract(p1.getX());
         this.y = p2.getY().subtract(p1.getY());
         this.z = p2.getZ().subtract(p1.getZ());
+    }
+
+    public Vector3d crossProduct(Vector3d secondVector) {
+        return new Vector3d(this.getY().multiply(secondVector.getZ()).subtract(this.getZ().multiply(secondVector.getY())),
+                this.getZ().multiply(secondVector.getX()).subtract(this.getX().multiply(secondVector.getZ())),
+                this.getX().multiply(secondVector.getY()).subtract(this.getY().multiply(secondVector.getX()))
+        );
     }
 
     public BigDecimal getX() {

@@ -11,7 +11,8 @@ public class PlainValidator {
     private static PlainValidator instance;
     private static final Logger LOG = LoggerFactory.getLogger(PlainValidator.class);
 
-    private PlainValidator() {}
+    private PlainValidator() {
+    }
 
     public static PlainValidator getInstance() {
         if (instance == null) {

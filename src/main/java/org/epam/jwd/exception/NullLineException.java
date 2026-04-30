@@ -5,5 +5,6 @@ public class NullLineException extends ValidationException {
         super(message);
     }
 
-    public NullLineException() {}
+    public NullLineException() {
+    }
 }

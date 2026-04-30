@@ -3,6 +3,7 @@ package org.epam.jwd.validation;
 import org.epam.jwd.model.Point3d;
 import org.junit.Assert;
 import org.junit.Test;
+
 import java.math.BigDecimal;
 
 public class PlainValidatorTest {

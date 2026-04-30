@@ -8,7 +8,8 @@ import org.junit.Test;
 import java.math.BigDecimal;
 
 public class PlainCalculatorTest {
-    private static final PlainCalculator MATH_FUNCTIONS = PlainCalculator.getInstance();
+
+    private final PlainCalculator plainCalculator = PlainCalculator.getInstance();
 
     @Test
     public void angleToXAxis_shouldReturnCorrectValue_whenPlainIsFromCoefficients() {
@@ -19,7 +20,7 @@ public class PlainCalculatorTest {
         final BigDecimal d = new BigDecimal(-1);
 
         Plain plain = new Plain(a, b, c, d);
-        final BigDecimal angleActual = MATH_FUNCTIONS.angleToXAxis(plain);
+        final BigDecimal angleActual = plainCalculator.angleToXAxis(plain);
 
         Assert.assertEquals(angleExpected, angleActual);
     }
@@ -33,7 +34,7 @@ public class PlainCalculatorTest {
         final BigDecimal d = new BigDecimal(-1);
 
         Plain plain = new Plain(a, b, c, d);
-        final BigDecimal angleActual = MATH_FUNCTIONS.angleToYAxis(plain);
+        final BigDecimal angleActual = plainCalculator.angleToYAxis(plain);
 
         Assert.assertEquals(angleExpected, angleActual);
     }
@@ -47,7 +48,7 @@ public class PlainCalculatorTest {
         final BigDecimal d = new BigDecimal(-1);
 
         Plain plain = new Plain(a, b, c, d);
-        final BigDecimal angleActual = MATH_FUNCTIONS.angleToZAxis(plain);
+        final BigDecimal angleActual = plainCalculator.angleToZAxis(plain);
 
         Assert.assertEquals(angleExpected, angleActual);
     }
@@ -69,7 +70,7 @@ public class PlainCalculatorTest {
                 new BigDecimal(2),
                 new BigDecimal(1)
         );
-        boolean state = MATH_FUNCTIONS.isPlane(POINT_3_D_1, POINT_3_D_2, POINT_3_D_3);
+        boolean state = plainCalculator.isPlane(POINT_3_D_1, POINT_3_D_2, POINT_3_D_3);
 
         Assert.assertTrue(state);
     }
@@ -82,7 +83,7 @@ public class PlainCalculatorTest {
         final BigDecimal d = new BigDecimal(-1);
 
         Plain plain = new Plain(a, b, c, d);
-        final boolean state = MATH_FUNCTIONS.isPerpendicularToXAxis(plain);
+        final boolean state = plainCalculator.isPerpendicularToXAxis(plain);
 
         Assert.assertFalse(state);
     }
@@ -95,7 +96,7 @@ public class PlainCalculatorTest {
         final BigDecimal d = new BigDecimal(-1);
 
         Plain plain = new Plain(a, b, c, d);
-        final boolean state = MATH_FUNCTIONS.isPerpendicularToYAxis(plain);
+        final boolean state = plainCalculator.isPerpendicularToYAxis(plain);
 
         Assert.assertFalse(state);
     }
@@ -108,7 +109,7 @@ public class PlainCalculatorTest {
         final BigDecimal d = new BigDecimal(-1);
 
         Plain plain = new Plain(a, b, c, d);
-        final boolean state = MATH_FUNCTIONS.isPerpendicularToZAxis(plain);
+        final boolean state = plainCalculator.isPerpendicularToZAxis(plain);
 
         Assert.assertFalse(state);
     }

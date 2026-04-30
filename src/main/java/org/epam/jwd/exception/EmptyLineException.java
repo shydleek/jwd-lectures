@@ -5,5 +5,6 @@ public class EmptyLineException extends ValidationException {
         super(message);
     }
 
-    public EmptyLineException() {}
+    public EmptyLineException() {
+    }
 }
