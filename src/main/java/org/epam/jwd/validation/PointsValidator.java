@@ -25,7 +25,7 @@ public class PointsValidator {
         this.line = line;
     }
 
-    public List<Point3d> validate() throws ValidationException, ParseError {
+    public List<Point3d> validate() throws ValidationException, ParseException {
         try {
             validateNotNull();
             String trimmed = trimAndValidateNotEmpty();
@@ -34,8 +34,8 @@ public class PointsValidator {
             return parseTokens(tokens);
         } catch (ValidationException e) {
             throw new ValidationException(e, e.getMessage());
-        } catch (ParseError e) {
-            throw new ParseError(e, e.getMessage());
+        } catch (ParseException e) {
+            throw new ParseException(e, e.getMessage());
         }
     }
 
@@ -78,7 +78,7 @@ public class PointsValidator {
         }
     }
 
-    private List<Point3d> parseTokens(String[] tokens) throws ParseError {
+    private List<Point3d> parseTokens(String[] tokens) throws ParseException {
         List<Point3d> values = new ArrayList<>();
 
         for (int i = 0; i < tokens.length; i += 3) {
@@ -99,8 +99,8 @@ public class PointsValidator {
                         new BigDecimal(thirdToken)
                 );
                 values.add(point);
-            } catch (ParseError e) {
-                throw new ParseError(e, e.getMessage());
+            } catch (ParseException e) {
+                throw new ParseException(e, e.getMessage());
             }
         }
 

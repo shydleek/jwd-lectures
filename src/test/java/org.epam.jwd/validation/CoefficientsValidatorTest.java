@@ -1,6 +1,6 @@
 package org.epam.jwd.validation;
 
-import org.epam.jwd.exception.ParseError;
+import org.epam.jwd.exception.ParseException;
 import org.epam.jwd.exception.ValidationException;
 import org.junit.Assert;
 import org.junit.Test;
@@ -31,7 +31,7 @@ public class CoefficientsValidatorTest {
             actualString = validator.validate();
         } catch (ValidationException e) {
             LOG.error("Validation error, skipped line \"{}\"", inputString);
-        } catch (ParseError e) {
+        } catch (ParseException e) {
             LOG.error("Parse error, skipped line \"{}\"", inputString);
         }
 
@@ -39,25 +39,25 @@ public class CoefficientsValidatorTest {
     }
 
     @Test(expected = ValidationException.class)
-    public void validateNotNull_shouldThrowValidationException() throws ValidationException, ParseError {
+    public void validateNotNull_shouldThrowValidationException() throws ValidationException, ParseException {
         CoefficientsValidator validator = new CoefficientsValidator("");
         validator.validate();
     }
 
     @Test(expected = ValidationException.class)
-    public void trimAndValidateNotEmpty_shouldThrowValidationException() throws ValidationException, ParseError {
+    public void trimAndValidateNotEmpty_shouldThrowValidationException() throws ValidationException, ParseException {
         CoefficientsValidator validator = new CoefficientsValidator("     ");
         validator.validate();
     }
 
     @Test(expected = ValidationException.class)
-    public void validateTokenCount_shouldThrowValidationException() throws ValidationException, ParseError {
+    public void validateTokenCount_shouldThrowValidationException() throws ValidationException, ParseException {
         CoefficientsValidator validator = new CoefficientsValidator("1 2 3");
         validator.validate();
     }
 
-    @Test(expected = ParseError.class)
-    public void parseTokens_shouldThrowParseException() throws ValidationException, ParseError {
+    @Test(expected = ParseException.class)
+    public void parseTokens_shouldThrowParseException() throws ValidationException, ParseException {
         CoefficientsValidator validator = new CoefficientsValidator("1 2 3.d 4");
         validator.validate();
     }

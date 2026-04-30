@@ -1,6 +1,6 @@
 package org.epam.jwd.validation;
 
-import org.epam.jwd.exception.ParseError;
+import org.epam.jwd.exception.ParseException;
 import org.epam.jwd.exception.ValidationException;
 import org.epam.jwd.model.Point3d;
 import org.junit.Assert;
@@ -42,7 +42,7 @@ public class PointsValidatorTest {
             actualString = validator.validate();
         } catch (ValidationException e) {
             LOG.error("Validation error, skipped line \"{}\"", inputString);
-        } catch (ParseError e) {
+        } catch (ParseException e) {
             LOG.error("Parse error, skipped line \"{}\"", inputString);
         }
 
@@ -50,25 +50,25 @@ public class PointsValidatorTest {
     }
 
     @Test(expected = ValidationException.class)
-    public void validateNotNull_shouldThrowValidationException() throws ValidationException, ParseError {
+    public void validateNotNull_shouldThrowValidationException() throws ValidationException, ParseException {
         PointsValidator validator = new PointsValidator("");
         validator.validate();
     }
 
     @Test(expected = ValidationException.class)
-    public void trimAndValidateNotEmpty_shouldThrowValidationException() throws ValidationException, ParseError {
+    public void trimAndValidateNotEmpty_shouldThrowValidationException() throws ValidationException, ParseException {
         PointsValidator validator = new PointsValidator("     ");
         validator.validate();
     }
 
     @Test(expected = ValidationException.class)
-    public void validateTokenCount_shouldThrowValidationException() throws ValidationException, ParseError {
+    public void validateTokenCount_shouldThrowValidationException() throws ValidationException, ParseException {
         PointsValidator validator = new PointsValidator("1 2 3");
         validator.validate();
     }
 
-    @Test(expected = ParseError.class)
-    public void parseTokens_shouldThrowParseException() throws ValidationException, ParseError {
+    @Test(expected = ParseException.class)
+    public void parseTokens_shouldThrowParseException() throws ValidationException, ParseException {
         PointsValidator validator = new PointsValidator("1 2 3.d 4 5 6 7 8 9");
         validator.validate();
     }

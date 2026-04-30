@@ -25,7 +25,7 @@ public class CoefficientsValidator {
         this.line = line;
     }
 
-    public List<BigDecimal> validate() throws ValidationException, ParseError {
+    public List<BigDecimal> validate() throws ValidationException, ParseException {
         try {
             validateNotNull();
             String trimmed = trimAndValidateNotEmpty();
@@ -34,8 +34,8 @@ public class CoefficientsValidator {
             return parseTokens(tokens);
         } catch (ValidationException e) {
             throw new ValidationException(e, e.getMessage());
-        } catch (ParseError e) {
-            throw new ParseError(e, e.getMessage());
+        } catch (ParseException e) {
+            throw new ParseException(e, e.getMessage());
         }
     }
 
@@ -78,7 +78,7 @@ public class CoefficientsValidator {
         }
     }
 
-    private List<BigDecimal> parseTokens(String[] tokens) throws ParseError {
+    private List<BigDecimal> parseTokens(String[] tokens) throws ParseException {
         List<BigDecimal> values = new ArrayList<>();
 
         for (String token : tokens) {
@@ -87,8 +87,8 @@ public class CoefficientsValidator {
                 LOG.info(token);
                 BigDecimal value = new BigDecimal(token);
                 values.add(value);
-            } catch (ParseError e) {
-                throw new ParseError(e, e.getMessage());
+            } catch (ParseException e) {
+                throw new ParseException(e, e.getMessage());
             }
         }
 

@@ -1,6 +1,6 @@
 package org.epam.jwd.reader;
 
-import org.epam.jwd.exception.ParseError;
+import org.epam.jwd.exception.ParseException;
 import org.epam.jwd.exception.ValidationException;
 import org.epam.jwd.model.Point3d;
 import org.epam.jwd.validation.CoefficientsValidator;
@@ -44,7 +44,7 @@ public class FileReader {
                 result.add(validator.validate());
             } catch (ValidationException e) {
                 LOG.error("Validation error, skipped line \"{}\"", inputLine);
-            } catch (ParseError e) {
+            } catch (ParseException e) {
                 LOG.error("Parse error, skipped line \"{}\"", inputLine);
             }
         }
@@ -65,7 +65,7 @@ public class FileReader {
                 result.add(validator.validate());
             } catch (ValidationException e) {
                 LOG.error("Validation error, skipped line \"{}\"", inputLine);
-            } catch (ParseError e) {
+            } catch (ParseException e) {
                 LOG.error("Parse error, skipped line \"{}\"", inputLine);
             }
         }
