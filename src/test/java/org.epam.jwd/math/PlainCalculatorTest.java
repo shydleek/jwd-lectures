@@ -7,8 +7,8 @@ import org.junit.Test;
 
 import java.math.BigDecimal;
 
-public class MathFunctionsTest {
-    private static final MathFunctions MATH_FUNCTIONS = MathFunctions.getInstance();
+public class PlainCalculatorTest {
+    private static final PlainCalculator MATH_FUNCTIONS = PlainCalculator.getInstance();
 
     @Test
     public void angleToXAxis_shouldReturnCorrectValue_whenPlainIsFromCoefficients() {
@@ -69,7 +69,7 @@ public class MathFunctionsTest {
                 new BigDecimal(2),
                 new BigDecimal(1)
         );
-        boolean state = MATH_FUNCTIONS.doThreePointsFormPlane(POINT_3_D_1, POINT_3_D_2, POINT_3_D_3);
+        boolean state = MATH_FUNCTIONS.isPlane(POINT_3_D_1, POINT_3_D_2, POINT_3_D_3);
 
         Assert.assertTrue(state);
     }

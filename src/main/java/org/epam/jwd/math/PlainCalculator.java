@@ -9,19 +9,21 @@ import java.math.MathContext;
 import java.math.RoundingMode;
 
 
-public class MathFunctions {
-    private static MathFunctions instance;
+public class PlainCalculator {
+
+    private static PlainCalculator instance;
     private static final int EXPONENT = 2;
     private static final int PRECISION = 5;
     private static final BigDecimal RIGHT_ANGLE = BigDecimal.valueOf(Math.PI / 2);
     private static final MathContext MATH_CONTEXT = new MathContext(10, RoundingMode.HALF_UP);
-    private static final PlainValidator PLAIN_VALIDATOR = PlainValidator.getInstance();
 
-    private MathFunctions() {}
+    private final PlainValidator plainValidator = PlainValidator.getInstance();
 
-    public static MathFunctions getInstance() {
+    private PlainCalculator() {}
+
+    public static PlainCalculator getInstance() {
         if (instance == null) {
-            instance = new MathFunctions();
+            instance = new PlainCalculator();
         }
         return instance;
     }
@@ -64,8 +66,8 @@ public class MathFunctions {
         ).setScale(PRECISION, RoundingMode.HALF_UP);
     }
 
-    public boolean doThreePointsFormPlane(Point3d a, Point3d b, Point3d c) {
-        return PLAIN_VALIDATOR.arePointsValidated(a, b, c);
+    public boolean isPlane(Point3d a, Point3d b, Point3d c) {
+        return plainValidator.arePointsValidated(a, b, c);
     }
 
     public boolean isPerpendicularToXAxis(Plain plain) {
@@ -80,7 +82,7 @@ public class MathFunctions {
         return RIGHT_ANGLE.compareTo(angleToZAxis(plain)) == 0;
     }
 
-    public BigDecimal calculateAsin(BigDecimal value) {
+    private BigDecimal calculateAsin(BigDecimal value) {
         double doubleValue = value.doubleValue();
         double asinResult = Math.asin(doubleValue);
         return new BigDecimal(String.valueOf(asinResult));
