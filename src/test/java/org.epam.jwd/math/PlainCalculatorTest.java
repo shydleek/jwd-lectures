@@ -22,10 +22,12 @@ public class PlainCalculatorTest {
 
     private static final PlainCalculator PLAIN_CALCULATOR = PlainCalculator.getInstance();
 
+    private static final String angle = "0.61548";
+
     public static class NonParameterizedTests {
         @Test
         public void angleToXAxis_shouldReturnCorrectValue_whenPlainIsValidated() {
-            final BigDecimal angleExpected = new BigDecimal("0.61548");
+            final BigDecimal angleExpected = new BigDecimal(angle);
 
             final BigDecimal angleActual = PLAIN_CALCULATOR.angleToXAxis(initPlain());
 
@@ -34,7 +36,7 @@ public class PlainCalculatorTest {
 
         @Test
         public void angleToYAxis_shouldReturnCorrectValue_whenPlainIsValidated() {
-            final BigDecimal angleExpected = new BigDecimal("0.61548");
+            final BigDecimal angleExpected = new BigDecimal(angle);
 
             final BigDecimal angleActual = PLAIN_CALCULATOR.angleToYAxis(initPlain());
 
@@ -43,7 +45,7 @@ public class PlainCalculatorTest {
 
         @Test
         public void angleToZAxis_shouldReturnCorrectValue_whenPlainIsValidated() {
-            final BigDecimal angleExpected = new BigDecimal("0.61548");
+            final BigDecimal angleExpected = new BigDecimal(angle);
 
             final BigDecimal angleActual = PLAIN_CALCULATOR.angleToZAxis(initPlain());
 
@@ -51,7 +53,7 @@ public class PlainCalculatorTest {
         }
 
         @Test
-        public void isPlane_shouldReturnTrue() {
+        public void isPlane_shouldReturnTrue_whenPointsAreValid() {
             Assert.assertTrue(PLAIN_CALCULATOR.isPlane(initRandomPlain()));
         }
 
@@ -114,17 +116,17 @@ public class PlainCalculatorTest {
         }
 
         @Test
-        public void isPerpendicularToXAxis_shouldReturnFalse() {
+        public void isPerpendicularToXAxis_shouldReturnFalse_whenPlainIsNotPerpendicular() {
             Assert.assertFalse(PLAIN_CALCULATOR.isPerpendicularToXAxis(plain));
         }
 
         @Test
-        public void isPerpendicularToYAxis_shouldReturnFalse() {
+        public void isPerpendicularToYAxis_shouldReturnFalse_whenPlainIsNotPerpendicular() {
             Assert.assertFalse(PLAIN_CALCULATOR.isPerpendicularToYAxis(plain));
         }
 
         @Test
-        public void isPerpendicularToZAxis_shouldReturnFalse() {
+        public void isPerpendicularToZAxis_shouldReturnFalse_whenPlainIsNotPerpendicular() {
             Assert.assertFalse(PLAIN_CALCULATOR.isPerpendicularToZAxis(plain));
         }
     }

@@ -9,9 +9,11 @@ public class FileReaderTest {
 
     private final FileReader fileReader = FileReader.getInstance();
 
+    private final String incorrectFilePath = "inputCorrectCoefficientddd.txt";
+
     @Test(expected = IOException.class)
     public void readAllLinesFromFile_shouldThrowIOException_whenFilePathIsNotCorrect() throws IOException {
-        Path path = Path.of("inputCorrectCoefficientddd.txt");
+        Path path = Path.of(incorrectFilePath);
         fileReader.readAllLinesFromFile(path);
     }
 }

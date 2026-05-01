@@ -13,11 +13,31 @@ public class PointsReaderTest {
 
     final private FileReader fileReader = FileReader.getInstance();
     final private PointsReader reader = PointsReader.getInstance();
-
+    final private String correctFilePath = "txt/inputPoints.txt";
+    final private String emptyFilePath = "txt/emptyFile.txt";
 
     @Test
     public void readListOfPoints_shouldReturnListOfPoint3DLists_whenFilePathIsCorrect() throws IOException {
-        List<List<Point3d>> expectedList = List.of(
+        List<List<Point3d>> expectedList = initPlains();
+
+        Path path = Path.of(correctFilePath);
+        List<String> inputLines = fileReader.readAllLinesFromFile(path);
+        List<List<Point3d>> actualList = reader.readListOfPoints(inputLines);
+
+        Assert.assertEquals(expectedList, actualList);
+    }
+
+    @Test
+    public void readListOfPoints_shouldReturnEmptyList_whenFileIsEmpty() throws IOException {
+        Path path = Path.of(emptyFilePath);
+        List<String> inputLines = fileReader.readAllLinesFromFile(path);
+        List<List<Point3d>> actualList = reader.readListOfPoints(inputLines);
+
+        Assert.assertTrue(actualList.isEmpty());
+    }
+
+    private List<List<Point3d>> initPlains() {
+        return List.of(
                 List.of(
                         new Point3d(
                                 new BigDecimal("1"),
@@ -53,20 +73,5 @@ public class PointsReaderTest {
                         )
                 )
         );
-
-        Path path = Path.of("txt/inputPoints.txt");
-        List<String> inputLines = fileReader.readAllLinesFromFile(path);
-        List<List<Point3d>> actualList = reader.readListOfPoints(inputLines);
-
-        Assert.assertEquals(expectedList, actualList);
-    }
-
-    @Test
-    public void readListOfPoints_shouldReturnEmptyList_whenFileIsEmpty() throws IOException {
-        Path path = Path.of("txt/emptyFile.txt");
-        List<String> inputLines = fileReader.readAllLinesFromFile(path);
-        List<List<Point3d>> actualList = reader.readListOfPoints(inputLines);
-
-        Assert.assertTrue(actualList.isEmpty());
     }
 }

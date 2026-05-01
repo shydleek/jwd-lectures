@@ -1,6 +1,5 @@
 package org.epam.jwd.validation;
 
-import org.epam.jwd.math.PlainCalculator;
 import org.epam.jwd.model.Plain;
 import org.epam.jwd.model.Point3d;
 
