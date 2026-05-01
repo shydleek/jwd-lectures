@@ -50,25 +50,25 @@ public class PointsValidatorTest {
     }
 
     @Test(expected = ValidationException.class)
-    public void validateNotNull_shouldThrowValidationException() throws ValidationException, ParseException {
+    public void validateNotNull_shouldThrowValidationException() {
         PointsValidator validator = PointsValidator.getInstance();
         validator.validate("");
     }
 
     @Test(expected = ValidationException.class)
-    public void trimAndValidateNotEmpty_shouldThrowValidationException() throws ValidationException, ParseException {
+    public void trimAndValidateNotEmpty_shouldThrowValidationException() {
         PointsValidator validator = PointsValidator.getInstance();
         validator.validate("     ");
     }
 
     @Test(expected = ValidationException.class)
-    public void validateTokenCount_shouldThrowValidationException() throws ValidationException, ParseException {
+    public void validateTokenCount_shouldThrowValidationException() {
         PointsValidator validator = PointsValidator.getInstance();
         validator.validate("1 2 3");
     }
 
     @Test(expected = ParseException.class)
-    public void parseTokens_shouldThrowParseException() throws ValidationException, ParseException {
+    public void parseTokens_shouldThrowParseException() {
         PointsValidator validator = PointsValidator.getInstance();
         validator.validate("1 2 3.d 4 5 6 7 8 9");
     }

@@ -10,6 +10,7 @@ public class Plain {
     private final BigDecimal b;
     private final BigDecimal c;
     private final BigDecimal d;
+  //  private final boolean isValid = false;
 
     private static final PlainValidator PLAIN_VALIDATOR = PlainValidator.getInstance();
 

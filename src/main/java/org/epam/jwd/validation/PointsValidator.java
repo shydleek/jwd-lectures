@@ -15,9 +15,6 @@ public class PointsValidator {
     private static PointsValidator instance;
     private static final Logger LOG = LoggerFactory.getLogger(PointsValidator.class);
     private static final int EXPECTED_POINTS_COUNT = 9;
-    private static final Pattern BIGDECIMAL_PATTERN = Pattern.compile(
-            "^[+-]?(?:\\d+(?:\\.\\d*)?|\\.\\d+)(?:[eE][+-]?\\d+)?$"
-    );
     private static final Pattern WHITESPACE_PATTERN = Pattern.compile("\\s+"); // один и более пробельных символов
 
     private PointsValidator() {
@@ -92,10 +89,6 @@ public class PointsValidator {
             String thirdToken = tokens[i + 2];
 
             try {
-                validateTokenFormat(firstToken);
-                validateTokenFormat(secondToken);
-                validateTokenFormat(thirdToken);
-
                 LOG.info("[{}, {}, {}]", firstToken, secondToken, thirdToken);
 
                 Point3d point = new Point3d(
@@ -104,22 +97,11 @@ public class PointsValidator {
                         new BigDecimal(thirdToken)
                 );
                 values.add(point);
-            } catch (ParseException e) {
-                throw new ParseException(e, e.getMessage());
+            } catch (NumberFormatException e) {
+                throw new ParseException(e.getMessage());
             }
         }
 
         return values;
-    }
-
-    private void validateTokenFormat(String token) throws InvalidBigDecimalFormatException {
-        try {
-            if (!BIGDECIMAL_PATTERN.matcher(token).matches()) {
-                throw new InvalidBigDecimalFormatException();
-            }
-        } catch (InvalidBigDecimalFormatException e) {
-            LOG.error("Not BigDecimal format in line, should be something like that: 1.245");
-            throw new InvalidBigDecimalFormatException(e, e.getMessage());
-        }
     }
 }
