@@ -9,7 +9,6 @@ import java.math.BigDecimal;
 
 public class PlainValidator {
     private static PlainValidator instance;
-    private static final Logger LOG = LoggerFactory.getLogger(PlainValidator.class);
 
     private PlainValidator() {
     }
@@ -29,9 +28,6 @@ public class PlainValidator {
 
     public boolean arePointsValidated(Point3d a, Point3d b, Point3d c) {
         Vector3d n = new Vector3d(a, b).crossProduct(new Vector3d(a, c));
-        LOG.info(String.valueOf(n.getX()));
-        LOG.info(String.valueOf(n.getY()));
-        LOG.info(String.valueOf(n.getZ()));
         return areCoefficientsValidated(n.getX(), n.getY(), n.getZ());
     }
 }

@@ -1,17 +1,20 @@
 package org.epam.jwd.math;
 
+import org.epam.jwd.exception.ValidationException;
 import org.epam.jwd.model.Plain;
 import org.epam.jwd.model.Point3d;
 import org.epam.jwd.validation.PlainValidator;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.math.BigDecimal;
 import java.math.MathContext;
 import java.math.RoundingMode;
 
-
 public class PlainCalculator {
 
     private static PlainCalculator instance;
+    private static final Logger LOG = LoggerFactory.getLogger(PlainCalculator.class);
     private static final int EXPONENT = 2;
     private static final int PRECISION = 5;
     private static final BigDecimal RIGHT_ANGLE = BigDecimal.valueOf(Math.PI / 2);
@@ -31,12 +34,20 @@ public class PlainCalculator {
     }
 
     public BigDecimal angleToXAxis(Plain plain) {
+        try {
+            if(!checkValidation(plain)) {
+                throw new ValidationException();
+            }
+        } catch (ValidationException e) {
+            LOG.error(e.getMessage());
+        }
+
         return calculateAsin(
-                plain.getA().abs()
+                getCoefficientA(plain).abs()
                         .divide(
-                                plain.getA().pow(EXPONENT)
-                                        .add(plain.getB().pow(EXPONENT))
-                                        .add(plain.getC().pow(EXPONENT))
+                                getCoefficientA(plain).pow(EXPONENT)
+                                        .add(getCoefficientB(plain).pow(EXPONENT))
+                                        .add(getCoefficientC(plain).pow(EXPONENT))
                                         .sqrt(MATH_CONTEXT),
                                 MATH_CONTEXT
                         )
@@ -44,12 +55,20 @@ public class PlainCalculator {
     }
 
     public BigDecimal angleToYAxis(Plain plain) {
+        try {
+            if(!checkValidation(plain)) {
+                throw new ValidationException();
+            }
+        } catch (ValidationException e) {
+            LOG.error(e.getMessage());
+        }
+
         return calculateAsin(
-                plain.getB().abs()
+                getCoefficientB(plain).abs()
                         .divide(
-                                plain.getA().pow(EXPONENT)
-                                        .add(plain.getB().pow(EXPONENT))
-                                        .add(plain.getC().pow(EXPONENT))
+                                getCoefficientA(plain).pow(EXPONENT)
+                                        .add(getCoefficientB(plain).pow(EXPONENT))
+                                        .add(getCoefficientC(plain).pow(EXPONENT))
                                         .sqrt(MATH_CONTEXT),
                                 MATH_CONTEXT
                         )
@@ -57,12 +76,20 @@ public class PlainCalculator {
     }
 
     public BigDecimal angleToZAxis(Plain plain) {
+        try {
+            if(!checkValidation(plain)) {
+                throw new ValidationException();
+            }
+        } catch (ValidationException e) {
+            LOG.error(e.getMessage());
+        }
+
         return calculateAsin(
-                plain.getC().abs()
+                getCoefficientC(plain).abs()
                         .divide(
-                                plain.getA().pow(EXPONENT)
-                                        .add(plain.getB().pow(EXPONENT))
-                                        .add(plain.getC().pow(EXPONENT))
+                                getCoefficientA(plain).pow(EXPONENT)
+                                        .add(getCoefficientB(plain).pow(EXPONENT))
+                                        .add(getCoefficientC(plain).pow(EXPONENT))
                                         .sqrt(MATH_CONTEXT),
                                 MATH_CONTEXT
                         )
@@ -89,5 +116,45 @@ public class PlainCalculator {
         double doubleValue = value.doubleValue();
         double asinResult = Math.asin(doubleValue);
         return new BigDecimal(String.valueOf(asinResult));
+    }
+
+    private BigDecimal getCoefficientA(Plain plain) {
+        BigDecimal deltaYab = plain.getB().getY().subtract(plain.getA().getY());
+        BigDecimal deltaZac = plain.getC().getZ().subtract(plain.getA().getZ());
+        BigDecimal firstProduct = deltaYab.multiply(deltaZac);
+        BigDecimal deltaZab = plain.getB().getZ().subtract(plain.getA().getZ());
+        BigDecimal deltaYac = plain.getC().getY().subtract(plain.getA().getY());
+        BigDecimal secondProduct = deltaZab.multiply(deltaYac);
+        return firstProduct.subtract(secondProduct);
+    }
+
+    private BigDecimal getCoefficientB(Plain plain) {
+        BigDecimal deltaZab = plain.getB().getZ().subtract(plain.getA().getZ());
+        BigDecimal deltaXac = plain.getC().getX().subtract(plain.getA().getX());
+        BigDecimal firstProduct = deltaZab.multiply(deltaXac);
+        BigDecimal deltaXab = plain.getB().getX().subtract(plain.getA().getX());
+        BigDecimal deltaZac = plain.getC().getZ().subtract(plain.getA().getZ());
+        BigDecimal secondProduct = deltaXab.multiply(deltaZac);
+        return firstProduct.subtract(secondProduct);
+    }
+
+    private BigDecimal getCoefficientC(Plain plain) {
+        BigDecimal deltaZab = plain.getB().getX().subtract(plain.getA().getX());
+        BigDecimal deltaYac = plain.getC().getY().subtract(plain.getA().getY());
+        BigDecimal firstProduct = deltaZab.multiply(deltaYac);
+        BigDecimal deltaYab = plain.getB().getY().subtract(plain.getA().getY());
+        BigDecimal deltaXac = plain.getC().getX().subtract(plain.getA().getX());
+        BigDecimal secondProduct = deltaYab.multiply(deltaXac);
+        return firstProduct.subtract(secondProduct);
+    }
+
+    private BigDecimal getCoefficientD(Plain plain) {
+        return getCoefficientA(plain).multiply(plain.getA().getX())
+                .add(getCoefficientB(plain).multiply(plain.getA().getY()))
+                .add(getCoefficientC(plain).multiply(plain.getA().getZ())).negate();
+    }
+
+    private boolean checkValidation(Plain plain){
+        return plainValidator.arePointsValidated(plain.getA(), plain.getB(), plain.getC());
     }
 }

@@ -57,6 +57,7 @@ public class CoefficientsValidator {
             if (trimmed.isEmpty()) {
                 throw new EmptyLineException();
             }
+
             return trimmed;
         } catch (EmptyLineException e) {
             LOG.error("Line should be not empty.");
