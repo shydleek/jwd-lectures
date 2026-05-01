@@ -8,7 +8,6 @@ import java.math.BigDecimal;
 
 public class PlainValidator {
     private static PlainValidator instance;
-    private final PlainCalculator plainCalculator = PlainCalculator.getInstance();
 
     private PlainValidator() {
     }

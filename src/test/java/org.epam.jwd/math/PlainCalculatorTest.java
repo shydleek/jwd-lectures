@@ -4,113 +4,128 @@ import org.epam.jwd.model.Plain;
 import org.epam.jwd.model.Point3d;
 import org.junit.Assert;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.Parameterized;
+import org.junit.runners.Parameterized.Parameters;
+import org.junit.runners.Suite;
 
 import java.math.BigDecimal;
+import java.util.Arrays;
+import java.util.Collection;
 
+@RunWith(Suite.class)
+@Suite.SuiteClasses({
+        PlainCalculatorTest.NonParameterizedTests.class,
+        PlainCalculatorTest.ParameterizedTests.class
+})
 public class PlainCalculatorTest {
 
-    private final PlainCalculator plainCalculator = PlainCalculator.getInstance();
+    private static final PlainCalculator PLAIN_CALCULATOR = PlainCalculator.getInstance();
 
-    @Test
-    public void angleToXAxis_shouldReturnCorrectValue_whenPlainIsFromCoefficients() {
-        final BigDecimal angleExpected = new BigDecimal("0.61548");
-        final BigDecimal a = new BigDecimal(1);
-        final BigDecimal b = new BigDecimal(1);
-        final BigDecimal c = new BigDecimal(1);
-        final BigDecimal d = new BigDecimal(-1);
+    public static class NonParameterizedTests {
+        @Test
+        public void angleToXAxis_shouldReturnCorrectValue_whenPlainIsValidated() {
+            final BigDecimal angleExpected = new BigDecimal("0.61548");
 
-        Plain plain = new Plain(a, b, c, d);
-        final BigDecimal angleActual = plainCalculator.angleToXAxis(plain);
+            final BigDecimal angleActual = PLAIN_CALCULATOR.angleToXAxis(initPlain());
 
-        Assert.assertEquals(angleExpected, angleActual);
+            Assert.assertEquals(angleExpected, angleActual);
+        }
+
+        @Test
+        public void angleToYAxis_shouldReturnCorrectValue_whenPlainIsValidated() {
+            final BigDecimal angleExpected = new BigDecimal("0.61548");
+
+            final BigDecimal angleActual = PLAIN_CALCULATOR.angleToYAxis(initPlain());
+
+            Assert.assertEquals(angleExpected, angleActual);
+        }
+
+        @Test
+        public void angleToZAxis_shouldReturnCorrectValue_whenPlainIsValidated() {
+            final BigDecimal angleExpected = new BigDecimal("0.61548");
+
+            final BigDecimal angleActual = PLAIN_CALCULATOR.angleToZAxis(initPlain());
+
+            Assert.assertEquals(angleExpected, angleActual);
+        }
+
+        @Test
+        public void isPlane_shouldReturnTrue() {
+            Assert.assertTrue(PLAIN_CALCULATOR.isPlane(initRandomPlain()));
+        }
+
+        private Plain initPlain() {
+            final Point3d a = new Point3d(new BigDecimal(0), new BigDecimal(0), new BigDecimal(1));
+            final Point3d b = new Point3d(new BigDecimal(0), new BigDecimal(1), new BigDecimal(0));
+            final Point3d c = new Point3d(new BigDecimal(1), new BigDecimal(0), new BigDecimal(0));
+
+            return new Plain(a, b, c);
+        }
+
+        private Plain initRandomPlain() {
+            final Point3d a = new Point3d(
+                    new BigDecimal(1),
+                    new BigDecimal(3),
+                    new BigDecimal(5)
+            );
+            final Point3d b = new Point3d(
+                    new BigDecimal(1),
+                    new BigDecimal(4),
+                    new BigDecimal(7)
+            );
+            final Point3d c = new Point3d(
+                    new BigDecimal(-5),
+                    new BigDecimal(2),
+                    new BigDecimal(1)
+            );
+
+            return new Plain(a, b, c);
+        }
     }
 
-    @Test
-    public void angleToYAxis_shouldReturnCorrectValue_whenPlainIsFromCoefficients() {
-        final BigDecimal angleExpected = new BigDecimal("0.61548");
-        final BigDecimal a = new BigDecimal(1);
-        final BigDecimal b = new BigDecimal(1);
-        final BigDecimal c = new BigDecimal(1);
-        final BigDecimal d = new BigDecimal(-1);
+    @RunWith(Parameterized.class)
+    public static class ParameterizedTests {
 
-        Plain plain = new Plain(a, b, c, d);
-        final BigDecimal angleActual = plainCalculator.angleToYAxis(plain);
+        private final Plain plain;
 
-        Assert.assertEquals(angleExpected, angleActual);
-    }
+        public ParameterizedTests(Plain plain) {
+            this.plain = plain;
+        }
 
-    @Test
-    public void angleToZAxis_shouldReturnCorrectValue_whenPlainIsFromCoefficients() {
-        final BigDecimal angleExpected = new BigDecimal("0.61548");
-        final BigDecimal a = new BigDecimal(1);
-        final BigDecimal b = new BigDecimal(1);
-        final BigDecimal c = new BigDecimal(1);
-        final BigDecimal d = new BigDecimal(-1);
+        @Parameters
+        public static Collection<Object[]> data() {
+            return Arrays.asList(new Object[][]{
+                    {
+                            new Plain(
+                                    new Point3d(new BigDecimal(0), new BigDecimal(0), new BigDecimal(1)),
+                                    new Point3d(new BigDecimal(0), new BigDecimal(1), new BigDecimal(0)),
+                                    new Point3d(new BigDecimal(1), new BigDecimal(0), new BigDecimal(0))
+                            )
+                    },
+                    {
+                            new Plain(
+                                    new Point3d(new BigDecimal(1), new BigDecimal(3), new BigDecimal(5)),
+                                    new Point3d(new BigDecimal(1), new BigDecimal(4), new BigDecimal(7)),
+                                    new Point3d(new BigDecimal(-5), new BigDecimal(2), new BigDecimal(1))
+                            )
+                    }
+            });
+        }
 
-        Plain plain = new Plain(a, b, c, d);
-        final BigDecimal angleActual = plainCalculator.angleToZAxis(plain);
+        @Test
+        public void isPerpendicularToXAxis_shouldReturnFalse() {
+            Assert.assertFalse(PLAIN_CALCULATOR.isPerpendicularToXAxis(plain));
+        }
 
-        Assert.assertEquals(angleExpected, angleActual);
-    }
+        @Test
+        public void isPerpendicularToYAxis_shouldReturnFalse() {
+            Assert.assertFalse(PLAIN_CALCULATOR.isPerpendicularToYAxis(plain));
+        }
 
-    @Test
-    public void doThreePointFormPlane_shouldReturnTrue() {
-        final Point3d POINT_3_D_1 = new Point3d(
-                new BigDecimal(1),
-                new BigDecimal(3),
-                new BigDecimal(5)
-        );
-        final Point3d POINT_3_D_2 = new Point3d(
-                new BigDecimal(1),
-                new BigDecimal(4),
-                new BigDecimal(7)
-        );
-        final Point3d POINT_3_D_3 = new Point3d(
-                new BigDecimal(-5),
-                new BigDecimal(2),
-                new BigDecimal(1)
-        );
-        boolean state = plainCalculator.isPlane(POINT_3_D_1, POINT_3_D_2, POINT_3_D_3);
-
-        Assert.assertTrue(state);
-    }
-
-    @Test
-    public void isPerpendicularToXAxis_shouldReturnFalse() {
-        final BigDecimal a = new BigDecimal(1);
-        final BigDecimal b = new BigDecimal(1);
-        final BigDecimal c = new BigDecimal(1);
-        final BigDecimal d = new BigDecimal(-1);
-
-        Plain plain = new Plain(a, b, c, d);
-        final boolean state = plainCalculator.isPerpendicularToXAxis(plain);
-
-        Assert.assertFalse(state);
-    }
-
-    @Test
-    public void isPerpendicularToYAxis_shouldReturnFalse() {
-        final BigDecimal a = new BigDecimal(1);
-        final BigDecimal b = new BigDecimal(1);
-        final BigDecimal c = new BigDecimal(1);
-        final BigDecimal d = new BigDecimal(-1);
-
-        Plain plain = new Plain(a, b, c, d);
-        final boolean state = plainCalculator.isPerpendicularToYAxis(plain);
-
-        Assert.assertFalse(state);
-    }
-
-    @Test
-    public void isPerpendicularToZAxis_shouldReturnFalse() {
-        final BigDecimal a = new BigDecimal(1);
-        final BigDecimal b = new BigDecimal(1);
-        final BigDecimal c = new BigDecimal(1);
-        final BigDecimal d = new BigDecimal(-1);
-
-        Plain plain = new Plain(a, b, c, d);
-        final boolean state = plainCalculator.isPerpendicularToZAxis(plain);
-
-        Assert.assertFalse(state);
+        @Test
+        public void isPerpendicularToZAxis_shouldReturnFalse() {
+            Assert.assertFalse(PLAIN_CALCULATOR.isPerpendicularToZAxis(plain));
+        }
     }
 }

@@ -14,6 +14,7 @@ public class PointsReaderTest {
     final private FileReader fileReader = FileReader.getInstance();
     final private PointsReader reader = PointsReader.getInstance();
 
+
     @Test
     public void readListOfPoints_shouldReturnListOfPoint3DLists_whenFilePathIsCorrect() throws IOException {
         List<List<Point3d>> expectedList = List.of(
