@@ -2,7 +2,6 @@ package org.epam.jwd.math;
 
 import org.epam.jwd.exception.ValidationException;
 import org.epam.jwd.model.Plain;
-import org.epam.jwd.model.Point3d;
 import org.epam.jwd.validation.PlainValidator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -35,7 +34,7 @@ public class PlainCalculator {
 
     public BigDecimal angleToXAxis(Plain plain) {
         try {
-            if(!checkValidation(plain)) {
+            if(!isPlane(plain)) {
                 throw new ValidationException();
             }
         } catch (ValidationException e) {
@@ -56,7 +55,7 @@ public class PlainCalculator {
 
     public BigDecimal angleToYAxis(Plain plain) {
         try {
-            if(!checkValidation(plain)) {
+            if(!isPlane(plain)) {
                 throw new ValidationException();
             }
         } catch (ValidationException e) {
@@ -77,7 +76,7 @@ public class PlainCalculator {
 
     public BigDecimal angleToZAxis(Plain plain) {
         try {
-            if(!checkValidation(plain)) {
+            if(!isPlane(plain)) {
                 throw new ValidationException();
             }
         } catch (ValidationException e) {
@@ -96,8 +95,8 @@ public class PlainCalculator {
         ).setScale(PRECISION, RoundingMode.HALF_UP);
     }
 
-    public boolean isPlane(Point3d a, Point3d b, Point3d c) {
-        return plainValidator.arePointsValidated(a, b, c);
+    public boolean isPlane(Plain plain) {
+        return plainValidator.isPlaneValidated(plain);
     }
 
     public boolean isPerpendicularToXAxis(Plain plain) {
@@ -152,9 +151,5 @@ public class PlainCalculator {
         return getCoefficientA(plain).multiply(plain.getA().getX())
                 .add(getCoefficientB(plain).multiply(plain.getA().getY()))
                 .add(getCoefficientC(plain).multiply(plain.getA().getZ())).negate();
-    }
-
-    private boolean checkValidation(Plain plain){
-        return plainValidator.arePointsValidated(plain.getA(), plain.getB(), plain.getC());
     }
 }

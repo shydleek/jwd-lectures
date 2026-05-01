@@ -46,7 +46,7 @@ public class PlainValidatorTest {
                 new BigDecimal(13)
         );
 
-        Assert.assertTrue(plainValidator.arePointsValidated(aCorrect, bCorrect, cCorrect));
+        Assert.assertTrue(plainValidator.isPlaneValidated(aCorrect, bCorrect, cCorrect));
     }
 
     @Test
@@ -67,6 +67,6 @@ public class PlainValidatorTest {
                 new BigDecimal(1)
         );
 
-        Assert.assertFalse(plainValidator.arePointsValidated(aIncorrect, bIncorrect, cIncorrect));
+        Assert.assertFalse(plainValidator.isPlaneValidated(aIncorrect, bIncorrect, cIncorrect));
     }
 }
