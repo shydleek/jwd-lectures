@@ -13,7 +13,6 @@ import java.math.RoundingMode;
 public class PlainCalculator {
 
     private static PlainCalculator instance;
-    private static final Logger LOG = LoggerFactory.getLogger(PlainCalculator.class);
     private static final int EXPONENT = 2;
     private static final int PRECISION = 5;
     private static final BigDecimal RIGHT_ANGLE = BigDecimal.valueOf(Math.PI / 2);
