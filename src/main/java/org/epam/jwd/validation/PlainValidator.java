@@ -18,7 +18,7 @@ public class PlainValidator {
         return instance;
     }
 
-    public boolean isPlaneValidated(Plain plain) {
+    public boolean isPlaneValid(Plain plain) {
         Point3d n = crossProduct(
                 getVectorFromPoints(plain.getA(), plain.getB()),
                 getVectorFromPoints(plain.getA(), plain.getC())

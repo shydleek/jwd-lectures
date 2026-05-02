@@ -2,7 +2,9 @@ package org.epam.jwd.reader;
 
 import org.epam.jwd.exception.ParseException;
 import org.epam.jwd.exception.ValidationException;
+import org.epam.jwd.math.PlainCalculator;
 import org.epam.jwd.model.Point3d;
+import org.epam.jwd.validation.PlainValidator;
 import org.epam.jwd.validation.PointsValidator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,23 +12,26 @@ import org.slf4j.LoggerFactory;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PointsReader {
+public class PointsConverter {
 
-    private static PointsReader instance;
+    private static PointsConverter instance;
 
-    private static final Logger LOG = LoggerFactory.getLogger(PointsReader.class);
+    private static final Logger LOG = LoggerFactory.getLogger(PointsConverter.class);
 
-    private PointsReader() {
+    private final PointsValidator pointsValidator;
+
+    private PointsConverter(PointsValidator pointsValidator) {
+        this.pointsValidator = pointsValidator;
     }
 
-    public static PointsReader getInstance() {
+    public static PointsConverter getInstance() {
         if (instance == null) {
-            instance = new PointsReader();
+            instance = new PointsConverter(PointsValidator.getInstance());
         }
         return instance;
     }
 
-    public List<List<Point3d>> readListOfPoints(List<String> inputLines) {
+    public List<List<Point3d>> convertListOfPoints(List<String> inputLines) {
         List<List<Point3d>> result = new ArrayList<>();
 
         if (inputLines == null || inputLines.isEmpty()) {
@@ -35,8 +40,7 @@ public class PointsReader {
 
         for (String inputLine : inputLines) {
             try {
-                PointsValidator validator = PointsValidator.getInstance();
-                result.add(validator.validate(inputLine));
+                result.add(pointsValidator.validate(inputLine));
             } catch (ValidationException e) {
                 LOG.error("Validation error, skipped line \"{}\"", inputLine);
             } catch (ParseException e) {
@@ -47,4 +51,3 @@ public class PointsReader {
         return result;
     }
 }
-

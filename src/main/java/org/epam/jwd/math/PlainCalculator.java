@@ -36,21 +36,23 @@ public class PlainCalculator {
         try {
             if(!isPlane(plain)) {
                 throw new ValidationException();
+            } else {
+                return calculateAsin(
+                        getCoefficientA(plain).abs()
+                                .divide(
+                                        getCoefficientA(plain).pow(EXPONENT)
+                                                .add(getCoefficientB(plain).pow(EXPONENT))
+                                                .add(getCoefficientC(plain).pow(EXPONENT))
+                                                .sqrt(MATH_CONTEXT),
+                                        MATH_CONTEXT
+                                )
+                ).setScale(PRECISION, RoundingMode.HALF_UP);
             }
         } catch (ValidationException e) {
             LOG.error(e.getMessage());
         }
 
-        return calculateAsin(
-                getCoefficientA(plain).abs()
-                        .divide(
-                                getCoefficientA(plain).pow(EXPONENT)
-                                        .add(getCoefficientB(plain).pow(EXPONENT))
-                                        .add(getCoefficientC(plain).pow(EXPONENT))
-                                        .sqrt(MATH_CONTEXT),
-                                MATH_CONTEXT
-                        )
-        ).setScale(PRECISION, RoundingMode.HALF_UP);
+        return null;
     }
 
     public BigDecimal angleToYAxis(Plain plain) {
@@ -96,7 +98,7 @@ public class PlainCalculator {
     }
 
     public boolean isPlane(Plain plain) {
-        return plainValidator.isPlaneValidated(plain);
+        return plainValidator.isPlaneValid(plain);
     }
 
     public boolean isPerpendicularToXAxis(Plain plain) {

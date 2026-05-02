@@ -9,29 +9,29 @@ import java.math.BigDecimal;
 import java.nio.file.Path;
 import java.util.List;
 
-public class PointsReaderTest {
+public class PointsConverterTest {
 
     final private FileReader fileReader = FileReader.getInstance();
-    final private PointsReader reader = PointsReader.getInstance();
+    final private PointsConverter reader = PointsConverter.getInstance();
     final private String correctFilePath = "txt/inputPoints.txt";
     final private String emptyFilePath = "txt/emptyFile.txt";
 
     @Test
-    public void readListOfPoints_shouldReturnListOfPoint3DLists_whenFilePathIsCorrect() throws IOException {
+    public void convertListOfPoints_shouldReturnListOfPoint3DLists_whenFilePathIsCorrect() throws IOException {
         List<List<Point3d>> expectedList = initPlains();
 
         Path path = Path.of(correctFilePath);
         List<String> inputLines = fileReader.readAllLinesFromFile(path);
-        List<List<Point3d>> actualList = reader.readListOfPoints(inputLines);
+        List<List<Point3d>> actualList = reader.convertListOfPoints(inputLines);
 
         Assert.assertEquals(expectedList, actualList);
     }
 
     @Test
-    public void readListOfPoints_shouldReturnEmptyList_whenFileIsEmpty() throws IOException {
+    public void convertListOfPoints_shouldReturnEmptyList_whenFileIsEmpty() throws IOException {
         Path path = Path.of(emptyFilePath);
         List<String> inputLines = fileReader.readAllLinesFromFile(path);
-        List<List<Point3d>> actualList = reader.readListOfPoints(inputLines);
+        List<List<Point3d>> actualList = reader.convertListOfPoints(inputLines);
 
         Assert.assertTrue(actualList.isEmpty());
     }

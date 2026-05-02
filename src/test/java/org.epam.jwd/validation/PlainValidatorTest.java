@@ -12,13 +12,13 @@ public class PlainValidatorTest {
     private final PlainValidator plainValidator = PlainValidator.getInstance();
 
     @Test
-    public void isPlaneValidated_shouldReturnTrue_whenPointsAreCorrect() {
-        Assert.assertTrue(plainValidator.isPlaneValidated(initValidPlain()));
+    public void isPlaneValid_shouldReturnTrue_whenPointsAreCorrect() {
+        Assert.assertTrue(plainValidator.isPlaneValid(initValidPlain()));
     }
 
     @Test
     public void arePointsValidated_shouldReturnFalse_whenPointsAreIncorrect() {
-        Assert.assertFalse(plainValidator.isPlaneValidated(initNotValidPlain()));
+        Assert.assertFalse(plainValidator.isPlaneValid(initNotValidPlain()));
     }
 
     private Plain initValidPlain() {
