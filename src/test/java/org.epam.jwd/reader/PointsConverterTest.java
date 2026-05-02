@@ -1,5 +1,6 @@
 package org.epam.jwd.reader;
 
+import org.epam.jwd.converter.PointsConverter;
 import org.epam.jwd.model.Point3d;
 import org.junit.Assert;
 import org.junit.Test;

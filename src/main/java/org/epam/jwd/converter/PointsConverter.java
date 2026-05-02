@@ -1,10 +1,8 @@
-package org.epam.jwd.reader;
+package org.epam.jwd.converter;
 
 import org.epam.jwd.exception.ParseException;
 import org.epam.jwd.exception.ValidationException;
-import org.epam.jwd.math.PlainCalculator;
 import org.epam.jwd.model.Point3d;
-import org.epam.jwd.validation.PlainValidator;
 import org.epam.jwd.validation.PointsValidator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
