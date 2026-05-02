@@ -5,11 +5,8 @@ import org.epam.jwd.exception.ValidationException;
 import org.epam.jwd.model.Point3d;
 import org.junit.Assert;
 import org.junit.Test;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.List;
 
 public class PointsValidatorTest {
@@ -23,31 +20,31 @@ public class PointsValidatorTest {
     private final PointsValidator pointsValidator = PointsValidator.getInstance();
 
     @Test
-    public void validate_shouldReturnValidatedListOfPoints_whenPointsAreValid() {
+    public void convert_shouldReturnValidatedListOfPoints_whenPointsAreValid() {
         List<Point3d> expectedString = initList();
-        List<Point3d> actualString = pointsValidator.validate(notValidatedString);
+        List<Point3d> actualString = pointsValidator.convert(notValidatedString);
 
         Assert.assertEquals(expectedString, actualString);
     }
 
     @Test(expected = ValidationException.class)
-    public void validateNotNull_shouldThrowValidationException_whenStringIsEmpty() {
-        pointsValidator.validate(emptyString);
+    public void convertNotNull_shouldThrowValidationException_whenStringIsEmpty() {
+        pointsValidator.convert(emptyString);
     }
 
     @Test(expected = ValidationException.class)
-    public void trimAndValidateNotEmpty_shouldThrowValidationException_whenStringIsOnlyWhitespaced() {
-        pointsValidator.validate(whitespacedString);
+    public void trimAndConvertNotEmpty_shouldThrowValidationException_whenStringIsOnlyWhitespaced() {
+        pointsValidator.convert(whitespacedString);
     }
 
     @Test(expected = ValidationException.class)
-    public void validateTokenCount_shouldThrowValidationException_whenStringIsIncomplete() {
-        pointsValidator.validate(incompleteString);
+    public void convertTokenCount_shouldThrowValidationException_whenStringIsIncomplete() {
+        pointsValidator.convert(incompleteString);
     }
 
     @Test(expected = ParseException.class)
     public void parseTokens_shouldThrowParseException_whenStringIsNotParsedIntoBigDecimals() {
-        pointsValidator.validate(invalidString);
+        pointsValidator.convert(invalidString);
     }
 
     private List<Point3d> initList() {

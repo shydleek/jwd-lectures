@@ -27,42 +27,26 @@ public class PointsValidator {
         return instance;
     }
 
-    public List<Point3d> validate(String line) throws ValidationException, ParseException {
-        try {
-            validateNotNull(line);
-            String trimmed = trimAndValidateNotEmpty(line);
-            String[] tokens = splitIntoTokens(trimmed);
-            validateTokenCount(tokens);
-            return parseTokens(tokens);
-        } catch (ValidationException e) {
-            throw new ValidationException(e, e.getMessage());
-        } catch (ParseException e) {
-            throw new ParseException(e, e.getMessage());
-        }
+    public List<Point3d> convert(String line) throws ValidationException, ParseException {
+        validateNotNull(line);
+        String trimmed = trimAndValidateNotEmpty(line);
+        String[] tokens = splitIntoTokens(trimmed);
+        validateTokenCount(tokens);
+        return parseTokens(tokens);
     }
 
     private void validateNotNull(String line) throws NullLineException {
-        try {
-            if (line == null || line.isEmpty()) {
-                throw new NullLineException();
-            }
-        } catch (NullLineException e) {
-            LOG.error("Line should not be null.");
-            throw new NullLineException(e, e.getMessage());
+        if (line == null || line.isEmpty()) {
+            throw new NullLineException();
         }
     }
 
     private String trimAndValidateNotEmpty(String line) throws EmptyLineException {
-        try {
-            String trimmed = line.trim();
-            if (trimmed.isEmpty()) {
-                throw new EmptyLineException();
-            }
-            return trimmed;
-        } catch (EmptyLineException e) {
-            LOG.error("Line should be not empty.");
-            throw new EmptyLineException(e, e.getMessage());
+        String trimmed = line.trim();
+        if (trimmed.isEmpty()) {
+            throw new EmptyLineException();
         }
+        return trimmed;
     }
 
     private String[] splitIntoTokens(String trimmed) {
@@ -70,13 +54,8 @@ public class PointsValidator {
     }
 
     private void validateTokenCount(String[] tokens) throws InvalidCoefficientsCountException {
-        try {
-            if (tokens.length != EXPECTED_POINTS_COUNT) {
-                throw new InvalidCoefficientsCountException();
-            }
-        } catch (InvalidCoefficientsCountException e) {
-            LOG.error("Number of points in each line should be 9");
-            throw new InvalidCoefficientsCountException(e, e.getMessage());
+        if (tokens.length != EXPECTED_POINTS_COUNT) {
+            throw new InvalidCoefficientsCountException();
         }
     }
 

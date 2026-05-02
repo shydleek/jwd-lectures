@@ -38,7 +38,7 @@ public class PointsConverter {
 
         for (String inputLine : inputLines) {
             try {
-                result.add(pointsValidator.validate(inputLine));
+                result.add(pointsValidator.convert(inputLine));
             } catch (ValidationException e) {
                 LOG.error("Validation error, skipped line \"{}\"", inputLine);
             } catch (ParseException e) {

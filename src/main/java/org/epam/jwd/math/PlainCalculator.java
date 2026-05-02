@@ -33,71 +33,57 @@ public class PlainCalculator {
     }
 
     public BigDecimal angleToXAxis(Plain plain) {
-        try {
-            if(!isPlane(plain)) {
-                throw new ValidationException();
-            } else {
-                return calculateAsin(
-                        getCoefficientA(plain).abs()
-                                .divide(
-                                        getCoefficientA(plain).pow(EXPONENT)
-                                                .add(getCoefficientB(plain).pow(EXPONENT))
-                                                .add(getCoefficientC(plain).pow(EXPONENT))
-                                                .sqrt(MATH_CONTEXT),
-                                        MATH_CONTEXT
-                                )
-                ).setScale(PRECISION, RoundingMode.HALF_UP);
-            }
-        } catch (ValidationException e) {
-            LOG.error(e.getMessage());
+        if(isPlane(plain)) {
+            return calculateAsin(
+                    getCoefficientA(plain).abs()
+                            .divide(
+                                    getCoefficientA(plain).pow(EXPONENT)
+                                            .add(getCoefficientB(plain).pow(EXPONENT))
+                                            .add(getCoefficientC(plain).pow(EXPONENT))
+                                            .sqrt(MATH_CONTEXT),
+                                    MATH_CONTEXT
+                            )
+            ).setScale(PRECISION, RoundingMode.HALF_UP);
+        } else {
+            throw new ValidationException();
         }
-
-        return null;
     }
 
     public BigDecimal angleToYAxis(Plain plain) {
-        try {
-            if(!isPlane(plain)) {
-                throw new ValidationException();
-            }
-        } catch (ValidationException e) {
-            LOG.error(e.getMessage());
+        if(isPlane(plain)) {
+            return calculateAsin(
+                    getCoefficientB(plain).abs()
+                            .divide(
+                                    getCoefficientA(plain).pow(EXPONENT)
+                                            .add(getCoefficientB(plain).pow(EXPONENT))
+                                            .add(getCoefficientC(plain).pow(EXPONENT))
+                                            .sqrt(MATH_CONTEXT),
+                                    MATH_CONTEXT
+                            )
+            ).setScale(PRECISION, RoundingMode.HALF_UP);
+        } else {
+            throw new ValidationException();
         }
-
-        return calculateAsin(
-                getCoefficientB(plain).abs()
-                        .divide(
-                                getCoefficientA(plain).pow(EXPONENT)
-                                        .add(getCoefficientB(plain).pow(EXPONENT))
-                                        .add(getCoefficientC(plain).pow(EXPONENT))
-                                        .sqrt(MATH_CONTEXT),
-                                MATH_CONTEXT
-                        )
-        ).setScale(PRECISION, RoundingMode.HALF_UP);
     }
 
     public BigDecimal angleToZAxis(Plain plain) {
-        try {
-            if(!isPlane(plain)) {
-                throw new ValidationException();
-            }
-        } catch (ValidationException e) {
-            LOG.error(e.getMessage());
+        if(isPlane(plain)) {
+            return calculateAsin(
+                    getCoefficientC(plain).abs()
+                            .divide(
+                                    getCoefficientA(plain).pow(EXPONENT)
+                                            .add(getCoefficientB(plain).pow(EXPONENT))
+                                            .add(getCoefficientC(plain).pow(EXPONENT))
+                                            .sqrt(MATH_CONTEXT),
+                                    MATH_CONTEXT
+                            )
+            ).setScale(PRECISION, RoundingMode.HALF_UP);
+        } else {
+            throw new ValidationException();
         }
-
-        return calculateAsin(
-                getCoefficientC(plain).abs()
-                        .divide(
-                                getCoefficientA(plain).pow(EXPONENT)
-                                        .add(getCoefficientB(plain).pow(EXPONENT))
-                                        .add(getCoefficientC(plain).pow(EXPONENT))
-                                        .sqrt(MATH_CONTEXT),
-                                MATH_CONTEXT
-                        )
-        ).setScale(PRECISION, RoundingMode.HALF_UP);
     }
 
-    public boolean isPlane(Plain plain) {
+    private boolean isPlane(Plain plain) {
         return plainValidator.isPlaneValid(plain);
     }
 

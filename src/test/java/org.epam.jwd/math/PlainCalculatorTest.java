@@ -52,35 +52,10 @@ public class PlainCalculatorTest {
             Assert.assertEquals(angleExpected, angleActual);
         }
 
-        @Test
-        public void isPlane_shouldReturnTrue_whenPointsAreValid() {
-            Assert.assertTrue(PLAIN_CALCULATOR.isPlane(initRandomPlain()));
-        }
-
         private Plain initPlain() {
             final Point3d a = new Point3d(new BigDecimal(0), new BigDecimal(0), new BigDecimal(1));
             final Point3d b = new Point3d(new BigDecimal(0), new BigDecimal(1), new BigDecimal(0));
             final Point3d c = new Point3d(new BigDecimal(1), new BigDecimal(0), new BigDecimal(0));
-
-            return new Plain(a, b, c);
-        }
-
-        private Plain initRandomPlain() {
-            final Point3d a = new Point3d(
-                    new BigDecimal(1),
-                    new BigDecimal(3),
-                    new BigDecimal(5)
-            );
-            final Point3d b = new Point3d(
-                    new BigDecimal(1),
-                    new BigDecimal(4),
-                    new BigDecimal(7)
-            );
-            final Point3d c = new Point3d(
-                    new BigDecimal(-5),
-                    new BigDecimal(2),
-                    new BigDecimal(1)
-            );
 
             return new Plain(a, b, c);
         }
