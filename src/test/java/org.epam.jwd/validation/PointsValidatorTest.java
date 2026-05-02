@@ -28,17 +28,17 @@ public class PointsValidatorTest {
     }
 
     @Test(expected = ValidationException.class)
-    public void convertNotNull_shouldThrowValidationException_whenStringIsEmpty() {
+    public void validateNotNull_shouldThrowValidationException_whenStringIsEmpty() {
         pointsValidator.convert(emptyString);
     }
 
     @Test(expected = ValidationException.class)
-    public void trimAndConvertNotEmpty_shouldThrowValidationException_whenStringIsOnlyWhitespaced() {
+    public void trimAndValidateNotEmpty_shouldThrowValidationException_whenStringIsOnlyWhitespaced() {
         pointsValidator.convert(whitespacedString);
     }
 
     @Test(expected = ValidationException.class)
-    public void convertTokenCount_shouldThrowValidationException_whenStringIsIncomplete() {
+    public void validateTokenCount_shouldThrowValidationException_whenStringIsIncomplete() {
         pointsValidator.convert(incompleteString);
     }
 
