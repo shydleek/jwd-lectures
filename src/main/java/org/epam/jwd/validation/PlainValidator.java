@@ -6,6 +6,7 @@ import org.epam.jwd.model.Point3d;
 import java.math.BigDecimal;
 
 public class PlainValidator {
+
     private static PlainValidator instance;
 
     private PlainValidator() {

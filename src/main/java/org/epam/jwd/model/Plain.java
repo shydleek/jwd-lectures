@@ -3,9 +3,9 @@ package org.epam.jwd.model;
 import java.util.Objects;
 
 public class Plain {
-    private final Point3d a;
-    private final Point3d b;
-    private final Point3d c;
+    private Point3d a;
+    private Point3d b;
+    private Point3d c;
 
     public Plain(Point3d a, Point3d b, Point3d c) {
         this.a = a;
@@ -23,6 +23,18 @@ public class Plain {
 
     public Point3d getC() {
         return c;
+    }
+
+    public void setA(Point3d a) {
+        this.a = a;
+    }
+
+    public void setB(Point3d b) {
+        this.b = b;
+    }
+
+    public void setC(Point3d c) {
+        this.c = c;
     }
 
     @Override

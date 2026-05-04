@@ -1,6 +1,7 @@
 package org.epam.jwd.math;
 
 import org.epam.jwd.exception.ValidationException;
+import org.epam.jwd.holder.CalculationsHolder;
 import org.epam.jwd.model.Plain;
 import org.epam.jwd.validation.PlainValidator;
 import java.math.BigDecimal;
@@ -16,14 +17,16 @@ public class PlainCalculator {
     private static final MathContext MATH_CONTEXT = new MathContext(10, RoundingMode.HALF_UP);
 
     private final PlainValidator plainValidator;
+    private final CalculationsHolder holder;
 
-    private PlainCalculator(PlainValidator plainValidator) {
+    private PlainCalculator(PlainValidator plainValidator, CalculationsHolder holder) {
         this.plainValidator = plainValidator;
+        this.holder = holder;
     }
 
     public static PlainCalculator getInstance() {
         if (instance == null) {
-            instance = new PlainCalculator(PlainValidator.getInstance());
+            instance = new PlainCalculator(PlainValidator.getInstance(), CalculationsHolder.getInstance());
         }
         return instance;
     }
@@ -135,5 +138,17 @@ public class PlainCalculator {
         return getCoefficientA(plain).multiply(plain.getA().getX())
                 .add(getCoefficientB(plain).multiply(plain.getA().getY()))
                 .add(getCoefficientC(plain).multiply(plain.getA().getZ())).negate();
+    }
+
+    public void calculate(Plain plain) {
+        holder.setAll(
+                angleToXAxis(plain),
+                angleToYAxis(plain),
+                angleToZAxis(plain),
+                isPlane(plain),
+                isPerpendicularToXAxis(plain),
+                isPerpendicularToYAxis(plain),
+                isPerpendicularToZAxis(plain)
+        );
     }
 }

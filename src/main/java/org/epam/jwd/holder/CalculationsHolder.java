@@ -1,0 +1,120 @@
+package org.epam.jwd.holder;
+
+import java.math.BigDecimal;
+import java.util.Objects;
+
+public class CalculationsHolder {
+
+    private BigDecimal angleToXAxis;
+    private BigDecimal angleToYAxis;
+    private BigDecimal angleToZAxis;
+    private boolean isPlane;
+    private boolean isPerpendicularToXAxis;
+    private boolean isPerpendicularToYAxis;
+    private boolean isPerpendicularToZAxis;
+
+    private static CalculationsHolder instance;
+
+    private CalculationsHolder() {;
+    }
+
+    public static CalculationsHolder getInstance() {
+        if (instance == null) {
+            instance = new CalculationsHolder();
+        }
+        return instance;
+    }
+
+    public BigDecimal getAngleToXAxis() {
+        return angleToXAxis;
+    }
+
+    public void setAngleToXAxis(BigDecimal angleToXAxis) {
+        this.angleToXAxis = angleToXAxis;
+    }
+
+    public BigDecimal getAngleToYAxis() {
+        return angleToYAxis;
+    }
+
+    public void setAngleToYAxis(BigDecimal angleToYAxis) {
+        this.angleToYAxis = angleToYAxis;
+    }
+
+    public BigDecimal getAngleToZAxis() {
+        return angleToZAxis;
+    }
+
+    public void setAngleToZAxis(BigDecimal angleToZAxis) {
+        this.angleToZAxis = angleToZAxis;
+    }
+
+    public boolean isPlane() {
+        return isPlane;
+    }
+
+    public void setPlane(boolean plane) {
+        isPlane = plane;
+    }
+
+    public boolean isPerpendicularToXAxis() {
+        return isPerpendicularToXAxis;
+    }
+
+    public void setPerpendicularToXAxis(boolean perpendicularToXAxis) {
+        isPerpendicularToXAxis = perpendicularToXAxis;
+    }
+
+    public boolean isPerpendicularToYAxis() {
+        return isPerpendicularToYAxis;
+    }
+
+    public void setPerpendicularToYAxis(boolean perpendicularToYAxis) {
+        isPerpendicularToYAxis = perpendicularToYAxis;
+    }
+
+    public boolean isPerpendicularToZAxis() {
+        return isPerpendicularToZAxis;
+    }
+
+    public void setPerpendicularToZAxis(boolean perpendicularToZAxis) {
+        isPerpendicularToZAxis = perpendicularToZAxis;
+    }
+
+    public void setAll(BigDecimal angleToXAxis, BigDecimal angleToYAxis, BigDecimal angleToZAxis,
+                       boolean isPlane, boolean isPerpendicularToXAxis, boolean isPerpendicularToYAxis,
+                       boolean isPerpendicularToZAxis) {
+        this.angleToXAxis = angleToXAxis;
+        this.angleToYAxis = angleToYAxis;
+        this.angleToZAxis = angleToZAxis;
+        this.isPlane = isPlane;
+        this.isPerpendicularToXAxis = isPerpendicularToXAxis;
+        this.isPerpendicularToYAxis = isPerpendicularToYAxis;
+        this.isPerpendicularToZAxis = isPerpendicularToZAxis;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        CalculationsHolder that = (CalculationsHolder) o;
+        return isPlane == that.isPlane && isPerpendicularToXAxis == that.isPerpendicularToXAxis && isPerpendicularToYAxis == that.isPerpendicularToYAxis && isPerpendicularToZAxis == that.isPerpendicularToZAxis && Objects.equals(angleToXAxis, that.angleToXAxis) && Objects.equals(angleToYAxis, that.angleToYAxis) && Objects.equals(angleToZAxis, that.angleToZAxis);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(angleToXAxis, angleToYAxis, angleToZAxis, isPlane, isPerpendicularToXAxis, isPerpendicularToYAxis, isPerpendicularToZAxis);
+    }
+
+    @Override
+    public String toString() {
+        return "CalculationsHolder{" +
+                "angleToXAxis=" + angleToXAxis +
+                ", angleToYAxis=" + angleToYAxis +
+                ", angleToZAxis=" + angleToZAxis +
+                ", isPlane=" + isPlane +
+                ", isPerpendicularToXAxis=" + isPerpendicularToXAxis +
+                ", isPerpendicularToYAxis=" + isPerpendicularToYAxis +
+                ", isPerpendicularToZAxis=" + isPerpendicularToZAxis +
+                '}';
+    }
+}
