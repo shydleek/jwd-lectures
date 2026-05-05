@@ -8,7 +8,7 @@ public interface PlainRepository {
 
     Plain read(int id);
 
-    Plain update(Plain plain);
+    Plain update(int id, Plain plain);
 
     void delete(int id);
 }
