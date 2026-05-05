@@ -3,6 +3,7 @@ package org.epam.jwd.model;
 import java.util.Objects;
 
 public class Plain {
+
     private Point3d a;
     private Point3d b;
     private Point3d c;

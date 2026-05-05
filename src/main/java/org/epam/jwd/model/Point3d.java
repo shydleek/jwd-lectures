@@ -4,9 +4,10 @@ import java.math.BigDecimal;
 import java.util.Objects;
 
 public class Point3d {
-    private final BigDecimal x;
-    private final BigDecimal y;
-    private final BigDecimal z;
+
+    private BigDecimal x;
+    private BigDecimal y;
+    private BigDecimal z;
 
     public Point3d(BigDecimal x, BigDecimal y, BigDecimal z) {
         this.x = x;
@@ -18,12 +19,24 @@ public class Point3d {
         return x;
     }
 
+    public void setX(BigDecimal x) {
+        this.x = x;
+    }
+
     public BigDecimal getY() {
         return y;
     }
 
+    public void setY(BigDecimal y) {
+        this.y = y;
+    }
+
     public BigDecimal getZ() {
         return z;
+    }
+
+    public void setZ(BigDecimal z) {
+        this.z = z;
     }
 
     @Override

@@ -13,16 +13,16 @@ public class CalculationsHolder {
     private boolean isPerpendicularToYAxis;
     private boolean isPerpendicularToZAxis;
 
-    private static CalculationsHolder instance;
-
-    private CalculationsHolder() {;
-    }
-
-    public static CalculationsHolder getInstance() {
-        if (instance == null) {
-            instance = new CalculationsHolder();
-        }
-        return instance;
+    public CalculationsHolder(BigDecimal angleToXAxis, BigDecimal angleToYAxis, BigDecimal angleToZAxis,
+                              boolean isPlane, boolean isPerpendicularToXAxis, boolean isPerpendicularToYAxis,
+                              boolean isPerpendicularToZAxis){
+        this.angleToXAxis = angleToXAxis;
+        this.angleToYAxis = angleToYAxis;
+        this.angleToZAxis = angleToZAxis;
+        this.isPlane = isPlane;
+        this.isPerpendicularToXAxis = isPerpendicularToXAxis;
+        this.isPerpendicularToYAxis = isPerpendicularToYAxis;
+        this.isPerpendicularToZAxis = isPerpendicularToZAxis;
     }
 
     public BigDecimal getAngleToXAxis() {
@@ -81,18 +81,6 @@ public class CalculationsHolder {
         isPerpendicularToZAxis = perpendicularToZAxis;
     }
 
-    public void setAll(BigDecimal angleToXAxis, BigDecimal angleToYAxis, BigDecimal angleToZAxis,
-                       boolean isPlane, boolean isPerpendicularToXAxis, boolean isPerpendicularToYAxis,
-                       boolean isPerpendicularToZAxis) {
-        this.angleToXAxis = angleToXAxis;
-        this.angleToYAxis = angleToYAxis;
-        this.angleToZAxis = angleToZAxis;
-        this.isPlane = isPlane;
-        this.isPerpendicularToXAxis = isPerpendicularToXAxis;
-        this.isPerpendicularToYAxis = isPerpendicularToYAxis;
-        this.isPerpendicularToZAxis = isPerpendicularToZAxis;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
@@ -111,7 +99,7 @@ public class CalculationsHolder {
                 "angleToXAxis=" + angleToXAxis +
                 ", angleToYAxis=" + angleToYAxis +
                 ", angleToZAxis=" + angleToZAxis +
-                ", isPlane=" + isPlane +
+                ",\n isPlane=" + isPlane +
                 ", isPerpendicularToXAxis=" + isPerpendicularToXAxis +
                 ", isPerpendicularToYAxis=" + isPerpendicularToYAxis +
                 ", isPerpendicularToZAxis=" + isPerpendicularToZAxis +

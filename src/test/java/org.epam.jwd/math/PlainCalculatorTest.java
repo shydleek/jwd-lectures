@@ -22,7 +22,7 @@ public class PlainCalculatorTest {
 
     private static final PlainCalculator PLAIN_CALCULATOR = PlainCalculator.getInstance();
 
-    private static final String angle = "0.61548";
+    private static final String angle = "0.6155";
 
     public static class NonParameterizedTests {
         @Test
@@ -52,12 +52,51 @@ public class PlainCalculatorTest {
             Assert.assertEquals(angleExpected, angleActual);
         }
 
-        private Plain initPlain() {
-            final Point3d a = new Point3d(new BigDecimal(0), new BigDecimal(0), new BigDecimal(1));
-            final Point3d b = new Point3d(new BigDecimal(0), new BigDecimal(1), new BigDecimal(0));
-            final Point3d c = new Point3d(new BigDecimal(1), new BigDecimal(0), new BigDecimal(0));
+        @Test
+        public void isPerpendicularToXAxis_shouldReturnTrue_whenPlainIsPerpendicular() {
+            Assert.assertTrue(PLAIN_CALCULATOR.isPerpendicularToXAxis(initPerpendicularToXAxisPlain()));
+        }
 
-            return new Plain(a, b, c);
+        @Test
+        public void isPerpendicularToYAxis_shouldReturnTrue_whenPlainIsPerpendicular() {
+            Assert.assertTrue(PLAIN_CALCULATOR.isPerpendicularToYAxis(initPerpendicularToYAxisPlain()));
+        }
+
+        @Test
+        public void isPerpendicularToZAxis_shouldReturnTrue_whenPlainIsPerpendicular() {
+            Assert.assertTrue(PLAIN_CALCULATOR.isPerpendicularToZAxis(initPerpendicularToZAxisPlain()));
+        }
+
+        private Plain initPlain() {
+            return new Plain(
+                    new Point3d(new BigDecimal(1), new BigDecimal(0), new BigDecimal(0)),
+                    new Point3d(new BigDecimal(0), new BigDecimal(1), new BigDecimal(0)),
+                    new Point3d(new BigDecimal(0), new BigDecimal(0), new BigDecimal(1))
+            );
+        }
+
+        private Plain initPerpendicularToXAxisPlain() {
+            return new Plain(
+                    new Point3d(BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.ZERO),
+                    new Point3d(BigDecimal.ZERO, new BigDecimal("5"), BigDecimal.ZERO),
+                    new Point3d(BigDecimal.ZERO, BigDecimal.ZERO, new BigDecimal("5"))
+            );
+        }
+
+        private Plain initPerpendicularToYAxisPlain() {
+            return new Plain(
+                    new Point3d(BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.ZERO),
+                    new Point3d(new BigDecimal("5"), BigDecimal.ZERO, BigDecimal.ZERO),
+                    new Point3d(BigDecimal.ZERO, BigDecimal.ZERO, new BigDecimal("5"))
+            );
+        }
+
+        private Plain initPerpendicularToZAxisPlain() {
+            return new Plain(
+                    new Point3d(BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.ZERO),
+                    new Point3d(new BigDecimal("5"), BigDecimal.ZERO, BigDecimal.ZERO),
+                    new Point3d(BigDecimal.ZERO, new BigDecimal("5"), BigDecimal.ZERO)
+            );
         }
     }
 

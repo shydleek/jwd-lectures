@@ -2,8 +2,12 @@ package org.epam.jwd.math;
 
 import org.epam.jwd.exception.ValidationException;
 import org.epam.jwd.holder.CalculationsHolder;
+import org.epam.jwd.holder.CalculationsRecorder;
 import org.epam.jwd.model.Plain;
 import org.epam.jwd.validation.PlainValidator;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.math.BigDecimal;
 import java.math.MathContext;
 import java.math.RoundingMode;
@@ -11,22 +15,24 @@ import java.math.RoundingMode;
 public class PlainCalculator {
 
     private static PlainCalculator instance;
+
+    private static final Logger LOG = LoggerFactory.getLogger(PlainCalculator.class);
+
     private static final int EXPONENT = 2;
-    private static final int PRECISION = 5;
-    private static final BigDecimal RIGHT_ANGLE = BigDecimal.valueOf(Math.PI / 2);
-    private static final MathContext MATH_CONTEXT = new MathContext(10, RoundingMode.HALF_UP);
+    private static final int PRECISION = 10;
+    private static final int PRECISION_FOR_SCALE = 4;
+    private static final MathContext MATH_CONTEXT = new MathContext(PRECISION, RoundingMode.HALF_UP);
+    private static final BigDecimal RIGHT_ANGLE = BigDecimal.valueOf(Math.PI / 2).setScale(PRECISION_FOR_SCALE, RoundingMode.HALF_UP);
 
     private final PlainValidator plainValidator;
-    private final CalculationsHolder holder;
 
-    private PlainCalculator(PlainValidator plainValidator, CalculationsHolder holder) {
+    private PlainCalculator(PlainValidator plainValidator) {
         this.plainValidator = plainValidator;
-        this.holder = holder;
     }
 
     public static PlainCalculator getInstance() {
         if (instance == null) {
-            instance = new PlainCalculator(PlainValidator.getInstance(), CalculationsHolder.getInstance());
+            instance = new PlainCalculator(PlainValidator.getInstance());
         }
         return instance;
     }
@@ -42,7 +48,7 @@ public class PlainCalculator {
                                             .sqrt(MATH_CONTEXT),
                                     MATH_CONTEXT
                             )
-            ).setScale(PRECISION, RoundingMode.HALF_UP);
+            ).setScale(PRECISION_FOR_SCALE, RoundingMode.HALF_UP);
         } else {
             throw new ValidationException();
         }
@@ -59,7 +65,7 @@ public class PlainCalculator {
                                             .sqrt(MATH_CONTEXT),
                                     MATH_CONTEXT
                             )
-            ).setScale(PRECISION, RoundingMode.HALF_UP);
+            ).setScale(PRECISION_FOR_SCALE, RoundingMode.HALF_UP);
         } else {
             throw new ValidationException();
         }
@@ -76,7 +82,7 @@ public class PlainCalculator {
                                             .sqrt(MATH_CONTEXT),
                                     MATH_CONTEXT
                             )
-            ).setScale(PRECISION, RoundingMode.HALF_UP);
+            ).setScale(PRECISION_FOR_SCALE, RoundingMode.HALF_UP);
         } else {
             throw new ValidationException();
         }
@@ -87,15 +93,19 @@ public class PlainCalculator {
     }
 
     public boolean isPerpendicularToXAxis(Plain plain) {
-        return RIGHT_ANGLE.compareTo(angleToXAxis(plain)) == 0;
+        LOG.info(String.valueOf(RIGHT_ANGLE));
+        LOG.info(String.valueOf(angleToXAxis(plain)));
+        return RIGHT_ANGLE.compareTo(angleToXAxis(plain)) == 0.0;
     }
 
     public boolean isPerpendicularToYAxis(Plain plain) {
-        return RIGHT_ANGLE.compareTo(angleToYAxis(plain)) == 0;
+        LOG.info(String.valueOf(angleToZAxis(plain)));
+        return RIGHT_ANGLE.compareTo(angleToYAxis(plain)) == 0.0;
     }
 
     public boolean isPerpendicularToZAxis(Plain plain) {
-        return RIGHT_ANGLE.compareTo(angleToZAxis(plain)) == 0;
+        LOG.info(String.valueOf(angleToZAxis(plain)));
+        return RIGHT_ANGLE.compareTo(angleToZAxis(plain)) == 0.0;
     }
 
     private BigDecimal calculateAsin(BigDecimal value) {
@@ -140,8 +150,8 @@ public class PlainCalculator {
                 .add(getCoefficientC(plain).multiply(plain.getA().getZ())).negate();
     }
 
-    public void calculate(Plain plain) {
-        holder.setAll(
+    public CalculationsHolder calculate(Plain plain) {
+        return new CalculationsHolder(
                 angleToXAxis(plain),
                 angleToYAxis(plain),
                 angleToZAxis(plain),
