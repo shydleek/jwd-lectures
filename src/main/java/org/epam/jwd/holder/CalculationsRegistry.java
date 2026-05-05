@@ -7,23 +7,23 @@ import org.slf4j.LoggerFactory;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CalculationsRecorder {
+public class CalculationsRegistry {
 
-    private static CalculationsRecorder instance;
+    private static CalculationsRegistry instance;
 
-    private static final Logger LOG = LoggerFactory.getLogger(CalculationsRecorder.class);
+    private static final Logger LOG = LoggerFactory.getLogger(CalculationsRegistry.class);
 
     private final List<Plain> plains;
     private final List<CalculationsHolder> calculations;
 
-    private CalculationsRecorder() {
+    private CalculationsRegistry() {
         this.plains = new ArrayList<>();
         this.calculations = new ArrayList<>();
     }
 
-    public static CalculationsRecorder getInstance() {
+    public static CalculationsRegistry getInstance() {
         if (instance == null) {
-            instance = new CalculationsRecorder();
+            instance = new CalculationsRegistry();
         }
         return instance;
     }

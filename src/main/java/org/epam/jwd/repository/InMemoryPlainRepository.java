@@ -1,7 +1,7 @@
 package org.epam.jwd.repository;
 
 import org.epam.jwd.model.Plain;
-import org.epam.jwd.observer.RepositoryObserver;
+import org.epam.jwd.observer.EventManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -15,7 +15,7 @@ public class InMemoryPlainRepository implements PlainRepository {
     private static final Logger LOG = LoggerFactory.getLogger(InMemoryPlainRepository.class);
 
     private final List<Plain> holder;
-    private final List<RepositoryObserver> observers;
+    public EventManager events;
 
     public static InMemoryPlainRepository getInstance() {
         if (instance == null) {
@@ -26,13 +26,13 @@ public class InMemoryPlainRepository implements PlainRepository {
 
     private InMemoryPlainRepository() {
         this.holder = new ArrayList<>();
-        this.observers = new ArrayList<>();
+        this.events = new EventManager("save", "update", "delete");
     }
 
     @Override
     public Plain create(Plain plain) {
         holder.add(plain);
-        notifyObserversOnCreate(plain);
+        events.notify("save", plain);
         int id = holder.size() - 1;
         return holder.get(id);
     }
@@ -46,41 +46,15 @@ public class InMemoryPlainRepository implements PlainRepository {
     public Plain update(int id, Plain plain) {
         Plain oldPlain = holder.get(id);
         holder.set(id, plain);
-        notifyObserversOnUpdate(plain);
+        events.notify("update", plain);
         return oldPlain;
     }
 
     @Override
     public void delete(int id) {
+        Plain plain = holder.get(id);
         holder.remove(id);
-        notifyObserversOnDelete(id);
-    }
-
-    public void attach(RepositoryObserver observer) {
-        observers.add(observer);
-    }
-
-    public void detach(RepositoryObserver observer) {
-        observers.remove(observer);
-    }
-
-    private void notifyObserversOnCreate(Plain plain) {
-        for (RepositoryObserver observer : observers) {
-            observer.onPlainCreated(plain);
-        }
-    }
-
-    private void notifyObserversOnUpdate(Plain plain) {
-        for (RepositoryObserver observer : observers) {
-            observer.onPlainUpdated(plain);
-        }
-    }
-
-    private void notifyObserversOnDelete(int id) {
-        for (RepositoryObserver observer : observers) {
-            Plain plain = holder.get(id);
-            observer.onPlainDeleted(plain);
-        }
+        events.notify("delete", plain);
     }
 
     public void printAll() {

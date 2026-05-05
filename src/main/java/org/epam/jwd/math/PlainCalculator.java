@@ -2,7 +2,6 @@ package org.epam.jwd.math;
 
 import org.epam.jwd.exception.ValidationException;
 import org.epam.jwd.holder.CalculationsHolder;
-import org.epam.jwd.holder.CalculationsRecorder;
 import org.epam.jwd.model.Plain;
 import org.epam.jwd.validation.PlainValidator;
 import org.slf4j.Logger;
