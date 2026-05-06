@@ -1,6 +1,8 @@
 package org.epam.jwd.holder;
 
+import org.epam.jwd.math.PlainCalculator;
 import org.epam.jwd.model.Plain;
+import org.epam.jwd.model.Point3d;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -9,6 +11,7 @@ import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import java.lang.reflect.Field;
+import java.math.BigDecimal;
 
 @RunWith(MockitoJUnitRunner.class)
 public class CalculationsRegistryTest {
@@ -36,11 +39,21 @@ public class CalculationsRegistryTest {
     }
 
     @Test
-    public void save_shouldAddPlainAndCalculationToTheList_always() {
+    public void save_shouldAddPlainAndCalculationAsMockToTheList_always() {
         registry.save(mockPlain, mockCalculation);
 
         Assert.assertEquals(SIZE, registry.size());
         Assert.assertTrue(registry.contains(mockPlain));
+    }
+
+    @Test
+    public void save_shouldAddPlainAndCalculationToTheList_always() {
+        final PlainCalculator calculator = PlainCalculator.getInstance();
+
+        registry.save(initPlain(), calculator.calculate(initPlain()));
+
+        Assert.assertEquals(SIZE, registry.size());
+        Assert.assertTrue(registry.contains(initPlain()));
     }
 
     @Test
@@ -60,5 +73,13 @@ public class CalculationsRegistryTest {
         registry.delete(mockPlain);
 
         Assert.assertFalse(registry.contains(newMockPlain));
+    }
+
+    private Plain initPlain() {
+        return new Plain(
+                new Point3d(BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.ZERO),
+                new Point3d(BigDecimal.ZERO, new BigDecimal("5"), BigDecimal.ZERO),
+                new Point3d(BigDecimal.ZERO, BigDecimal.ZERO, new BigDecimal("5"))
+        );
     }
 }
