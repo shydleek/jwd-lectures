@@ -15,8 +15,6 @@ public class PlainCalculator {
 
     private static PlainCalculator instance;
 
-    private static final Logger LOG = LoggerFactory.getLogger(PlainCalculator.class);
-
     private static final int EXPONENT = 2;
     private static final int PRECISION = 10;
     private static final int PRECISION_FOR_SCALE = 4;
@@ -92,18 +90,14 @@ public class PlainCalculator {
     }
 
     public boolean isPerpendicularToXAxis(Plain plain) {
-        LOG.info(String.valueOf(RIGHT_ANGLE));
-        LOG.info(String.valueOf(angleToXAxis(plain)));
         return RIGHT_ANGLE.compareTo(angleToXAxis(plain)) == 0.0;
     }
 
     public boolean isPerpendicularToYAxis(Plain plain) {
-        LOG.info(String.valueOf(angleToZAxis(plain)));
         return RIGHT_ANGLE.compareTo(angleToYAxis(plain)) == 0.0;
     }
 
     public boolean isPerpendicularToZAxis(Plain plain) {
-        LOG.info(String.valueOf(angleToZAxis(plain)));
         return RIGHT_ANGLE.compareTo(angleToZAxis(plain)) == 0.0;
     }
 
