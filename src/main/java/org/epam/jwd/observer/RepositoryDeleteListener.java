@@ -12,7 +12,7 @@ public class RepositoryDeleteListener implements EventListener{
     }
 
     @Override
-    public void update(String eventType, Plain plain) {
-        calculationsRegistry.delete(plain);
+    public void update(String eventType, Plain newPlain, Plain oldPlain) {
+        calculationsRegistry.delete(oldPlain);
     }
 }

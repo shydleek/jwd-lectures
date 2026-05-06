@@ -16,8 +16,8 @@ public class RepositoryUpdateListener implements EventListener {
     }
 
     @Override
-    public void update(String eventType, Plain plain) {
-        CalculationsHolder result = plainCalculator.calculate(plain);
-        calculationsRegistry.update(plain, result);
+    public void update(String eventType, Plain newPlain, Plain oldPlain) {
+        CalculationsHolder result = plainCalculator.calculate(newPlain);
+        calculationsRegistry.update(newPlain, oldPlain, result);
     }
 }

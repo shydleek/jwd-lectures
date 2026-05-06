@@ -33,13 +33,10 @@ public class CalculationsRegistry {
         calculations.add(calculation);
     }
 
-    public void update(Plain plain, CalculationsHolder calculation) {
-        int index = plains.indexOf(plain);
-        if (index != -1) {
-            calculations.set(index, calculation);
-        } else {
-            save(plain, calculation);
-        }
+    public void update(Plain newPlain, Plain oldPlain, CalculationsHolder calculation) {
+        int index = plains.indexOf(oldPlain);
+        calculations.set(index, calculation);
+        plains.set(index, newPlain);
     }
 
     public void delete(Plain plain) {
@@ -48,6 +45,32 @@ public class CalculationsRegistry {
             plains.remove(index);
             calculations.remove(index);
         }
+    }
+
+    private int findPlainIndex(Plain plain) {
+        for (int i = 0; i < plains.size(); i++) {
+            Plain p = plains.get(i);
+            if (p == null) continue;
+            if (p.equals(plain)) return i;
+        }
+        return -1;
+    }
+
+    public boolean contains(Plain plain) {
+        if (plain == null) return false;
+        return findPlainIndex(plain) != -1;
+    }
+
+    public int size() {
+        return new ArrayList<>(plains).size();
+    }
+
+    public List<CalculationsHolder> findAll() {
+        return new ArrayList<>(calculations);
+    }
+
+    public List<Plain> findAllPlains() {
+        return new ArrayList<>(plains);
     }
 
     public void printAll() {

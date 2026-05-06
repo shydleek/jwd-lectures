@@ -16,8 +16,8 @@ public class RepositorySaveListener implements EventListener {
     }
 
     @Override
-    public void update(String eventType, Plain plain) {
-        CalculationsHolder result = plainCalculator.calculate(plain);
-        calculationsRegistry.save(plain, result);
+    public void update(String eventType, Plain newPlain, Plain oldPlain) {
+        CalculationsHolder result = plainCalculator.calculate(newPlain);
+        calculationsRegistry.save(newPlain, result);
     }
 }

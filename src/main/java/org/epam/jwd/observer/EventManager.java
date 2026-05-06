@@ -27,10 +27,10 @@ public class EventManager {
         users.remove(listener);
     }
 
-    public void notify(String eventType, Plain plain) {
+    public void notify(String eventType, Plain newPlain, Plain oldPlain) {
         List<EventListener> users = listeners.get(eventType);
         for (EventListener listener : users) {
-            listener.update(eventType, plain);
+            listener.update(eventType, newPlain, oldPlain);
         }
     }
 }

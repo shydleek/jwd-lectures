@@ -32,7 +32,7 @@ public class InMemoryPlainRepository implements PlainRepository {
     @Override
     public Plain create(Plain plain) {
         holder.add(plain);
-        events.notify("save", plain);
+        events.notify("save", plain, null);
         int id = holder.size() - 1;
         return holder.get(id);
     }
@@ -46,7 +46,7 @@ public class InMemoryPlainRepository implements PlainRepository {
     public Plain update(int id, Plain plain) {
         Plain oldPlain = holder.get(id);
         holder.set(id, plain);
-        events.notify("update", plain);
+        events.notify("update", plain, oldPlain);
         return oldPlain;
     }
 
@@ -54,7 +54,7 @@ public class InMemoryPlainRepository implements PlainRepository {
     public void delete(int id) {
         Plain plain = holder.get(id);
         holder.remove(id);
-        events.notify("delete", plain);
+        events.notify("delete", null, plain);
     }
 
     public void printAll() {
