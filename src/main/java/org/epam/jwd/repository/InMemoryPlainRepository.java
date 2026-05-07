@@ -2,6 +2,7 @@ package org.epam.jwd.repository;
 
 import org.epam.jwd.model.Plain;
 import org.epam.jwd.observer.EventManager;
+import org.epam.jwd.specification.Specification;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -55,6 +56,19 @@ public class InMemoryPlainRepository implements PlainRepository {
         Plain plain = holder.get(id);
         holder.remove(id);
         events.notify("delete", null, plain);
+    }
+
+    @Override
+    public List<Plain> findBySpecification(Specification<Plain> specification) {
+        List<Plain> result = new ArrayList<>();
+
+        for (Plain plain : holder) {
+            if (specification.isSatisfiedBy(plain)) {
+                result.add(plain);
+            }
+        }
+
+        return result;
     }
 
     public int size() {

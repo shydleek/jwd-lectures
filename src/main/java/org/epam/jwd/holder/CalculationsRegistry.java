@@ -6,6 +6,7 @@ import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class CalculationsRegistry {
 
@@ -45,6 +46,11 @@ public class CalculationsRegistry {
             plains.remove(index);
             calculations.remove(index);
         }
+    }
+
+    public CalculationsHolder findCalculationByPlain(Plain plain) {
+        int index = plains.indexOf(plain);
+        return calculations.get(index);
     }
 
     private int findPlainIndex(Plain plain) {
