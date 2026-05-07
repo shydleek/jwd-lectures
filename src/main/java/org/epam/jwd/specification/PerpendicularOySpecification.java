@@ -2,8 +2,9 @@ package org.epam.jwd.specification;
 
 import org.epam.jwd.holder.CalculationsHolder;
 import org.epam.jwd.holder.CalculationsRegistry;
-import org.epam.jwd.math.PlainCalculator;
 import org.epam.jwd.model.Plain;
+
+import java.util.List;
 
 public class PerpendicularOySpecification implements Specification<Plain>{
 
