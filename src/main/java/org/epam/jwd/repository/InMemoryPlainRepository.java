@@ -57,6 +57,10 @@ public class InMemoryPlainRepository implements PlainRepository {
         events.notify("delete", null, plain);
     }
 
+    public int size() {
+        return holder.size();
+    }
+
     public void printAll() {
         if (holder.isEmpty()) {
             LOG.info("repo is empty");
