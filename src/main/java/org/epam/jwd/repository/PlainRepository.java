@@ -1,7 +1,7 @@
 package org.epam.jwd.repository;
 
 import org.epam.jwd.model.Plain;
-import org.epam.jwd.sorting.SortingStrategy;
+import org.epam.jwd.sorting.Sorting;
 import org.epam.jwd.specification.Specification;
 
 import java.util.List;
@@ -18,5 +18,5 @@ public interface PlainRepository {
 
     List<Plain> findBySpecification(Specification<Plain> specification);
 
-    List<Plain> sort(SortingStrategy sortingStrategy);
+    List<Plain> sort(Sorting sorting);
 }

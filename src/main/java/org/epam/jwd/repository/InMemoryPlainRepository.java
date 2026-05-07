@@ -2,7 +2,7 @@ package org.epam.jwd.repository;
 
 import org.epam.jwd.model.Plain;
 import org.epam.jwd.observer.EventManager;
-import org.epam.jwd.sorting.SortingStrategy;
+import org.epam.jwd.sorting.Sorting;
 import org.epam.jwd.specification.Specification;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -73,8 +73,8 @@ public class InMemoryPlainRepository implements PlainRepository {
     }
 
     @Override
-    public List<Plain> sort(SortingStrategy sortingStrategy) {
-        return sortingStrategy.sort(holder);
+    public List<Plain> sort(Sorting sorting) {
+        return sorting.sort(holder);
     }
 
     public int size() {

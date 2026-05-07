@@ -1,13 +1,12 @@
 package org.epam.jwd.sorting;
 
-import org.epam.jwd.holder.CalculationsRegistry;
 import org.epam.jwd.model.Plain;
 
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
-public class SortingByFirstPointX implements SortingStrategy{
+public class SortingByFirstPointX implements Sorting {
     @Override
     public List<Plain> sort(List<Plain> plains) {
         List<Plain> sortedList = new ArrayList<>(plains);
@@ -24,6 +23,6 @@ public class SortingByFirstPointX implements SortingStrategy{
 
     @Override
     public Comparator<Plain> reversed() {
-        return SortingStrategy.super.reversed();
+        return Sorting.super.reversed();
     }
 }
