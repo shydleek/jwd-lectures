@@ -1,9 +1,12 @@
 package org.epam.jwd.reader;
 
+import org.epam.jwd.repository.InMemoryPlainRepository;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 
 import java.io.IOException;
+import java.lang.reflect.Field;
 import java.nio.file.Path;
 import java.util.List;
 
@@ -13,6 +16,13 @@ public class FileReaderTest {
 
     private final String incorrectFilePath = "inputCorrectCoefficientddd.txt";
     private final String correctFilePath = "txt/inputPoints.txt";
+
+    @Before
+    public void resetFileReaderSingleton() throws Exception {
+        Field instance = FileReader.class.getDeclaredField("instance");
+        instance.setAccessible(true);
+        instance.set(null, null);
+    }
 
     @Test(expected = IOException.class)
     public void readAllLinesFromFile_shouldThrowIOException_whenFilePathIsNotCorrect() throws IOException {

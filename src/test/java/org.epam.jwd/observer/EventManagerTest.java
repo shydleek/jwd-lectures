@@ -11,12 +11,12 @@ import static org.mockito.Mockito.*;
 @RunWith(MockitoJUnitRunner.class)
 public class EventManagerTest {
 
-    private String eventType = "eventType";
-    private String firstEventType = "firstEventType";
-    private String secondEventType = "secondEventType";
-    private String thirdEventType = "thirdEventType";
-    private EventManager eventManager = new EventManager(eventType);
-    private EventManager mainEventManager = new EventManager(firstEventType, secondEventType, thirdEventType);
+    private final String eventType = "eventType";
+    private final String firstEventType = "firstEventType";
+    private final String secondEventType = "secondEventType";
+    private final String thirdEventType = "thirdEventType";
+    private final EventManager eventManager = new EventManager(eventType);
+    private final EventManager mainEventManager = new EventManager(firstEventType, secondEventType, thirdEventType);
 
     @Mock
     private EventListener mockListener;

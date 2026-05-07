@@ -2,13 +2,17 @@ package org.epam.jwd.math;
 
 import org.epam.jwd.model.Plain;
 import org.epam.jwd.model.Point3d;
+import org.epam.jwd.reader.FileReader;
+import org.epam.jwd.repository.InMemoryPlainRepository;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
 import org.junit.runners.Suite;
 
+import java.lang.reflect.Field;
 import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.Collection;
@@ -23,6 +27,13 @@ public class PlainCalculatorTest {
     private static final PlainCalculator PLAIN_CALCULATOR = PlainCalculator.getInstance();
 
     private static final String angle = "0.6155";
+
+    @Before
+    public void resetPlainCalculatorSingleton() throws Exception {
+        Field instance = PlainCalculator.class.getDeclaredField("instance");
+        instance.setAccessible(true);
+        instance.set(null, null);
+    }
 
     public static class NonParameterizedTests {
         @Test

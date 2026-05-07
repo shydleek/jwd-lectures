@@ -2,6 +2,7 @@ package org.epam.jwd.repository;
 
 import org.epam.jwd.holder.CalculationsHolder;
 import org.epam.jwd.model.Plain;
+import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -11,7 +12,7 @@ import java.lang.reflect.Field;
 
 public class InMemoryPlainRepositoryTest {
 
-    private InMemoryPlainRepository repo = InMemoryPlainRepository.getInstance();
+    private final InMemoryPlainRepository repo = InMemoryPlainRepository.getInstance();
     private static final int ID = 0;
     private static final int SIZE_AFTER_DELETE = 0;
 
@@ -22,7 +23,7 @@ public class InMemoryPlainRepositoryTest {
     private Plain newMockPlain;
 
     @Before
-    public void resetSingleton() throws Exception {
+    public void resetInMemoryPlainRepositorySingleton() throws Exception {
         Field instance = InMemoryPlainRepository.class.getDeclaredField("instance");
         instance.setAccessible(true);
         instance.set(null, null);

@@ -1,21 +1,39 @@
 package org.epam.jwd.converter;
 
+import org.epam.jwd.holder.CalculationsRegistry;
 import org.epam.jwd.model.Point3d;
 import org.epam.jwd.reader.FileReader;
+import org.epam.jwd.repository.InMemoryPlainRepository;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 
 import java.io.IOException;
+import java.lang.reflect.Field;
 import java.math.BigDecimal;
 import java.nio.file.Path;
 import java.util.List;
 
 public class PointsConverterTest {
 
-    final private FileReader fileReader = FileReader.getInstance();
-    final private PointsConverter reader = PointsConverter.getInstance();
-    final private String correctFilePath = "txt/inputPoints.txt";
-    final private String emptyFilePath = "txt/emptyFile.txt";
+    private final FileReader fileReader = FileReader.getInstance();
+    private final PointsConverter reader = PointsConverter.getInstance();
+    private final String correctFilePath = "txt/inputPoints.txt";
+    private final String emptyFilePath = "txt/emptyFile.txt";
+
+    @Before
+    public void resetFileReaderSingleton() throws Exception {
+        Field instance = FileReader.class.getDeclaredField("instance");
+        instance.setAccessible(true);
+        instance.set(null, null);
+    }
+
+    @Before
+    public void resetPointsConverterSingleton() throws Exception {
+        Field instance = CalculationsRegistry.class.getDeclaredField("instance");
+        instance.setAccessible(true);
+        instance.set(null, null);
+    }
 
     @Test
     public void convertListOfPoints_shouldReturnListOfPoint3DLists_whenFilePathIsCorrect() throws IOException {

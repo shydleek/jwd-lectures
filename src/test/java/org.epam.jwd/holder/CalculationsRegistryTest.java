@@ -16,7 +16,7 @@ import java.math.BigDecimal;
 @RunWith(MockitoJUnitRunner.class)
 public class CalculationsRegistryTest {
 
-    private CalculationsRegistry registry = CalculationsRegistry.getInstance();
+    private final CalculationsRegistry registry = CalculationsRegistry.getInstance();
     private static final int SIZE = 1;
 
     @Mock
@@ -32,7 +32,7 @@ public class CalculationsRegistryTest {
     private CalculationsHolder newMockCalculation;
 
     @Before
-    public void resetSingleton() throws Exception {
+    public void resetCalculationsRegistrySingleton() throws Exception {
         Field instance = CalculationsRegistry.class.getDeclaredField("instance");
         instance.setAccessible(true);
         instance.set(null, null);
