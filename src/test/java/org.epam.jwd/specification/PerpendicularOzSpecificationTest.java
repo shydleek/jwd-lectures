@@ -1,11 +1,10 @@
 package org.epam.jwd.specification;
 
-import org.epam.jwd.holder.CalculationsHolder;
-import org.epam.jwd.holder.CalculationsRegistry;
+import org.epam.jwd.repository.CalculationsRepository;
 import org.epam.jwd.model.Plain;
 import org.epam.jwd.model.Point3d;
 import org.epam.jwd.observer.RepositorySaveListener;
-import org.epam.jwd.repository.InMemoryPlainRepository;
+import org.epam.jwd.repository.PlainRepository;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -16,53 +15,66 @@ import java.util.List;
 
 public class PerpendicularOzSpecificationTest {
 
-    private final InMemoryPlainRepository repo = InMemoryPlainRepository.getInstance();
-    private final CalculationsRegistry recorder = CalculationsRegistry.getInstance();
-    private final RepositorySaveListener saveListener = new RepositorySaveListener();
+    PlainRepository repo = PlainRepository.getInstance();
+    CalculationsRepository calculations = CalculationsRepository.getInstance();
+    RepositorySaveListener saveListener = new RepositorySaveListener();
 
-    Plain perpOxPlain = new Plain(
-            new Point3d(BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.ZERO),
-            new Point3d(BigDecimal.ZERO, new BigDecimal("5"), BigDecimal.ZERO),
-            new Point3d(BigDecimal.ZERO, BigDecimal.ZERO, new BigDecimal("5"))
-    );
-    Plain perpOyPlain = new Plain(
-            new Point3d(BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.ZERO),
+    Plain planeOX = new Plain(
+            1,
             new Point3d(new BigDecimal("5"), BigDecimal.ZERO, BigDecimal.ZERO),
-            new Point3d(BigDecimal.ZERO, BigDecimal.ZERO, new BigDecimal("5"))
+            new Point3d(new BigDecimal("5"), new BigDecimal("8"), BigDecimal.ZERO),
+            new Point3d(new BigDecimal("5"), BigDecimal.ZERO, new BigDecimal("6"))
     );
-    Plain perpOzPlain = new Plain(
-            new Point3d(BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.ZERO),
-            new Point3d(new BigDecimal("5"), BigDecimal.ZERO, BigDecimal.ZERO),
-            new Point3d(BigDecimal.ZERO, new BigDecimal("5"), BigDecimal.ZERO)
+
+    Plain planeOY = new Plain(
+            2,
+            new Point3d(BigDecimal.ZERO, new BigDecimal("-3"), BigDecimal.ZERO),
+            new Point3d(new BigDecimal("7"), new BigDecimal("-3"), BigDecimal.ZERO),
+            new Point3d(BigDecimal.ZERO, new BigDecimal("-3"), new BigDecimal("9"))
+    );
+
+    Plain planeOZ = new Plain(
+            3,
+            new Point3d(BigDecimal.ZERO, BigDecimal.ZERO, new BigDecimal("10")),
+            new Point3d(new BigDecimal("6"), BigDecimal.ZERO, new BigDecimal("10")),
+            new Point3d(BigDecimal.ZERO, new BigDecimal("4"), new BigDecimal("10"))
+    );
+
+    List<Plain> expectedList = List.of(
+            new Plain(
+                    3,
+                    new Point3d(BigDecimal.ZERO, BigDecimal.ZERO, new BigDecimal("10")),
+                    new Point3d(new BigDecimal("6"), BigDecimal.ZERO, new BigDecimal("10")),
+                    new Point3d(BigDecimal.ZERO, new BigDecimal("4"), new BigDecimal("10"))
+            )
     );
 
     @Before
     public void resetInMemoryPlainRepositorySingleton() throws Exception {
-        Field instance = InMemoryPlainRepository.class.getDeclaredField("instance");
+        Field instance = PlainRepository.class.getDeclaredField("instance");
         instance.setAccessible(true);
         instance.set(null, null);
     }
 
     @Before
     public void resetCalculationsRegistrySingleton() throws Exception {
-        Field instance = CalculationsRegistry.class.getDeclaredField("instance");
+        Field instance = CalculationsRepository.class.getDeclaredField("instance");
         instance.setAccessible(true);
         instance.set(null, null);
     }
 
     @Before
     public void setUp() {
-        repo.events.subscribe("save", saveListener);
-        repo.create(perpOxPlain);
-        repo.create(perpOyPlain);
-        repo.create(perpOzPlain);
+        repo.create(planeOX);
+        repo.create(planeOY);
+        repo.create(planeOZ);
     }
 
     @Test
     public void sort_shouldReturnSortedList() {
-        Specification<Plain> perpOzSpec = new PerpendicularOzSpecification(recorder);
-        List<Plain> actualPlains = repo.findBySpecification(perpOzSpec);
+        Specification<Plain> perpOzSpec = new PerpendicularOzSpecification(calculations);
+        List<Plain> actualList = repo.findBySpecification(perpOzSpec);
 
-        Assert.assertEquals(perpOzPlain, actualPlains.getFirst());
+        Assert.assertEquals(expectedList, actualList);
     }
 }
