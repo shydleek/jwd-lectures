@@ -1,56 +1,56 @@
 package org.epam.jwd.repository;
 
-import org.epam.jwd.holder.CalculationsHolder;
 import org.epam.jwd.model.Plain;
-import org.junit.After;
+import org.epam.jwd.model.Point3d;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.Mock;
 
 import java.lang.reflect.Field;
+import java.math.BigDecimal;
 
-public class InMemoryPlainRepositoryTest {
+public class PlainRepositoryTest {
 
-    private final InMemoryPlainRepository repo = InMemoryPlainRepository.getInstance();
-    private static final int ID = 0;
+    private final PlainRepository repo = PlainRepository.getInstance();
+    private static final int ID = 1;
     private static final int SIZE_AFTER_DELETE = 0;
 
-    @Mock
-    private Plain mockPlain;
 
-    @Mock
-    private Plain newMockPlain;
+    private final Plain plain = new Plain(
+            1,
+            new Point3d(new BigDecimal(1), new BigDecimal(0), new BigDecimal(0)),
+            new Point3d(new BigDecimal(0), new BigDecimal(1), new BigDecimal(0)),
+            new Point3d(new BigDecimal(0), new BigDecimal(0), new BigDecimal(1)));
 
     @Before
     public void resetInMemoryPlainRepositorySingleton() throws Exception {
-        Field instance = InMemoryPlainRepository.class.getDeclaredField("instance");
+        Field instance = PlainRepository.class.getDeclaredField("instance");
         instance.setAccessible(true);
         instance.set(null, null);
     }
 
     @Test
     public void save_shouldSavePlainToTheRepoAndReturnThatPlain_whenPlainIsValid() {
-        Assert.assertEquals(repo.create(mockPlain), mockPlain);
+        Assert.assertEquals(repo.create(plain), plain);
     }
 
     @Test
     public void read_shouldReadCorrectPlainAndReturnThatPlain_whenIdIsValid() {
-        repo.create(mockPlain);
+        repo.create(plain);
 
-        Assert.assertEquals(repo.read(ID), mockPlain);
+        Assert.assertEquals(repo.read(ID), plain);
     }
 
     @Test
     public void update_shouldUpdatePlainInTheRepoAndReturnOldPlain_whenNewPlainIsValid() {
-        repo.create(mockPlain);
+        repo.create(plain);
 
-        Assert.assertEquals(repo.update(0, newMockPlain), mockPlain);
+        Assert.assertEquals(repo.update(plain), plain);
     }
 
     @Test
     public void delete_shouldDeletePlainFromTheRepo_whenIdIsValid() {
-        repo.create(mockPlain);
+        repo.create(plain);
         repo.delete(ID);
 
         Assert.assertEquals(SIZE_AFTER_DELETE, repo.size());

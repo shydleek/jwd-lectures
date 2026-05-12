@@ -22,34 +22,36 @@ public class PlainValidatorTest {
     }
 
     private Plain initValidPlain() {
-        return new Plain(new Point3d(
-                new BigDecimal(14),
-                new BigDecimal(1),
-                new BigDecimal(1)
-        ), new Point3d(
-                new BigDecimal(1),
-                new BigDecimal(41),
-                new BigDecimal(1)
-        ), new Point3d(
-                new BigDecimal(1),
-                new BigDecimal(1),
-                new BigDecimal(13)
+        return new Plain(1,
+                new Point3d(
+                        new BigDecimal(14),
+                        new BigDecimal(1),
+                        new BigDecimal(1)),
+                new Point3d(
+                        new BigDecimal(1),
+                        new BigDecimal(41),
+                        new BigDecimal(1)),
+                new Point3d(
+                        new BigDecimal(1),
+                        new BigDecimal(1),
+                        new BigDecimal(13)
         ));
     }
 
     private Plain initNotValidPlain() {
-        return new Plain(new Point3d(
-                new BigDecimal(1),
-                new BigDecimal(1),
-                new BigDecimal(1)
-        ), new Point3d(
-                new BigDecimal(1),
-                new BigDecimal(1),
-                new BigDecimal(1)
-        ), new Point3d(
-                new BigDecimal(1),
-                new BigDecimal(1),
-                new BigDecimal(1)
-        ));
+        return new Plain(2,
+                new Point3d(
+                    new BigDecimal(1),
+                    new BigDecimal(1),
+                    new BigDecimal(1)),
+                new Point3d(
+                        new BigDecimal(1),
+                        new BigDecimal(1),
+                        new BigDecimal(1)),
+                new Point3d(
+                        new BigDecimal(1),
+                        new BigDecimal(1),
+                        new BigDecimal(1))
+        );
     }
 }

@@ -2,8 +2,6 @@ package org.epam.jwd.math;
 
 import org.epam.jwd.model.Plain;
 import org.epam.jwd.model.Point3d;
-import org.epam.jwd.reader.FileReader;
-import org.epam.jwd.repository.InMemoryPlainRepository;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -80,6 +78,7 @@ public class PlainCalculatorTest {
 
         private Plain initPlain() {
             return new Plain(
+                    1,
                     new Point3d(new BigDecimal(1), new BigDecimal(0), new BigDecimal(0)),
                     new Point3d(new BigDecimal(0), new BigDecimal(1), new BigDecimal(0)),
                     new Point3d(new BigDecimal(0), new BigDecimal(0), new BigDecimal(1))
@@ -88,6 +87,7 @@ public class PlainCalculatorTest {
 
         private Plain initPerpendicularToXAxisPlain() {
             return new Plain(
+                    2,
                     new Point3d(BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.ZERO),
                     new Point3d(BigDecimal.ZERO, new BigDecimal("5"), BigDecimal.ZERO),
                     new Point3d(BigDecimal.ZERO, BigDecimal.ZERO, new BigDecimal("5"))
@@ -96,6 +96,7 @@ public class PlainCalculatorTest {
 
         private Plain initPerpendicularToYAxisPlain() {
             return new Plain(
+                    3,
                     new Point3d(BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.ZERO),
                     new Point3d(new BigDecimal("5"), BigDecimal.ZERO, BigDecimal.ZERO),
                     new Point3d(BigDecimal.ZERO, BigDecimal.ZERO, new BigDecimal("5"))
@@ -104,6 +105,7 @@ public class PlainCalculatorTest {
 
         private Plain initPerpendicularToZAxisPlain() {
             return new Plain(
+                    4,
                     new Point3d(BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.ZERO),
                     new Point3d(new BigDecimal("5"), BigDecimal.ZERO, BigDecimal.ZERO),
                     new Point3d(BigDecimal.ZERO, new BigDecimal("5"), BigDecimal.ZERO)
@@ -125,6 +127,7 @@ public class PlainCalculatorTest {
             return Arrays.asList(new Object[][]{
                     {
                             new Plain(
+                                    5,
                                     new Point3d(new BigDecimal(0), new BigDecimal(0), new BigDecimal(1)),
                                     new Point3d(new BigDecimal(0), new BigDecimal(1), new BigDecimal(0)),
                                     new Point3d(new BigDecimal(1), new BigDecimal(0), new BigDecimal(0))
@@ -132,6 +135,7 @@ public class PlainCalculatorTest {
                     },
                     {
                             new Plain(
+                                    6,
                                     new Point3d(new BigDecimal(1), new BigDecimal(3), new BigDecimal(5)),
                                     new Point3d(new BigDecimal(1), new BigDecimal(4), new BigDecimal(7)),
                                     new Point3d(new BigDecimal(-5), new BigDecimal(2), new BigDecimal(1))

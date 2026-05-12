@@ -1,6 +1,5 @@
 package org.epam.jwd.reader;
 
-import org.epam.jwd.repository.InMemoryPlainRepository;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;

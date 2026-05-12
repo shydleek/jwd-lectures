@@ -1,9 +1,8 @@
 package org.epam.jwd.converter;
 
-import org.epam.jwd.holder.CalculationsRegistry;
+import org.epam.jwd.repository.CalculationsRepository;
 import org.epam.jwd.model.Point3d;
 import org.epam.jwd.reader.FileReader;
-import org.epam.jwd.repository.InMemoryPlainRepository;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -30,7 +29,7 @@ public class PointsConverterTest {
 
     @Before
     public void resetPointsConverterSingleton() throws Exception {
-        Field instance = CalculationsRegistry.class.getDeclaredField("instance");
+        Field instance = CalculationsRepository.class.getDeclaredField("instance");
         instance.setAccessible(true);
         instance.set(null, null);
     }

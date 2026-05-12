@@ -19,9 +19,6 @@ public class EventManagerTest {
     private final EventManager mainEventManager = new EventManager(firstEventType, secondEventType, thirdEventType);
 
     @Mock
-    private EventListener mockListener;
-
-    @Mock
     private EventListener firstMockListener;
 
     @Mock
@@ -31,17 +28,16 @@ public class EventManagerTest {
     private EventListener thirdMockListener;
 
     @Mock
-    private Plain mockNewPlain;
+    private EventListener mockListener;
 
-    @Mock
-    private Plain mockOldPlain;
+    private int id;
 
     @Test
     public void subscribe_shouldAddListenerWithEventType_always() {
         eventManager.subscribe(eventType, mockListener);
 
-        eventManager.notify(eventType, mockNewPlain, mockOldPlain);
-        verify(mockListener, times(1)).update(eventType, mockNewPlain, mockOldPlain);
+        eventManager.notify(eventType, id);
+        verify(mockListener, times(1)).update(eventType, id);
     }
 
     @Test
@@ -50,8 +46,8 @@ public class EventManagerTest {
 
         eventManager.unsubscribe(eventType, mockListener);
 
-        eventManager.notify(eventType, mockNewPlain, mockOldPlain);
-        verify(mockListener, never()).update(anyString(), any(), any());
+        eventManager.notify(eventType, id);
+        verify(mockListener, never()).update(anyString(), anyInt());
     }
 
     @Test
@@ -60,10 +56,10 @@ public class EventManagerTest {
         mainEventManager.subscribe(secondEventType, secondMockListener);
         mainEventManager.subscribe(thirdEventType, thirdMockListener);
 
-        mainEventManager.notify(firstEventType, mockNewPlain, mockOldPlain);
+        mainEventManager.notify(firstEventType, id);
 
-        verify(firstMockListener, times(1)).update(firstEventType, mockNewPlain, mockOldPlain);
-        verify(secondMockListener, never()).update(anyString(), any(), any());
-        verify(thirdMockListener, never()).update(anyString(), any(), any());
+        verify(firstMockListener, times(1)).update(firstEventType, id);
+        verify(secondMockListener, never()).update(anyString(), anyInt());
+        verify(thirdMockListener, never()).update(anyString(), anyInt());
     }
 }
