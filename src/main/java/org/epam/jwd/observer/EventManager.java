@@ -1,7 +1,5 @@
 package org.epam.jwd.observer;
 
-import org.epam.jwd.model.Plain;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -27,10 +25,10 @@ public class EventManager {
         users.remove(listener);
     }
 
-    public void notify(String eventType, Plain newPlain, Plain oldPlain) {
+    public void notify(String eventType, int id) {
         List<EventListener> users = listeners.get(eventType);
         for (EventListener listener : users) {
-            listener.update(eventType, newPlain, oldPlain);
+            listener.update(eventType, id);
         }
     }
 }

@@ -1,23 +1,28 @@
 package org.epam.jwd.observer;
 
-import org.epam.jwd.holder.CalculationsHolder;
-import org.epam.jwd.holder.CalculationsRegistry;
-import org.epam.jwd.math.PlainCalculator;
+import org.epam.jwd.model.CalculationsHolder;
 import org.epam.jwd.model.Plain;
+import org.epam.jwd.repository.CalculationsRepository;
+import org.epam.jwd.math.PlainCalculator;
+import org.epam.jwd.repository.PlainRepository;
 
 public class RepositoryUpdateListener implements EventListener {
 
     private final PlainCalculator plainCalculator;
-    private final CalculationsRegistry calculationsRegistry;
+    private final CalculationsRepository calculationsRepository;
+    private final PlainRepository repo;
 
     public RepositoryUpdateListener() {
         this.plainCalculator = PlainCalculator.getInstance();
-        this.calculationsRegistry = CalculationsRegistry.getInstance();
+        this.calculationsRepository = CalculationsRepository.getInstance();
+        this.repo = PlainRepository.getInstance();
+        repo.getEvents().subscribe("update", this);
     }
 
     @Override
-    public void update(String eventType, Plain newPlain, Plain oldPlain) {
-        CalculationsHolder result = plainCalculator.calculate(newPlain);
-        calculationsRegistry.update(newPlain, oldPlain, result);
+    public void update(String eventType, int id) {
+        final Plain plain = repo.read(id);
+        CalculationsHolder result = plainCalculator.calculate(plain);
+        calculationsRepository.update(id, result);
     }
 }
