@@ -1,4 +1,4 @@
-package org.epam.jwd.holder;
+package org.epam.jwd.model;
 
 import java.math.BigDecimal;
 import java.util.Objects;
