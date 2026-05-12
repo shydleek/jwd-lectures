@@ -20,6 +20,10 @@ public class PlainValidator {
     }
 
     public boolean isPlaneValid(Plain plain) {
+        if (plain.getId() != null && plain.getId() <= 0) {
+            throw new IllegalArgumentException();
+        }
+
         Point3d n = crossProduct(
                 getVectorFromPoints(plain.getA(), plain.getB()),
                 getVectorFromPoints(plain.getA(), plain.getC())

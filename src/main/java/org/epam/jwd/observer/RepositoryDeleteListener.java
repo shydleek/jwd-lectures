@@ -3,7 +3,7 @@ package org.epam.jwd.observer;
 import org.epam.jwd.repository.CalculationsRepository;
 import org.epam.jwd.repository.PlainRepository;
 
-public class RepositoryDeleteListener implements EventListener{
+public class RepositoryDeleteListener implements EventListener {
 
     private final CalculationsRepository calculationsRepository;
     private final PlainRepository repo;

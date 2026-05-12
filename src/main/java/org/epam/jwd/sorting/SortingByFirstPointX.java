@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
-public class SortingByFirstPointX implements Sorting {
+public class SortingByFirstPointX implements Sorting<Plain> {
     @Override
     public List<Plain> sort(List<Plain> plains) {
         List<Plain> sortedList = new ArrayList<>(plains);
