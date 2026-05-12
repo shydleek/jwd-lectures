@@ -4,14 +4,28 @@ import java.util.Objects;
 
 public class Plain {
 
+    private final Integer id;
     private Point3d a;
     private Point3d b;
     private Point3d c;
 
-    public Plain(Point3d a, Point3d b, Point3d c) {
+    public Plain(Integer id, Point3d a, Point3d b, Point3d c) {
+        this.id = id;
         this.a = a;
         this.b = b;
         this.c = c;
+    }
+
+    public Plain withId(Integer id) {
+        return new Plain(id, this.a, this.b, this.c);
+    }
+
+    public static Plain createPlain(Point3d a, Point3d b, Point3d c) {
+        return new Plain(null, a, b, c);
+    }
+
+    public Integer getId() {
+        return id;
     }
 
     public Point3d getA() {
@@ -42,18 +56,19 @@ public class Plain {
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
         Plain plain = (Plain) o;
-        return Objects.equals(a, plain.a) && Objects.equals(b, plain.b) && Objects.equals(c, plain.c);
+        return Objects.equals(id, plain.id);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(a, b, c);
+        return Objects.hashCode(id);
     }
 
     @Override
     public String toString() {
         return "Plain{" +
-                "a=" + a +
+                "id=" + id +
+                ", a=" + a +
                 ", b=" + b +
                 ", c=" + c +
                 '}';
