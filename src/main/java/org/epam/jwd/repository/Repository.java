@@ -1,8 +1,8 @@
 package org.epam.jwd.repository;
 
-import org.epam.jwd.sorting.Sorting;
 import org.epam.jwd.specification.Specification;
 
+import java.util.Comparator;
 import java.util.List;
 
 public interface Repository<T> {
@@ -17,5 +17,5 @@ public interface Repository<T> {
 
     List<T> findBySpecification(Specification<T> specification);
 
-    List<T> sort(Sorting sorting);
+    void sort(Comparator<T> c);
 }

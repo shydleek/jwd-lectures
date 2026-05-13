@@ -3,18 +3,18 @@ package org.epam.jwd.sorting;
 import org.epam.jwd.model.Plain;
 import org.epam.jwd.model.Point3d;
 import org.epam.jwd.repository.PlainRepository;
+import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.lang.reflect.Field;
 import java.math.BigDecimal;
 import java.util.List;
 
-public class SortingByFirstPointXTest {
+public class SortByFirstPointXWithComparatorTest {
 
-    private final PlainRepository firstRepo = PlainRepository.getInstance();
-    private final Sorting sortingByFirstPointX = new SortingByFirstPointX();
+    private PlainRepository repo;
+    private final SortByFirstPointXWithComparator sortingByFirstPointX = new SortByFirstPointXWithComparator();
     private final Plain firstPlain = new Plain(
             null,
             new Point3d(BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.ZERO),
@@ -36,17 +36,24 @@ public class SortingByFirstPointXTest {
             new Point3d(BigDecimal.ZERO, BigDecimal.ZERO, new BigDecimal("1"))
     );
 
+    @Before
+    public void setUp() {
+        repo = PlainRepository.getInstance();
+        repo.create(secondPlain);
+        repo.create(thirdPlain);
+        repo.create(firstPlain);
+    }
+
+    @After
+    public void tearDown() {
+        PlainRepository.resetInstance();
+    }
+
     @Test
     public void sort_shouldReturnSortedList() {
-        firstRepo.create(secondPlain);
-        firstRepo.create(thirdPlain);
-        firstRepo.create(firstPlain);
+        repo.sort(sortingByFirstPointX);
 
-        firstRepo.printAll();
-
-        List<Plain> actualList = firstRepo.sort(sortingByFirstPointX);
-
-        Assert.assertEquals(initSortedPlains(), actualList);
+        Assert.assertEquals(initSortedPlains(), repo.getHolder());
     }
 
     private List<Plain> initSortedPlains() {
@@ -69,3 +76,5 @@ public class SortingByFirstPointXTest {
         );
     }
 }
+
+

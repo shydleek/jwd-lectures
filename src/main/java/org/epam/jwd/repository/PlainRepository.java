@@ -3,12 +3,12 @@ package org.epam.jwd.repository;
 import org.epam.jwd.exception.PlainNotFoundException;
 import org.epam.jwd.model.Plain;
 import org.epam.jwd.observer.EventManager;
-import org.epam.jwd.sorting.Sorting;
 import org.epam.jwd.specification.Specification;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 public class PlainRepository implements Repository<Plain> {
@@ -101,8 +101,8 @@ public class PlainRepository implements Repository<Plain> {
     }
 
     @Override
-    public List<Plain> sort(Sorting sorting) {
-        return sorting.sort(holder);
+    public void sort(Comparator<Plain> comparator) {
+        holder.sort(comparator);
     }
 
     private Plain findPlainById(int id) {
