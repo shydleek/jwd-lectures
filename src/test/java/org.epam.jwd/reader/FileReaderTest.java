@@ -16,13 +16,6 @@ public class FileReaderTest {
     private final String incorrectFilePath = "inputCorrectCoefficientddd.txt";
     private final String correctFilePath = "txt/inputPoints.txt";
 
-    @Before
-    public void resetFileReaderSingleton() throws Exception {
-        Field instance = FileReader.class.getDeclaredField("instance");
-        instance.setAccessible(true);
-        instance.set(null, null);
-    }
-
     @Test(expected = IOException.class)
     public void readAllLinesFromFile_shouldThrowIOException_whenFilePathIsNotCorrect() throws IOException {
         Path path = Path.of(incorrectFilePath);

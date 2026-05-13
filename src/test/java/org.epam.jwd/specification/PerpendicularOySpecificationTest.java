@@ -50,20 +50,6 @@ public class PerpendicularOySpecificationTest {
     );
 
     @Before
-    public void resetInMemoryPlainRepositorySingleton() throws Exception {
-        Field instance = PlainRepository.class.getDeclaredField("instance");
-        instance.setAccessible(true);
-        instance.set(null, null);
-    }
-
-    @Before
-    public void resetCalculationsRegistrySingleton() throws Exception {
-        Field instance = CalculationsRepository.class.getDeclaredField("instance");
-        instance.setAccessible(true);
-        instance.set(null, null);
-    }
-
-    @Before
     public void setUp() {
         repo.create(planeOX);
         repo.create(planeOY);

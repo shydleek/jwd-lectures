@@ -127,4 +127,15 @@ public class PlainRepository implements Repository<Plain> {
             }
         }
     }
+
+    public void clear() {
+        holder.clear();
+    }
+
+    public static void resetInstance() {
+        if (instance != null) {
+            instance.clear();
+            instance = null;
+        }
+    }
 }

@@ -88,4 +88,15 @@ public class CalculationsRepository {
             }
         }
     }
+
+    public void clear() {
+        calculations.clear();
+    }
+
+    public static void resetInstance() {
+        if (instance != null) {
+            instance.clear();
+            instance = null;
+        }
+    }
 }

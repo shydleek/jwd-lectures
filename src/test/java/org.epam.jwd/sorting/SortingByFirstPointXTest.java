@@ -19,24 +19,22 @@ public class SortingByFirstPointXTest {
             null,
             new Point3d(BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.ZERO),
             new Point3d(new BigDecimal("4"), BigDecimal.ZERO, new BigDecimal("2")),
-            new Point3d(BigDecimal.ZERO, new BigDecimal("4"), new BigDecimal("1")));
+            new Point3d(BigDecimal.ZERO, new BigDecimal("4"), new BigDecimal("1"))
+    );
+
     private final Plain secondPlain =  new Plain(
             null,
             new Point3d(new BigDecimal("2"), BigDecimal.ZERO, BigDecimal.ZERO),
             new Point3d(BigDecimal.ZERO, new BigDecimal("3"), BigDecimal.ZERO),
-            new Point3d(BigDecimal.ZERO, BigDecimal.ZERO, new BigDecimal("4")));
+            new Point3d(BigDecimal.ZERO, BigDecimal.ZERO, new BigDecimal("4"))
+    );
+
     private final Plain thirdPlain = new Plain(
             null,
             new Point3d(new BigDecimal("10"), BigDecimal.ZERO, BigDecimal.ZERO),
             new Point3d(BigDecimal.ZERO, new BigDecimal("2"), BigDecimal.ZERO),
-            new Point3d(BigDecimal.ZERO, BigDecimal.ZERO, new BigDecimal("1")));
-
-    @Before
-    public void resetInMemoryPlainRepositorySingleton() throws Exception {
-        Field instance = PlainRepository.class.getDeclaredField("instance");
-        instance.setAccessible(true);
-        instance.set(null, null);
-    }
+            new Point3d(BigDecimal.ZERO, BigDecimal.ZERO, new BigDecimal("1"))
+    );
 
     @Test
     public void sort_shouldReturnSortedList() {

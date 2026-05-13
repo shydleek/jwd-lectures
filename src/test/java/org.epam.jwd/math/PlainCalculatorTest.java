@@ -26,13 +26,6 @@ public class PlainCalculatorTest {
 
     private static final String angle = "0.6155";
 
-    @Before
-    public void resetPlainCalculatorSingleton() throws Exception {
-        Field instance = PlainCalculator.class.getDeclaredField("instance");
-        instance.setAccessible(true);
-        instance.set(null, null);
-    }
-
     public static class NonParameterizedTests {
         @Test
         public void angleToXAxis_shouldReturnCorrectValue_whenPlainIsValidated() {

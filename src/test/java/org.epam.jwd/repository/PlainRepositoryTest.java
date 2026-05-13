@@ -2,6 +2,7 @@ package org.epam.jwd.repository;
 
 import org.epam.jwd.model.Plain;
 import org.epam.jwd.model.Point3d;
+import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -11,7 +12,7 @@ import java.math.BigDecimal;
 
 public class PlainRepositoryTest {
 
-    private final PlainRepository repo = PlainRepository.getInstance();
+    private PlainRepository repo;
     private static final int ID = 1;
     private static final int SIZE_AFTER_DELETE = 0;
 
@@ -20,13 +21,17 @@ public class PlainRepositoryTest {
             1,
             new Point3d(new BigDecimal(1), new BigDecimal(0), new BigDecimal(0)),
             new Point3d(new BigDecimal(0), new BigDecimal(1), new BigDecimal(0)),
-            new Point3d(new BigDecimal(0), new BigDecimal(0), new BigDecimal(1)));
+            new Point3d(new BigDecimal(0), new BigDecimal(0), new BigDecimal(1))
+    );
 
     @Before
-    public void resetInMemoryPlainRepositorySingleton() throws Exception {
-        Field instance = PlainRepository.class.getDeclaredField("instance");
-        instance.setAccessible(true);
-        instance.set(null, null);
+    public void setUp() {
+        repo = PlainRepository.getInstance();
+    }
+
+    @After
+    public void tearDown() {
+        PlainRepository.resetInstance();
     }
 
     @Test

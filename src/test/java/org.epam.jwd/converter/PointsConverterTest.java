@@ -20,20 +20,6 @@ public class PointsConverterTest {
     private final String correctFilePath = "txt/inputPoints.txt";
     private final String emptyFilePath = "txt/emptyFile.txt";
 
-    @Before
-    public void resetFileReaderSingleton() throws Exception {
-        Field instance = FileReader.class.getDeclaredField("instance");
-        instance.setAccessible(true);
-        instance.set(null, null);
-    }
-
-    @Before
-    public void resetPointsConverterSingleton() throws Exception {
-        Field instance = CalculationsRepository.class.getDeclaredField("instance");
-        instance.setAccessible(true);
-        instance.set(null, null);
-    }
-
     @Test
     public void convertListOfPoints_shouldReturnListOfPoint3DLists_whenFilePathIsCorrect() throws IOException {
         List<List<Point3d>> expectedList = initPlains();

@@ -7,21 +7,20 @@ import org.epam.jwd.model.Point3d;
 import org.epam.jwd.observer.RepositoryDeleteListener;
 import org.epam.jwd.observer.RepositorySaveListener;
 import org.epam.jwd.observer.RepositoryUpdateListener;
+import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
-import java.lang.reflect.Field;
 import java.math.BigDecimal;
 
 @RunWith(MockitoJUnitRunner.class)
 public class CalculationsRepositoryTest {
 
-    private final PlainRepository repo = PlainRepository.getInstance();
-    private final CalculationsRepository registry = CalculationsRepository.getInstance();
+    private PlainRepository repo;
+    private CalculationsRepository calculations;
     private final RepositorySaveListener repositorySaveListener = new RepositorySaveListener();
     private final RepositoryUpdateListener repositoryUpdateListener = new RepositoryUpdateListener();
     private final RepositoryDeleteListener repositoryDeleteListener = new RepositoryDeleteListener();
@@ -42,31 +41,29 @@ public class CalculationsRepositoryTest {
     );
 
     @Before
-    public void resetCalculationsRepositorySingleton() throws Exception {
-        Field instance = CalculationsRepository.class.getDeclaredField("instance");
-        instance.setAccessible(true);
-        instance.set(null, null);
+    public void setUp() {
+        repo = PlainRepository.getInstance();
+        calculations = CalculationsRepository.getInstance();
     }
 
-    @Before
-    public void resetPlainRepositorySingleton() throws Exception {
-        Field instance = PlainRepository.class.getDeclaredField("instance");
-        instance.setAccessible(true);
-        instance.set(null, null);
+    @After
+    public void tearDown() {
+        PlainRepository.resetInstance();
+        CalculationsRepository.resetInstance();
     }
 
     @Test
     public void create_shouldAddCalculationAsMockToTheList_always() {
         repo.create(plain);
 
-        Assert.assertEquals(SIZE, registry.size());
+        Assert.assertEquals(SIZE, calculations.size());
     }
 
     @Test
     public void create_shouldAddCalculationToTheList_always() {
         repo.create(plain);
 
-        Assert.assertEquals(SIZE, registry.size());
+        Assert.assertEquals(SIZE, calculations.size());
     }
 
     @Test
@@ -77,7 +74,7 @@ public class CalculationsRepositoryTest {
 
         final int id = plain.getId();
 
-        final CalculationsHolder calculation = registry.read(id);
+        final CalculationsHolder calculation = calculations.read(id);
         Assert.assertEquals(calculator.calculate(plain), calculation);
     }
 
@@ -87,7 +84,7 @@ public class CalculationsRepositoryTest {
 
         repo.update(newPlain);
 
-        Assert.assertEquals(SIZE, registry.size());
+        Assert.assertEquals(SIZE, calculations.size());
     }
 
     @Test
@@ -96,6 +93,6 @@ public class CalculationsRepositoryTest {
 
         repo.delete(plain.getId());
 
-        Assert.assertNotEquals(SIZE, registry.size());
+        Assert.assertNotEquals(SIZE, calculations.size());
     }
 }

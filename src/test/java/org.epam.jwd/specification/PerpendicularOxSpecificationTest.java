@@ -5,6 +5,7 @@ import org.epam.jwd.model.Plain;
 import org.epam.jwd.model.Point3d;
 import org.epam.jwd.observer.RepositorySaveListener;
 import org.epam.jwd.repository.PlainRepository;
+import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -15,8 +16,8 @@ import java.util.List;
 
 public class PerpendicularOxSpecificationTest {
 
-    PlainRepository repo = PlainRepository.getInstance();
-    CalculationsRepository calculations = CalculationsRepository.getInstance();
+    PlainRepository repo;
+    CalculationsRepository calculations;
     RepositorySaveListener saveListener = new RepositorySaveListener();
 
     Plain planeOX = new Plain(
@@ -51,24 +52,18 @@ public class PerpendicularOxSpecificationTest {
     );
 
     @Before
-    public void resetInMemoryPlainRepositorySingleton() throws Exception {
-        Field instance = PlainRepository.class.getDeclaredField("instance");
-        instance.setAccessible(true);
-        instance.set(null, null);
-    }
-
-    @Before
-    public void resetCalculationsRegistrySingleton() throws Exception {
-        Field instance = CalculationsRepository.class.getDeclaredField("instance");
-        instance.setAccessible(true);
-        instance.set(null, null);
-    }
-
-    @Before
     public void setUp() {
+        repo = PlainRepository.getInstance();
+        calculations = CalculationsRepository.getInstance();
         repo.create(planeOX);
         repo.create(planeOY);
         repo.create(planeOZ);
+    }
+
+    @After
+    public void tearDown() {
+        PlainRepository.resetInstance();
+        CalculationsRepository.resetInstance();
     }
 
     @Test
