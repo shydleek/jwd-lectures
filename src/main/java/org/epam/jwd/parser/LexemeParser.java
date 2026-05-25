@@ -2,10 +2,10 @@ package org.epam.jwd.parser;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.epam.jwd.composite.Component;
-import org.epam.jwd.composite.Composite;
-import org.epam.jwd.composite.Leaf;
-import org.epam.jwd.composite.LeafType;
+import org.epam.jwd.model.Component;
+import org.epam.jwd.model.Composite;
+import org.epam.jwd.model.Leaf;
+import org.epam.jwd.model.LeafType;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -2,8 +2,8 @@ package org.epam.jwd.parser;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.epam.jwd.composite.Component;
-import org.epam.jwd.composite.Composite;
+import org.epam.jwd.model.Component;
+import org.epam.jwd.model.Composite;
 import org.epam.jwd.converter.InfixToReversePolishNotationConverter;
 import org.epam.jwd.interpreter.Expression;
 import org.epam.jwd.interpreter.ExpressionParser;

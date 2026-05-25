@@ -1,4 +1,4 @@
-package org.epam.jwd.composite;
+package org.epam.jwd.model;
 
 import java.util.LinkedList;
 import java.util.List;

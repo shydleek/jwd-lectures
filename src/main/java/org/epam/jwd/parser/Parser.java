@@ -1,6 +1,6 @@
 package org.epam.jwd.parser;
 
-import org.epam.jwd.composite.Component;
+import org.epam.jwd.model.Component;
 
 public abstract class Parser {
 
