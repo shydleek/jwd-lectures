@@ -107,7 +107,6 @@ public class ReversePolishNotationExpressionParser implements ExpressionParser {
                     }
                     break;
                 case '~':
-                    System.out.println("!!!");
                     expressions.add(NOT_EXPRESSION);
                     break;
                 default:

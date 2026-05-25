@@ -19,7 +19,7 @@ public class FileReader {
         return instance;
     }
 
-    public List<String> readAllLinesFromFile(Path filePath) throws IOException {
-        return Files.readAllLines(filePath);
+    public String readStringFromFile(Path filePlath) throws IOException {
+        return Files.readString(filePlath);
     }
 }
