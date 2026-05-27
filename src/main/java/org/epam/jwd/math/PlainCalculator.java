@@ -1,7 +1,7 @@
 package org.epam.jwd.math;
 
 import org.epam.jwd.exception.ValidationException;
-import org.epam.jwd.model.CalculationsHolder;
+import org.epam.jwd.model.CalculationsRegistry;
 import org.epam.jwd.model.Plain;
 import org.epam.jwd.validation.PlainValidator;
 
@@ -21,13 +21,13 @@ public class PlainCalculator {
 
     private final PlainValidator plainValidator;
 
-    private PlainCalculator(PlainValidator plainValidator) {
-        this.plainValidator = plainValidator;
+    private PlainCalculator() {
+        this.plainValidator = PlainValidator.getInstance();
     }
 
     public static PlainCalculator getInstance() {
         if (instance == null) {
-            instance = new PlainCalculator(PlainValidator.getInstance());
+            instance = new PlainCalculator();
         }
         return instance;
     }
@@ -141,8 +141,9 @@ public class PlainCalculator {
                 .add(getCoefficientC(plain).multiply(plain.getA().getZ())).negate();
     }
 
-    public CalculationsHolder calculate(Plain plain) {
-        return new CalculationsHolder(
+    public CalculationsRegistry calculate(Plain plain) {
+        return new CalculationsRegistry(
+                plain.getId(),
                 angleToXAxis(plain),
                 angleToYAxis(plain),
                 angleToZAxis(plain),

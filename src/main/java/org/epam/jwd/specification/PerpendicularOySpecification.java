@@ -1,22 +1,23 @@
 package org.epam.jwd.specification;
 
-import org.epam.jwd.model.CalculationsHolder;
-import org.epam.jwd.repository.CalculationsRepository;
+import org.epam.jwd.model.CalculationsRegistry;
+import org.epam.jwd.repository.ListCalculationsRegistryRepository;
 import org.epam.jwd.model.Plain;
 
 public class PerpendicularOySpecification implements Specification<Plain> {
 
-    private CalculationsHolder calculation;
-    private final CalculationsRepository calculations;
+    private final ListCalculationsRegistryRepository listCalculationsRegistryRepository;
 
-    public PerpendicularOySpecification(CalculationsRepository calculations) {
-        this.calculations = calculations;
+    public PerpendicularOySpecification() {
+        this.listCalculationsRegistryRepository = ListCalculationsRegistryRepository.getInstance();
     }
 
     @Override
     public boolean isSatisfiedBy(Plain plain) {
-        calculation = calculations.findCalculationByPlain(plain);
+        int id = plain.getId();
 
-        return calculation.isPerpendicularToYAxis();
+        CalculationsRegistry registry = this.listCalculationsRegistryRepository.read(id).get();
+
+        return registry.isPerpendicularToYAxis();
     }
 }

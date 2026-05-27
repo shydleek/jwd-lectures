@@ -1,21 +1,21 @@
 package org.epam.jwd.observer;
 
-import org.epam.jwd.repository.CalculationsRepository;
-import org.epam.jwd.repository.PlainRepository;
+import org.epam.jwd.repository.ListCalculationsRegistryRepository;
+import org.epam.jwd.repository.ListPlainRepository;
 
 public class RepositoryDeleteListener implements EventListener {
 
-    private final CalculationsRepository calculationsRepository;
-    private final PlainRepository repo;
+    private final ListCalculationsRegistryRepository listCalculationsRegistryRepository;
+    private final ListPlainRepository listPlainRepository;
 
     public RepositoryDeleteListener() {
-        this.calculationsRepository = CalculationsRepository.getInstance();
-        this.repo = PlainRepository.getInstance();
-        repo.getEvents().subscribe("delete", this);
+        this.listCalculationsRegistryRepository = ListCalculationsRegistryRepository.getInstance();
+        this.listPlainRepository = ListPlainRepository.getInstance();
+        listPlainRepository.getEvents().subscribe("delete", this);
     }
 
     @Override
     public void update(String eventType, int id) {
-        calculationsRepository.delete(id);
+        listCalculationsRegistryRepository.delete(id);
     }
 }

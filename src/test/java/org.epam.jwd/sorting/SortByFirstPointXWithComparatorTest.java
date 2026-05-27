@@ -2,7 +2,7 @@ package org.epam.jwd.sorting;
 
 import org.epam.jwd.model.Plain;
 import org.epam.jwd.model.Point3d;
-import org.epam.jwd.repository.PlainRepository;
+import org.epam.jwd.repository.ListPlainRepository;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -13,7 +13,7 @@ import java.util.List;
 
 public class SortByFirstPointXWithComparatorTest {
 
-    private PlainRepository repo;
+    private ListPlainRepository repo;
     private final SortByFirstPointXWithComparator sortingByFirstPointX = new SortByFirstPointXWithComparator();
     private final Plain firstPlain = new Plain(
             null,
@@ -38,7 +38,7 @@ public class SortByFirstPointXWithComparatorTest {
 
     @Before
     public void setUp() {
-        repo = PlainRepository.getInstance();
+        repo = ListPlainRepository.getInstance();
         repo.create(secondPlain);
         repo.create(thirdPlain);
         repo.create(firstPlain);
@@ -46,7 +46,7 @@ public class SortByFirstPointXWithComparatorTest {
 
     @After
     public void tearDown() {
-        PlainRepository.resetInstance();
+        ListPlainRepository.resetInstance();
     }
 
     @Test

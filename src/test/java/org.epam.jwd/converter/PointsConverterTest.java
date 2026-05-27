@@ -1,14 +1,11 @@
 package org.epam.jwd.converter;
 
-import org.epam.jwd.repository.CalculationsRepository;
 import org.epam.jwd.model.Point3d;
 import org.epam.jwd.reader.FileReader;
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
 
 import java.io.IOException;
-import java.lang.reflect.Field;
 import java.math.BigDecimal;
 import java.nio.file.Path;
 import java.util.List;

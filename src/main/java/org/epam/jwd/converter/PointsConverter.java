@@ -18,13 +18,13 @@ public class PointsConverter {
 
     private final PointsValidator pointsValidator;
 
-    private PointsConverter(PointsValidator pointsValidator) {
-        this.pointsValidator = pointsValidator;
+    private PointsConverter() {
+        this.pointsValidator = PointsValidator.getInstance();
     }
 
     public static PointsConverter getInstance() {
         if (instance == null) {
-            instance = new PointsConverter(PointsValidator.getInstance());
+            instance = new PointsConverter();
         }
         return instance;
     }

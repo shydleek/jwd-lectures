@@ -20,10 +20,6 @@ public class Plain {
         return new Plain(id, this.a, this.b, this.c);
     }
 
-    public static Plain createPlain(Point3d a, Point3d b, Point3d c) {
-        return new Plain(null, a, b, c);
-    }
-
     public Integer getId() {
         return id;
     }

@@ -9,9 +9,4 @@ public class SortByFirstPointZWithComparator implements Comparator<Plain> {
     public int compare(Plain firstPlain, Plain secondPlain) {
         return firstPlain.getA().getZ().compareTo(secondPlain.getA().getZ());
     }
-
-    @Override
-    public Comparator<Plain> reversed() {
-        return Comparator.super.reversed();
-    }
 }

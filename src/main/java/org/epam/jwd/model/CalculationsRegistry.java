@@ -3,8 +3,9 @@ package org.epam.jwd.model;
 import java.math.BigDecimal;
 import java.util.Objects;
 
-public class CalculationsHolder {
+public class CalculationsRegistry {
 
+    private final Integer id;
     private BigDecimal angleToXAxis;
     private BigDecimal angleToYAxis;
     private BigDecimal angleToZAxis;
@@ -13,9 +14,10 @@ public class CalculationsHolder {
     private boolean isPerpendicularToYAxis;
     private boolean isPerpendicularToZAxis;
 
-    public CalculationsHolder(BigDecimal angleToXAxis, BigDecimal angleToYAxis, BigDecimal angleToZAxis,
-                              boolean isPlane, boolean isPerpendicularToXAxis, boolean isPerpendicularToYAxis,
-                              boolean isPerpendicularToZAxis){
+    public CalculationsRegistry(Integer id, BigDecimal angleToXAxis, BigDecimal angleToYAxis, BigDecimal angleToZAxis,
+                                boolean isPlane, boolean isPerpendicularToXAxis, boolean isPerpendicularToYAxis,
+                                boolean isPerpendicularToZAxis) {
+        this.id = id;
         this.angleToXAxis = angleToXAxis;
         this.angleToYAxis = angleToYAxis;
         this.angleToZAxis = angleToZAxis;
@@ -23,6 +25,15 @@ public class CalculationsHolder {
         this.isPerpendicularToXAxis = isPerpendicularToXAxis;
         this.isPerpendicularToYAxis = isPerpendicularToYAxis;
         this.isPerpendicularToZAxis = isPerpendicularToZAxis;
+    }
+
+    public CalculationsRegistry withId(Integer id) {
+        return new CalculationsRegistry(id, this.angleToXAxis, this.angleToYAxis, this.angleToZAxis, this.isPlane,
+                this.isPerpendicularToXAxis, this.isPerpendicularToYAxis, this.isPerpendicularToZAxis);
+    }
+
+    public Integer getId() {
+        return id;
     }
 
     public BigDecimal getAngleToXAxis() {
@@ -84,22 +95,23 @@ public class CalculationsHolder {
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
-        CalculationsHolder that = (CalculationsHolder) o;
-        return isPlane == that.isPlane && isPerpendicularToXAxis == that.isPerpendicularToXAxis && isPerpendicularToYAxis == that.isPerpendicularToYAxis && isPerpendicularToZAxis == that.isPerpendicularToZAxis && Objects.equals(angleToXAxis, that.angleToXAxis) && Objects.equals(angleToYAxis, that.angleToYAxis) && Objects.equals(angleToZAxis, that.angleToZAxis);
+        CalculationsRegistry that = (CalculationsRegistry) o;
+        return Objects.equals(id, that.id);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(angleToXAxis, angleToYAxis, angleToZAxis, isPlane, isPerpendicularToXAxis, isPerpendicularToYAxis, isPerpendicularToZAxis);
+        return Objects.hashCode(id);
     }
 
     @Override
     public String toString() {
-        return "CalculationsHolder{" +
-                "angleToXAxis=" + angleToXAxis +
+        return "CalculationsRegistry{" +
+                "id=" + id +
+                ", angleToXAxis=" + angleToXAxis +
                 ", angleToYAxis=" + angleToYAxis +
                 ", angleToZAxis=" + angleToZAxis +
-                ",\n isPlane=" + isPlane +
+                ", isPlane=" + isPlane +
                 ", isPerpendicularToXAxis=" + isPerpendicularToXAxis +
                 ", isPerpendicularToYAxis=" + isPerpendicularToYAxis +
                 ", isPerpendicularToZAxis=" + isPerpendicularToZAxis +

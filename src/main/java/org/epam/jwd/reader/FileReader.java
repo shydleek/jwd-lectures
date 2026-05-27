@@ -9,8 +9,7 @@ public class FileReader {
 
     private static FileReader instance;
 
-    private FileReader() {
-    }
+    private FileReader() {}
 
     public static FileReader getInstance() {
         if (instance == null) {

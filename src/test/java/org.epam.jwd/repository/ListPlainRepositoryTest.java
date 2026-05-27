@@ -7,12 +7,12 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.lang.reflect.Field;
 import java.math.BigDecimal;
+import java.util.Optional;
 
-public class PlainRepositoryTest {
+public class ListPlainRepositoryTest {
 
-    private PlainRepository repo;
+    private ListPlainRepository repo;
     private static final int ID = 1;
     private static final int SIZE_AFTER_DELETE = 0;
 
@@ -26,31 +26,31 @@ public class PlainRepositoryTest {
 
     @Before
     public void setUp() {
-        repo = PlainRepository.getInstance();
+        repo = ListPlainRepository.getInstance();
     }
 
     @After
     public void tearDown() {
-        PlainRepository.resetInstance();
+        ListPlainRepository.resetInstance();
     }
 
     @Test
     public void save_shouldSavePlainToTheRepoAndReturnThatPlain_whenPlainIsValid() {
-        Assert.assertEquals(repo.create(plain), plain);
+        Assert.assertEquals(repo.create(plain), Optional.of(plain));
     }
 
     @Test
     public void read_shouldReadCorrectPlainAndReturnThatPlain_whenIdIsValid() {
         repo.create(plain);
 
-        Assert.assertEquals(repo.read(ID), plain);
+        Assert.assertEquals(repo.read(ID), Optional.of(plain));
     }
 
     @Test
     public void update_shouldUpdatePlainInTheRepoAndReturnOldPlain_whenNewPlainIsValid() {
         repo.create(plain);
 
-        Assert.assertEquals(repo.update(plain), plain);
+        Assert.assertEquals(repo.update(plain), Optional.of(plain));
     }
 
     @Test

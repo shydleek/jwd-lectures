@@ -9,9 +9,4 @@ public class SortByIdWithComparator implements Comparator<Plain> {
     public int compare(Plain firstPlain, Plain secondPlain) {
         return firstPlain.getId().compareTo(secondPlain.getId());
     }
-
-    @Override
-    public Comparator<Plain> reversed() {
-        return Comparator.super.reversed();
-    }
 }

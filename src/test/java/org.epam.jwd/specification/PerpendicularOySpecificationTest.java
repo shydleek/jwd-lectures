@@ -1,22 +1,21 @@
 package org.epam.jwd.specification;
 
-import org.epam.jwd.repository.CalculationsRepository;
+import org.epam.jwd.repository.ListCalculationsRegistryRepository;
 import org.epam.jwd.model.Plain;
 import org.epam.jwd.model.Point3d;
 import org.epam.jwd.observer.RepositorySaveListener;
-import org.epam.jwd.repository.PlainRepository;
+import org.epam.jwd.repository.ListPlainRepository;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.lang.reflect.Field;
 import java.math.BigDecimal;
 import java.util.List;
 
 public class PerpendicularOySpecificationTest {
 
-    PlainRepository repo = PlainRepository.getInstance();
-    CalculationsRepository calculations = CalculationsRepository.getInstance();
+    ListPlainRepository repo = ListPlainRepository.getInstance();
+    ListCalculationsRegistryRepository calculations = ListCalculationsRegistryRepository.getInstance();
     RepositorySaveListener saveListener = new RepositorySaveListener();
 
     Plain planeOX = new Plain(
@@ -58,7 +57,7 @@ public class PerpendicularOySpecificationTest {
 
     @Test
     public void sort_shouldReturnSortedList() {
-        Specification<Plain> perpOySpec = new PerpendicularOySpecification(calculations);
+        Specification<Plain> perpOySpec = new PerpendicularOySpecification();
         List<Plain> actualList = repo.findBySpecification(perpOySpec);
 
         Assert.assertEquals(expectedList, actualList);

@@ -1,7 +1,7 @@
 package org.epam.jwd.repository;
 
 import org.epam.jwd.math.PlainCalculator;
-import org.epam.jwd.model.CalculationsHolder;
+import org.epam.jwd.model.CalculationsRegistry;
 import org.epam.jwd.model.Plain;
 import org.epam.jwd.model.Point3d;
 import org.epam.jwd.observer.RepositoryDeleteListener;
@@ -17,10 +17,10 @@ import org.mockito.junit.MockitoJUnitRunner;
 import java.math.BigDecimal;
 
 @RunWith(MockitoJUnitRunner.class)
-public class CalculationsRepositoryTest {
+public class ListCalculationsRegistryRepositoryTest {
 
-    private PlainRepository repo;
-    private CalculationsRepository calculations;
+    private ListPlainRepository repo;
+    private ListCalculationsRegistryRepository calculations;
     private final RepositorySaveListener repositorySaveListener = new RepositorySaveListener();
     private final RepositoryUpdateListener repositoryUpdateListener = new RepositoryUpdateListener();
     private final RepositoryDeleteListener repositoryDeleteListener = new RepositoryDeleteListener();
@@ -42,14 +42,14 @@ public class CalculationsRepositoryTest {
 
     @Before
     public void setUp() {
-        repo = PlainRepository.getInstance();
-        calculations = CalculationsRepository.getInstance();
+        repo = ListPlainRepository.getInstance();
+        calculations = ListCalculationsRegistryRepository.getInstance();
     }
 
     @After
     public void tearDown() {
-        PlainRepository.resetInstance();
-        CalculationsRepository.resetInstance();
+        ListPlainRepository.resetInstance();
+        ListCalculationsRegistryRepository.resetInstance();
     }
 
     @Test
@@ -74,7 +74,7 @@ public class CalculationsRepositoryTest {
 
         final int id = plain.getId();
 
-        final CalculationsHolder calculation = calculations.read(id);
+        final CalculationsRegistry calculation = this.calculations.read(id).get();
         Assert.assertEquals(calculator.calculate(plain), calculation);
     }
 
