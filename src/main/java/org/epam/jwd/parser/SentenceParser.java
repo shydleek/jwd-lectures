@@ -2,11 +2,11 @@ package org.epam.jwd.parser;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.epam.jwd.model.Component;
-import org.epam.jwd.model.Composite;
 import org.epam.jwd.converter.InfixToReversePolishNotationConverter;
 import org.epam.jwd.interpreter.Expression;
 import org.epam.jwd.interpreter.ExpressionParser;
+import org.epam.jwd.model.Component;
+import org.epam.jwd.model.Composite;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -15,9 +15,14 @@ public class SentenceParser extends Parser {
 
     private static SentenceParser instance;
 
-    private static final String REGEX = " ";
-    private static final Pattern NUMBER = Pattern.compile("\\d+");
+    public static final String LEXEME_REGEX = "\\S+";
+    private static final Pattern LEXEME_PATTERN = Pattern.compile(LEXEME_REGEX);
+
+    public static final String NUMBER_REGEX = "\\d+";
+    private static final Pattern NUMBER_PATTERN = Pattern.compile(NUMBER_REGEX);
+
     private static final Logger LOG = LogManager.getLogger(SentenceParser.class);
+
     private final ExpressionParser parser = ExpressionParser.reversePolishNotation();
     private final InfixToReversePolishNotationConverter converter = InfixToReversePolishNotationConverter.getInstance();
 
@@ -38,13 +43,13 @@ public class SentenceParser extends Parser {
             return sentence;
         }
 
-        String[] lexemesOfSentence = content.split(REGEX);
+        Matcher lexemeMatcher = LEXEME_PATTERN.matcher(content);
 
-        for (String lexeme : lexemesOfSentence) {
+        while (lexemeMatcher.find()) {
+            String lexeme = lexemeMatcher.group();
 
-            Matcher matcher = NUMBER.matcher(lexeme);
-
-            if (matcher.find()) {
+            Matcher numberMatcher = NUMBER_PATTERN.matcher(lexeme);
+            if (numberMatcher.find()) {
                 String expressionRPN = converter.infixToRPN(lexeme);
                 Expression expression = parser.parse(expressionRPN);
                 LOG.info(expression.result());

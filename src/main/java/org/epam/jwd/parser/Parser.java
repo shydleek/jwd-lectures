@@ -8,7 +8,7 @@ public abstract class Parser {
 
     public static Parser link(Parser first, Parser... chain) {
         Parser head = first;
-        for (Parser nextInChain: chain) {
+        for (Parser nextInChain : chain) {
             head.next = nextInChain;
             head = nextInChain;
         }

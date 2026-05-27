@@ -2,28 +2,20 @@ package org.epam.jwd.model;
 
 public class Leaf implements Component {
 
-    private LeafType type;
-    private String text;
+    private final LeafType type;
+    private final String content;
 
-    public Leaf(LeafType type, String text) {
+    public Leaf(LeafType type, String content) {
         this.type = type;
-        this.text = text;
+        this.content = content;
     }
 
     public LeafType getType() {
         return type;
     }
 
-    public void setType(LeafType type) {
-        this.type = type;
-    }
-
-    public String getText() {
-        return text;
-    }
-
-    public void setText(String text) {
-        this.text = text;
+    public String getContent() {
+        return content;
     }
 
     @Override
@@ -37,7 +29,21 @@ public class Leaf implements Component {
     }
 
     @Override
-    public Object getChild(int index) {
+    public Component getChild(int index) {
         throw new UnsupportedOperationException("Leaf has no children");
     }
+
+//    @Override
+//    public String toString() {
+//        return "\nLeaf{" +
+//                "type=" + type +
+//                ", content='" + content + '\'' +
+//                "}";
+//    }
+
+    @Override
+    public String toString() {
+        return content;
+    }
+
 }

@@ -5,8 +5,6 @@ import org.apache.logging.log4j.Logger;
 import org.epam.jwd.model.Component;
 import org.epam.jwd.model.Composite;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -14,8 +12,9 @@ public class TextParser extends Parser {
 
     private static TextParser instance;
 
-    private static final String REGEX = ".*? {4}";
-    private static final Pattern PARAGRAPH = Pattern.compile(REGEX);
+    private static final String PARAGRAPH_REGEX = "(?m)^ {4}.*$";
+    private static final Pattern PARAGRAPH_PATTERN = Pattern.compile(PARAGRAPH_REGEX, Pattern.MULTILINE);
+
     private static final Logger LOG = LogManager.getLogger(TextParser.class);
 
     public static TextParser getInstance() {
@@ -35,32 +34,10 @@ public class TextParser extends Parser {
             return text;
         }
 
-        Matcher matcher = PARAGRAPH.matcher(content);
-
-        List<String> listOfParagraphs = new ArrayList<>();
-
-        List<Integer> listOfParagraphStartIndex = new ArrayList<>();
-        List<Integer> listOfParagraphEndIndex = new ArrayList<>();
-
-        int counter = 0;
+        Matcher matcher = PARAGRAPH_PATTERN.matcher(content);
 
         while (matcher.find()) {
-            if (counter > 0) {
-                listOfParagraphEndIndex.add(matcher.start());
-            }
-
-            listOfParagraphStartIndex.add(matcher.end());
-            counter++;
-        }
-
-        listOfParagraphEndIndex.add(matcher.regionEnd());
-
-        for (int i = 0; i < listOfParagraphEndIndex.size(); i++) {
-            listOfParagraphs.add(content.substring(listOfParagraphStartIndex.get(i),
-                    listOfParagraphEndIndex.get(i)));
-        }
-
-        for (String paragraph : listOfParagraphs) {
+            String paragraph = matcher.group();
             LOG.info(paragraph);
             text.add(next.parse(paragraph));
         }

@@ -107,11 +107,9 @@ public class InfixToReversePolishNotationConverter {
 
             if (isNumber(token)) {
                 output.add(token);
-            }
-            else if (isUnaryOperator(token)) {
+            } else if (isUnaryOperator(token)) {
                 operators.push(token);
-            }
-            else if (isOperator(token)) {
+            } else if (isOperator(token)) {
                 // Определяем, является ли минус унарным
                 if (token.equals("-") && (i == 0 || isLeftParenthesis(tokens.get(i - 1)) ||
                         isOperator(tokens.get(i - 1)))) {
@@ -124,11 +122,9 @@ public class InfixToReversePolishNotationConverter {
                     }
                     operators.push(token);
                 }
-            }
-            else if (token.equals("(")) {
+            } else if (token.equals("(")) {
                 operators.push(token);
-            }
-            else if (token.equals(")")) {
+            } else if (token.equals(")")) {
                 while (!operators.isEmpty() && !operators.peek().equals("(")) {
                     output.add(operators.pop());
                 }

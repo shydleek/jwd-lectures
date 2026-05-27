@@ -14,21 +14,27 @@ import java.util.regex.Pattern;
 public class LexemeParser extends Parser {
 
     private static LexemeParser instance;
+
     // Слово с дефисами (не разбивается) - буквы, цифры, дефисы, апострофы
-    private static final Pattern HYPHENATED_APOSTROPHE_WORD =
-            Pattern.compile("^[a-zA-Zа-яА-Я0-9]+(?:[-'][a-zA-Zа-яА-Я0-9]*)*$");
+    private static final String HYPHENATED_APOSTROPHE_WORD_REGEX = "[a-zA-Z0-9]+(?:[-'][a-zA-Z0-9]*)*";
+    private static final Pattern HYPHENATED_APOSTROPHE_WORD_PATTERN = Pattern.compile(HYPHENATED_APOSTROPHE_WORD_REGEX);
 
     // Только буквы и цифры (обычное слово)
-    private static final Pattern SIMPLE_WORD = Pattern.compile("^[a-zA-Zа-яА-Я0-9]+$");
+    private static final String SIMPLE_WORD_REGEX = "[a-zA-Z0-9]+";
+    private static final Pattern SIMPLE_WORD_PATTERN = Pattern.compile(SIMPLE_WORD_REGEX);
 
     // Числа
-    private static final Pattern NUMBER = Pattern.compile("^\\d+$");
+    private static final String NUMBER_REGEX = "\\d+";
+    private static final Pattern NUMBER_PATTERN = Pattern.compile(NUMBER_REGEX);
 
     // Операторы и знаки препинания
-    private static final Pattern PUNCTUATION = Pattern.compile("^[.!?…,;:&|~^<>+\\-*/%=!]+$");
+    private static final String PUNCTUATION_REGEX = "[.!?,;:&|~^<>+\\-*/%=!]+";
+    private static final Pattern PUNCTUATION_PATTERN = Pattern.compile(PUNCTUATION_REGEX);
 
     // Пробелы
-    private static final Pattern WHITESPACE = Pattern.compile("^\\s+$");
+    public static final String WHITESPACE_REGEX = "\\s+";
+    private static final Pattern WHITESPACE_PATTERN = Pattern.compile(WHITESPACE_REGEX);
+
     private static final Logger LOG = LogManager.getLogger(LexemeParser.class);
 
     public static LexemeParser getInstance() {
@@ -49,21 +55,21 @@ public class LexemeParser extends Parser {
         }
 
         // Проверяем, является ли лексема пробелом
-        if (WHITESPACE.matcher(content).matches()) {
+        if (WHITESPACE_PATTERN.matcher(content).matches()) {
             LOG.info(content);
             lexeme.add(new Leaf(LeafType.WHITESPACE, content));
             return lexeme;
         }
 
         // Слова с дефисами (не разбиваем)
-        if (HYPHENATED_APOSTROPHE_WORD.matcher(content).matches()) {
+        if (HYPHENATED_APOSTROPHE_WORD_PATTERN.matcher(content).matches()) {
             LOG.info(content);
             lexeme.add(next.parse(content)); // передаём в WordParser как единое целое
             return lexeme;
         }
 
         // Проверяем, является ли лексема только знаками препинания
-        if (PUNCTUATION.matcher(content).matches()) {
+        if (PUNCTUATION_PATTERN.matcher(content).matches()) {
             for (char c : content.toCharArray()) {
                 LOG.info(c);
                 lexeme.add(new Leaf(LeafType.PUNCTUATION, String.valueOf(c)));
@@ -72,14 +78,14 @@ public class LexemeParser extends Parser {
         }
 
         // 3. Обычные слова (без дефисов)
-        if (SIMPLE_WORD.matcher(content).matches()) {
+        if (SIMPLE_WORD_PATTERN.matcher(content).matches()) {
             LOG.info(content);
             lexeme.add(next.parse(content));
             return lexeme;
         }
 
         // 4. Числа
-        if (NUMBER.matcher(content).matches()) {
+        if (NUMBER_PATTERN.matcher(content).matches()) {
             LOG.info(content);
             lexeme.add(next.parse(content));
             return lexeme;
@@ -88,12 +94,12 @@ public class LexemeParser extends Parser {
         // 5. Смешанные лексемы (например: "(five)", "content here'", "5(1&2&...")
         List<String> tokens = splitMixedLexeme(content);
         for (String token : tokens) {
-            if (WHITESPACE.matcher(token).matches()) {
+            if (WHITESPACE_PATTERN.matcher(token).matches()) {
                 LOG.info(token);
                 lexeme.add(new Leaf(LeafType.WHITESPACE, token));
-            } else if (HYPHENATED_APOSTROPHE_WORD.matcher(token).matches() ||
-                    SIMPLE_WORD.matcher(token).matches() ||
-                    NUMBER.matcher(token).matches()) {
+            } else if (HYPHENATED_APOSTROPHE_WORD_PATTERN.matcher(token).matches() ||
+                    SIMPLE_WORD_PATTERN.matcher(token).matches() ||
+                    NUMBER_PATTERN.matcher(token).matches()) {
                 LOG.info(token);
                 lexeme.add(next.parse(token));
             } else {
