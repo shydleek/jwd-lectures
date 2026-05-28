@@ -1,9 +1,9 @@
 package org.epam.jwd.specification;
 
-import org.epam.jwd.repository.ListCalculationsRegistryRepository;
 import org.epam.jwd.model.Plain;
 import org.epam.jwd.model.Point3d;
 import org.epam.jwd.observer.RepositorySaveListener;
+import org.epam.jwd.repository.ListCalculationsRegistryRepository;
 import org.epam.jwd.repository.ListPlainRepository;
 import org.junit.After;
 import org.junit.Assert;

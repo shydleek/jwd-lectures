@@ -1,6 +1,5 @@
 package org.epam.jwd.validation;
 
-import org.epam.jwd.exception.ParseException;
 import org.epam.jwd.model.Plain;
 import org.epam.jwd.model.Point3d;
 import org.junit.Assert;
@@ -64,15 +63,15 @@ public class PlainValidatorTest {
                         new BigDecimal(1),
                         new BigDecimal(1),
                         new BigDecimal(13)
-        ));
+                ));
     }
 
     private Plain initNotValidPlain() {
         return new Plain(2,
                 new Point3d(
-                    new BigDecimal(1),
-                    new BigDecimal(1),
-                    new BigDecimal(1)),
+                        new BigDecimal(1),
+                        new BigDecimal(1),
+                        new BigDecimal(1)),
                 new Point3d(
                         new BigDecimal(1),
                         new BigDecimal(1),

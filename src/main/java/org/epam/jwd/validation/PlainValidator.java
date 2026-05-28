@@ -9,7 +9,8 @@ public class PlainValidator {
 
     private static PlainValidator instance;
 
-    private PlainValidator() {}
+    private PlainValidator() {
+    }
 
     public static PlainValidator getInstance() {
         if (instance == null) {

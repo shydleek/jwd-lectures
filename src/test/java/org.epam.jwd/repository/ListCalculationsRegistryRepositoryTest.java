@@ -1,7 +1,6 @@
 package org.epam.jwd.repository;
 
 import org.epam.jwd.exception.CalculationRegistryNotFoundException;
-import org.epam.jwd.exception.PlainNotFoundException;
 import org.epam.jwd.math.PlainCalculator;
 import org.epam.jwd.model.CalculationsRegistry;
 import org.epam.jwd.model.Plain;

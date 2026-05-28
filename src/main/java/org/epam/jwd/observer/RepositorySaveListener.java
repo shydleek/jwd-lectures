@@ -1,9 +1,9 @@
 package org.epam.jwd.observer;
 
+import org.epam.jwd.math.PlainCalculator;
 import org.epam.jwd.model.CalculationsRegistry;
 import org.epam.jwd.model.Plain;
 import org.epam.jwd.repository.ListCalculationsRegistryRepository;
-import org.epam.jwd.math.PlainCalculator;
 import org.epam.jwd.repository.ListPlainRepository;
 
 public class RepositorySaveListener implements EventListener {

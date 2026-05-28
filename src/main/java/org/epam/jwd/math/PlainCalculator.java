@@ -33,7 +33,7 @@ public class PlainCalculator {
     }
 
     public BigDecimal angleToXAxis(Plain plain) {
-        if(isPlane(plain)) {
+        if (isPlane(plain)) {
             return calculateAsin(
                     getCoefficientA(plain).abs()
                             .divide(
@@ -50,7 +50,7 @@ public class PlainCalculator {
     }
 
     public BigDecimal angleToYAxis(Plain plain) {
-        if(isPlane(plain)) {
+        if (isPlane(plain)) {
             return calculateAsin(
                     getCoefficientB(plain).abs()
                             .divide(
@@ -67,7 +67,7 @@ public class PlainCalculator {
     }
 
     public BigDecimal angleToZAxis(Plain plain) {
-        if(isPlane(plain)) {
+        if (isPlane(plain)) {
             return calculateAsin(
                     getCoefficientC(plain).abs()
                             .divide(

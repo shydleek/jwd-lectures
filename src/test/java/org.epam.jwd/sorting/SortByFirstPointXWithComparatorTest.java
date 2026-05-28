@@ -22,7 +22,7 @@ public class SortByFirstPointXWithComparatorTest {
             new Point3d(BigDecimal.ZERO, new BigDecimal("4"), new BigDecimal("1"))
     );
 
-    private final Plain secondPlain =  new Plain(
+    private final Plain secondPlain = new Plain(
             null,
             new Point3d(new BigDecimal("2"), BigDecimal.ZERO, BigDecimal.ZERO),
             new Point3d(BigDecimal.ZERO, new BigDecimal("3"), BigDecimal.ZERO),

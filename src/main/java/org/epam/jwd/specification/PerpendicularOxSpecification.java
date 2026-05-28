@@ -1,8 +1,8 @@
 package org.epam.jwd.specification;
 
 import org.epam.jwd.model.CalculationsRegistry;
-import org.epam.jwd.repository.ListCalculationsRegistryRepository;
 import org.epam.jwd.model.Plain;
+import org.epam.jwd.repository.ListCalculationsRegistryRepository;
 
 public class PerpendicularOxSpecification implements Specification<Plain> {
 

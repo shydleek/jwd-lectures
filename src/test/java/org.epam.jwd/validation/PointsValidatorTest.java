@@ -3,7 +3,6 @@ package org.epam.jwd.validation;
 import org.epam.jwd.exception.ParseException;
 import org.epam.jwd.exception.ValidationException;
 import org.epam.jwd.model.Point3d;
-import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
