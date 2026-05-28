@@ -5,6 +5,7 @@ import org.epam.jwd.model.Plain;
 import org.epam.jwd.model.Point3d;
 import org.epam.jwd.observer.RepositorySaveListener;
 import org.epam.jwd.repository.ListPlainRepository;
+import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -14,9 +15,7 @@ import java.util.List;
 
 public class PerpendicularOzSpecificationTest {
 
-    ListPlainRepository repo = ListPlainRepository.getInstance();
-    ListCalculationsRegistryRepository calculations = ListCalculationsRegistryRepository.getInstance();
-    RepositorySaveListener saveListener = new RepositorySaveListener();
+    private ListPlainRepository repo;
 
     Plain planeOX = new Plain(
             1,
@@ -50,9 +49,18 @@ public class PerpendicularOzSpecificationTest {
 
     @Before
     public void setUp() {
+        repo = ListPlainRepository.getInstance();
+        ListCalculationsRegistryRepository calculations = ListCalculationsRegistryRepository.getInstance();
+        RepositorySaveListener saveListener = new RepositorySaveListener();
         repo.create(planeOX);
         repo.create(planeOY);
         repo.create(planeOZ);
+    }
+
+    @After
+    public void tearDown() {
+        ListPlainRepository.resetInstance();
+        ListCalculationsRegistryRepository.resetInstance();
     }
 
     @Test

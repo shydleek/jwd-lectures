@@ -16,8 +16,6 @@ import java.util.List;
 public class PerpendicularOxSpecificationTest {
 
     ListPlainRepository repo;
-    ListCalculationsRegistryRepository calculations;
-    RepositorySaveListener saveListener = new RepositorySaveListener();
 
     Plain planeOX = new Plain(
             1,
@@ -53,7 +51,8 @@ public class PerpendicularOxSpecificationTest {
     @Before
     public void setUp() {
         repo = ListPlainRepository.getInstance();
-        calculations = ListCalculationsRegistryRepository.getInstance();
+        ListCalculationsRegistryRepository calculations = ListCalculationsRegistryRepository.getInstance();
+        RepositorySaveListener saveListener = new RepositorySaveListener();
         repo.create(planeOX);
         repo.create(planeOY);
         repo.create(planeOZ);

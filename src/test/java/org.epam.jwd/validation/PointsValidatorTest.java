@@ -3,7 +3,9 @@ package org.epam.jwd.validation;
 import org.epam.jwd.exception.ParseException;
 import org.epam.jwd.exception.ValidationException;
 import org.epam.jwd.model.Point3d;
+import org.junit.After;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 
 import java.math.BigDecimal;
@@ -17,7 +19,12 @@ public class PointsValidatorTest {
     private final String incompleteString = "1 2 3";
     private final String invalidString = "1 2 3.d 4 5 6 7 8 9";
 
-    private final PointsValidator pointsValidator = PointsValidator.getInstance();
+    private PointsValidator pointsValidator;
+
+    @Before
+    public void setUp() {
+        pointsValidator = PointsValidator.getInstance();
+    }
 
     @Test
     public void convert_shouldReturnValidatedListOfPoints_whenPointsAreValid() {

@@ -7,8 +7,4 @@ public class CalculationRegistryNotFoundException extends RuntimeException{
 
     public CalculationRegistryNotFoundException() {
     }
-
-    public CalculationRegistryNotFoundException(String message) {
-        super(message);
-    }
 }

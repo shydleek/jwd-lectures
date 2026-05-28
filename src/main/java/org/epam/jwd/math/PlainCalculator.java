@@ -135,7 +135,7 @@ public class PlainCalculator {
         return firstProduct.subtract(secondProduct);
     }
 
-    private BigDecimal getCoefficientD(Plain plain) {
+    public BigDecimal getCoefficientD(Plain plain) {
         return getCoefficientA(plain).multiply(plain.getA().getX())
                 .add(getCoefficientB(plain).multiply(plain.getA().getY()))
                 .add(getCoefficientC(plain).multiply(plain.getA().getZ())).negate();

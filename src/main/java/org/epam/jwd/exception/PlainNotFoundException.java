@@ -7,8 +7,4 @@ public class PlainNotFoundException extends RuntimeException{
 
     public PlainNotFoundException() {
     }
-
-    public PlainNotFoundException(String message) {
-        super(message);
-    }
 }

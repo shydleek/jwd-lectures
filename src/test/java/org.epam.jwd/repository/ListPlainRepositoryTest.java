@@ -1,5 +1,6 @@
 package org.epam.jwd.repository;
 
+import org.epam.jwd.exception.PlainNotFoundException;
 import org.epam.jwd.model.Plain;
 import org.epam.jwd.model.Point3d;
 import org.junit.After;
@@ -15,7 +16,8 @@ public class ListPlainRepositoryTest {
     private ListPlainRepository repo;
     private static final int ID = 1;
     private static final int SIZE_AFTER_DELETE = 0;
-
+    private static final int MAX_ID = 2;
+    private static final int WRONG_ID = 2;
 
     private final Plain plain = new Plain(
             1,
@@ -59,5 +61,20 @@ public class ListPlainRepositoryTest {
         repo.delete(ID);
 
         Assert.assertEquals(SIZE_AFTER_DELETE, repo.size());
+    }
+
+    @Test
+    public void getMaxId_shouldReturnMaxIdOfRepo_always() {
+        repo.create(plain);
+        repo.delete(ID);
+        repo.create(plain);
+
+        Assert.assertEquals(MAX_ID, repo.getMaxId());
+    }
+
+    @Test(expected = PlainNotFoundException.class)
+    public void read_shouldThrowPlainNotFoundException_whenIdIsWrong() {
+        repo.create(plain);
+        Plain readedPlain = this.repo.read(WRONG_ID).get();
     }
 }

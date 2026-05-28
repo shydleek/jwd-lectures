@@ -1,16 +1,15 @@
 package org.epam.jwd.math;
 
+import org.epam.jwd.exception.ValidationException;
 import org.epam.jwd.model.Plain;
 import org.epam.jwd.model.Point3d;
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
 import org.junit.runners.Suite;
 
-import java.lang.reflect.Field;
 import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.Collection;
@@ -24,12 +23,13 @@ public class PlainCalculatorTest {
 
     private static final PlainCalculator PLAIN_CALCULATOR = PlainCalculator.getInstance();
 
-    private static final String angle = "0.6155";
+    private static final String ANGLE = "0.6155";
+    private static final BigDecimal D = new BigDecimal(-1);
 
     public static class NonParameterizedTests {
         @Test
         public void angleToXAxis_shouldReturnCorrectValue_whenPlainIsValidated() {
-            final BigDecimal angleExpected = new BigDecimal(angle);
+            final BigDecimal angleExpected = new BigDecimal(ANGLE);
 
             final BigDecimal angleActual = PLAIN_CALCULATOR.angleToXAxis(initPlain());
 
@@ -38,7 +38,7 @@ public class PlainCalculatorTest {
 
         @Test
         public void angleToYAxis_shouldReturnCorrectValue_whenPlainIsValidated() {
-            final BigDecimal angleExpected = new BigDecimal(angle);
+            final BigDecimal angleExpected = new BigDecimal(ANGLE);
 
             final BigDecimal angleActual = PLAIN_CALCULATOR.angleToYAxis(initPlain());
 
@@ -47,7 +47,7 @@ public class PlainCalculatorTest {
 
         @Test
         public void angleToZAxis_shouldReturnCorrectValue_whenPlainIsValidated() {
-            final BigDecimal angleExpected = new BigDecimal(angle);
+            final BigDecimal angleExpected = new BigDecimal(ANGLE);
 
             final BigDecimal angleActual = PLAIN_CALCULATOR.angleToZAxis(initPlain());
 
@@ -67,6 +67,26 @@ public class PlainCalculatorTest {
         @Test
         public void isPerpendicularToZAxis_shouldReturnTrue_whenPlainIsPerpendicular() {
             Assert.assertTrue(PLAIN_CALCULATOR.isPerpendicularToZAxis(initPerpendicularToZAxisPlain()));
+        }
+
+        @Test(expected = ValidationException.class)
+        public void angleToXAxis_shouldThrowValidationException_whenIsNotValid() {
+            PLAIN_CALCULATOR.angleToXAxis(initNotValidPlain());
+        }
+
+        @Test(expected = ValidationException.class)
+        public void angleToYAxis_shouldThrowValidationException_whenIsNotValid() {
+            PLAIN_CALCULATOR.angleToYAxis(initNotValidPlain());
+        }
+
+        @Test(expected = ValidationException.class)
+        public void angleToZAxis_shouldThrowValidationException_whenIsNotValid() {
+            PLAIN_CALCULATOR.angleToZAxis(initNotValidPlain());
+        }
+
+        @Test
+        public void getCoefficientD_shouldCalculatePlaneCoefficientD_always() {
+            Assert.assertEquals(D, PLAIN_CALCULATOR.getCoefficientD(initPlain()));
         }
 
         private Plain initPlain() {
@@ -102,6 +122,15 @@ public class PlainCalculatorTest {
                     new Point3d(BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.ZERO),
                     new Point3d(new BigDecimal("5"), BigDecimal.ZERO, BigDecimal.ZERO),
                     new Point3d(BigDecimal.ZERO, new BigDecimal("5"), BigDecimal.ZERO)
+            );
+        }
+
+        private Plain initNotValidPlain() {
+            return new Plain(
+                    5,
+                    new Point3d(BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.ZERO),
+                    new Point3d(BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.ZERO),
+                    new Point3d(BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.ZERO)
             );
         }
     }

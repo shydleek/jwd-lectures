@@ -1,5 +1,7 @@
 package org.epam.jwd.repository;
 
+import org.epam.jwd.exception.CalculationRegistryNotFoundException;
+import org.epam.jwd.exception.PlainNotFoundException;
 import org.epam.jwd.math.PlainCalculator;
 import org.epam.jwd.model.CalculationsRegistry;
 import org.epam.jwd.model.Plain;
@@ -25,6 +27,8 @@ public class ListCalculationsRegistryRepositoryTest {
     private final RepositoryUpdateListener repositoryUpdateListener = new RepositoryUpdateListener();
     private final RepositoryDeleteListener repositoryDeleteListener = new RepositoryDeleteListener();
     private static final int SIZE = 1;
+    private static final int MAX_ID = 2;
+    private static final int WRONG_ID = 2;
 
     private final Plain plain = new Plain(
             1,
@@ -94,5 +98,20 @@ public class ListCalculationsRegistryRepositoryTest {
         repo.delete(plain.getId());
 
         Assert.assertNotEquals(SIZE, calculations.size());
+    }
+
+    @Test
+    public void getMaxId_shouldReturnMaxIdOfHolder_always() {
+        repo.create(plain);
+        repo.delete(plain.getId());
+        repo.create(plain);
+
+        Assert.assertEquals(MAX_ID, calculations.getMaxId());
+    }
+
+    @Test(expected = CalculationRegistryNotFoundException.class)
+    public void read_shouldThrowCalculationRegistryNotFoundException_whenIdIsWrong() {
+        repo.create(plain);
+        CalculationsRegistry readedRegistry = this.calculations.read(WRONG_ID).get();
     }
 }
