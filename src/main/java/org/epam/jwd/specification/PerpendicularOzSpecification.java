@@ -1,0 +1,23 @@
+package org.epam.jwd.specification;
+
+import org.epam.jwd.model.CalculationsRegistry;
+import org.epam.jwd.model.Plain;
+import org.epam.jwd.repository.ListCalculationsRegistryRepository;
+
+public class PerpendicularOzSpecification implements Specification<Plain> {
+
+    private final ListCalculationsRegistryRepository listCalculationsRegistryRepository;
+
+    public PerpendicularOzSpecification() {
+        this.listCalculationsRegistryRepository = ListCalculationsRegistryRepository.getInstance();
+    }
+
+    @Override
+    public boolean isSatisfiedBy(Plain plain) {
+        int id = plain.getId();
+
+        CalculationsRegistry registry = this.listCalculationsRegistryRepository.read(id).get();
+
+        return registry.isPerpendicularToZAxis();
+    }
+}
