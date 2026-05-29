@@ -11,6 +11,10 @@ public class Server {
         this.parser = parser;
     }
 
+    public Parser getParser() {
+        return parser;
+    }
+
     public Component getParsedText(String text) {
         return parser.parse(text);
     }

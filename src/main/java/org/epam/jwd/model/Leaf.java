@@ -33,14 +33,6 @@ public class Leaf implements Component {
         throw new UnsupportedOperationException("Leaf has no children");
     }
 
-//    @Override
-//    public String toString() {
-//        return "\nLeaf{" +
-//                "type=" + type +
-//                ", content='" + content + '\'' +
-//                "}";
-//    }
-
     @Override
     public String toString() {
         return content;

@@ -1,6 +1,5 @@
 package org.epam.jwd.model;
 
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -34,15 +33,8 @@ public class Composite implements Component {
     }
 
     public List<Component> getChildren() {
-        return new ArrayList<>(components);
+        return components;
     }
-
-//    @Override
-//    public String toString() {
-//        return "Composite{" +
-//                "components=" + components +
-//                "}\n";
-//    }
 
     @Override
     public String toString() {
