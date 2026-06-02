@@ -30,7 +30,6 @@ public class WordParser extends Parser {
             return word;
         }
 
-        // Каждый символ - WORD_SYMBOL (включая дефисы и апострофы внутри слова)
         for (char c : content.toCharArray()) {
             LOG.info(c);
             word.add(new Leaf(LeafType.WORD_SYMBOL, String.valueOf(c)));

@@ -31,10 +31,6 @@ public class LexemeParser extends Parser {
     private static final String PUNCTUATION_REGEX = "[.!?,;:&|~^<>+\\-*/%=!]+";
     private static final Pattern PUNCTUATION_PATTERN = Pattern.compile(PUNCTUATION_REGEX);
 
-    // Пробелы
-    public static final String WHITESPACE_REGEX = "\\s+";
-    private static final Pattern WHITESPACE_PATTERN = Pattern.compile(WHITESPACE_REGEX);
-
     private static final Logger LOG = LogManager.getLogger(LexemeParser.class);
 
     public static LexemeParser getInstance() {
@@ -51,13 +47,6 @@ public class LexemeParser extends Parser {
         Composite lexeme = new Composite();
 
         if (content == null || content.isEmpty()) {
-            return lexeme;
-        }
-
-        // Проверяем, является ли лексема пробелом
-        if (WHITESPACE_PATTERN.matcher(content).matches()) {
-            LOG.info(content);
-            lexeme.add(new Leaf(LeafType.WHITESPACE, content));
             return lexeme;
         }
 
@@ -94,10 +83,7 @@ public class LexemeParser extends Parser {
         // 5. Смешанные лексемы (например: "(five)", "content here'", "5(1&2&...")
         List<String> tokens = splitMixedLexeme(content);
         for (String token : tokens) {
-            if (WHITESPACE_PATTERN.matcher(token).matches()) {
-                LOG.info(token);
-                lexeme.add(new Leaf(LeafType.WHITESPACE, token));
-            } else if (HYPHENATED_APOSTROPHE_WORD_PATTERN.matcher(token).matches() ||
+            if (HYPHENATED_APOSTROPHE_WORD_PATTERN.matcher(token).matches() ||
                     SIMPLE_WORD_PATTERN.matcher(token).matches() ||
                     NUMBER_PATTERN.matcher(token).matches()) {
                 LOG.info(token);

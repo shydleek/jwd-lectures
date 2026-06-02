@@ -18,7 +18,7 @@ public class InfixToReversePolishNotationConverterTest {
             "-(1 + 5) >>> 9, 1 5 + ~ 9 >>>",
             "5*-2, 5 2 ~ *"
     })
-    public void infixToRPN_shouldReturnStringInReversePolishNotation(String lexeme, String expectedRPN){
+    public void infixToRPN_shouldReturnStringInReversePolishNotation(String lexeme, String expectedRPN) {
         String actualRPN = converter.infixToRPN(lexeme);
 
         assertEquals(expectedRPN, actualRPN);

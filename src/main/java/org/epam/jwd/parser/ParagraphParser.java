@@ -13,7 +13,6 @@ import java.util.regex.Pattern;
 public class ParagraphParser extends Parser {
 
     private static ParagraphParser instance;
-    private List<Integer> sentenceCounterList = new ArrayList<>();
     private static final String SENTENCE_REGEX = "[A-Z].*?(?<=\\.{3}|[.!?])(?:\\s+|$)";
     private static final Pattern SENTENCE_PATTERN = Pattern.compile(SENTENCE_REGEX);
 
@@ -38,18 +37,11 @@ public class ParagraphParser extends Parser {
 
         Matcher matcher = SENTENCE_PATTERN.matcher(content);
 
-        int sentenceCounter = 0;
-
         while (matcher.find()) {
-            sentenceCounter++;
             String sentence = matcher.group();
             LOG.info(sentence);
             paragraph.add(next.parse(sentence.trim()));
         }
-
-        sentenceCounterList.add(sentenceCounter);
-
-        LOG.trace(sentenceCounterList);
 
         return paragraph;
     }

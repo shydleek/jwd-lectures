@@ -26,10 +26,6 @@ public class TextRestorer {
                             sb.deleteCharAt(sb.length() - 1);
                         }
                         sb.append(childText);
-                    } else if (type == LeafType.WHITESPACE) {
-                        if (!sb.isEmpty() && sb.charAt(sb.length() - 1) != ' ') {
-                            sb.append(' ');
-                        }
                     } else {
                         sb.append(childText);
                     }
